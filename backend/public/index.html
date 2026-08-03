@@ -1193,7 +1193,7 @@ let S = {
   tarotMode: 'single',
   astroMode: 'daily',
   chatHistory: JSON.parse(localStorage.getItem('v_chat')||'[]'),
-  settings: JSON.parse(localStorage.getItem('v_settings')||'{"model":"gemini-1.5-flash","geminiKey":"","openaiKey":"","groqKey":"","openrouterKey":"","openrouterModel":"google/gemini-2.0-flash-exp:free"}'),
+  settings: JSON.parse(localStorage.getItem('v_settings')||'{"model":"openrouter","geminiKey":"","openaiKey":"","groqKey":"","openrouterKey":"","openrouterModel":"anthropic/claude-3.5-sonnet"}'),
   agentContexts: JSON.parse(localStorage.getItem('v_agents')||JSON.stringify(DEFAULT_AGENT_CONTEXTS)),
   rituals: JSON.parse(localStorage.getItem('v_rituals')||JSON.stringify(DEFAULT_RITUALS)),
   adminUsers: JSON.parse(localStorage.getItem('v_admin_users')||'[]'),
