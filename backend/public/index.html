@@ -1198,8 +1198,8 @@ let S = {
   rituals: JSON.parse(localStorage.getItem('v_rituals')||JSON.stringify(DEFAULT_RITUALS)),
   adminUsers: JSON.parse(localStorage.getItem('v_admin_users')||'[]'),
   notifPrefs: JSON.parse(localStorage.getItem('v_notif')||'{}'),
-  videos: ['multimedia/logo_video.mp4','12133356_1920_1080_24fps.mp4','12202872_1920_1080_24fps.mp4'],
-  currentVideo: localStorage.getItem('v_video')||'multimedia/logo_video.mp4',
+  videos: ['https://vicflix.expandete.cloud/videoscelesthya/hero1.mp4','multimedia/logo_video.mp4'],
+  currentVideo: localStorage.getItem('v_video')||'https://vicflix.expandete.cloud/videoscelesthya/hero1.mp4',
 };
 
 function persistGam(){ localStorage.setItem('v_gam',JSON.stringify(S.gam)); updateGamUI(); }
@@ -1471,7 +1471,7 @@ function setBgVideo(filename){
   localStorage.setItem('v_video',filename);
   const v=document.getElementById('bg-video');
   if(v){
-    const path = filename.includes('/') ? `/${filename}` : `/videos/${filename}`;
+    const path = filename.startsWith('http') ? filename : (filename.includes('/') ? `/${filename}` : `/videos/${filename}`);
     v.innerHTML=`<source src="${path}" type="video/mp4"/>`;
     v.load();
   }
@@ -2079,9 +2079,8 @@ function renderSettings(){
   // Video options
   const vo=document.getElementById('video-options');
   const videoLabels = {
-    'multimedia/logo_video.mp4': '🔮 Celesthyas Intro',
-    '12133356_1920_1080_24fps.mp4': '🌌 Cosmos Azul',
-    '12202872_1920_1080_24fps.mp4': '🪐 Nebulosa Violeta'
+    'https://vicflix.expandete.cloud/videoscelesthya/hero1.mp4': '🌌 Cosmos Astral (Remoto)',
+    'multimedia/logo_video.mp4': '🔮 Celesthyas Intro'
   };
   if(vo)vo.innerHTML=S.videos.map(v=>`<button class="btn ${v===S.currentVideo?'btn-v':'btn-g'} btn-sm" onclick="setBgVideo('${v}');renderSettings()">${videoLabels[v] || v.substring(0,12)}</button>`).join('');
   // Notif
