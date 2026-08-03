@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: celesthyas-portal
+    env: node
+    rootDir: backend
+    buildCommand: npm run build
+    startCommand: npm run start:prod
+    disk:
+      name: celesthyas-data
+      mountPath: data
+      sizeGB: 1
+    envVars:
+      - key: DB_TYPE
+        value: sqlite
+      - key: DB_PATH
+        value: data/database.sqlite
+      - key: JWT_SECRET
+        generateValue: true
+      - key: GEMINI_API_KEY
+        sync: false
