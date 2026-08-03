@@ -42,18 +42,18 @@ export class AIGatewayService {
     if (this.genAI) {
       try {
         this.logger.log(`Routing prompt to Gemini (Primary) for feature: ${featureTag}`);
-        const model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+        const model = this.genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
         const result = await model.generateContent(prompt);
         const response = result.response;
         const text = response.text();
 
         // Calculate approximate tokens and log cost
-        // Gemini 1.5 Flash cost: Input = $0.075 / 1M, Output = $0.30 / 1M
+        // Gemini 2.0 Flash cost: Input = $0.075 / 1M, Output = $0.30 / 1M
         const inputTokens = Math.ceil(prompt.length / 4);
         const outputTokens = Math.ceil(text.length / 4);
         const cost = (inputTokens * 0.075 + outputTokens * 0.30) / 1000000;
 
-        await this.logUsage(userId, 'google', 'gemini-1.5-flash', inputTokens, outputTokens, cost, featureTag);
+        await this.logUsage(userId, 'google', 'gemini-2.0-flash', inputTokens, outputTokens, cost, featureTag);
         return text;
       } catch (error) {
         this.logger.error(`Gemini failed: ${error.message || error}. Falling back to OpenAI...`);
