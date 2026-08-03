@@ -1,0 +1,2405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>CELESTHYAS - Portal Místico Universal</title>
+<meta name="description" content="Tu guía mística premium. Tarot, astrología, numerología y bienestar con IA."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,500&display=swap" rel="stylesheet"/>
+<!-- Phosphor Icons — Premium Duotone -->
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<style>
+:root{
+  --bg:#04050a;--bg2:#0a0c16;--bg3:#0f1222;--bg4:#14182e;
+  --v:#8b5cf6;--vl:#a78bfa;--vg:rgba(139,92,246,0.22);
+  --v-neon:#a855f7;--gold:#f5c842;--gdim:rgba(245,200,66,0.14);
+  --pink:#ec4899;--pdim:rgba(236,72,153,0.12);
+  --teal:#06b6d4;--tdim:rgba(6,182,212,0.12);
+  --red:#ef4444;--green:#10b981;
+  --t1:#f3f4f6;--t2:#9ca3af;--t3:#4b5563;
+  --brd:rgba(139,92,246,0.16);--brd2:rgba(255,255,255,0.06);
+  --r:14px;--r2:10px;--tr:0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px;scroll-behavior:smooth}
+body{font-family:'Outfit','Inter',system-ui,sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;overflow-x:hidden}
+button{cursor:pointer;border:none;background:none;font-family:inherit;color:inherit}
+a{color:inherit;text-decoration:none}
+input,textarea,select{font-family:inherit;font-size:.9rem;background:rgba(20,24,46,0.6);border:1px solid var(--brd2);border-radius:var(--r2);color:var(--t1);padding:.65rem 1rem;width:100%;outline:none;transition:border-color var(--tr),box-shadow var(--tr),background var(--tr)}
+input:focus,textarea:focus,select:focus{border-color:var(--v-neon);box-shadow:0 0 12px rgba(168,85,247,0.3);background:rgba(20,24,46,0.9)}
+input::placeholder,textarea::placeholder{color:var(--t3)}
+select option{background:var(--bg3)}
+textarea{resize:vertical;min-height:80px}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:99px}
+
+/* PASSWORD CONT-TOGGLE */
+.pw-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.pw-container input {
+  padding-right: 2.7rem;
+}
+.pw-toggle {
+  position: absolute;
+  right: 12px;
+  cursor: pointer;
+  color: var(--t2);
+  font-size: 1.25rem;
+  transition: color var(--tr);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pw-toggle:hover {
+  color: var(--v-neon);
+}
+
+/* COSMIC ORBS */
+.cosmic-orbs {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.16;
+  animation: orbFloat 25s infinite alternate ease-in-out;
+}
+.orb1 {
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, var(--v) 0%, transparent 70%);
+  top: -10%;
+  left: 15%;
+}
+.orb2 {
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, var(--teal) 0%, transparent 70%);
+  bottom: -15%;
+  right: 10%;
+  animation-delay: -5s;
+  animation-duration: 32s;
+}
+.orb3 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, var(--pink) 0%, transparent 70%);
+  top: 45%;
+  left: -5%;
+  animation-delay: -10s;
+  animation-duration: 28s;
+}
+@keyframes orbFloat {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -50px) scale(1.15); }
+  100% { transform: translate(-20px, 20px) scale(0.9); }
+}
+
+/* VIDEO BG */
+#video-bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+#video-bg video{width:100%;height:100%;object-fit:cover;opacity:.28}
+#video-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 90% 70% at 50% 0%,rgba(139,92,246,0.3),transparent 70%),linear-gradient(to bottom,rgba(4,5,10,0.5),rgba(4,5,10,0.92))}
+
+/* APP SHELL */
+#app{display:flex;min-height:100vh;position:relative;z-index:1}
+
+/* SIDEBAR */
+#sidebar{width:220px;flex-shrink:0;background:rgba(13,15,26,.92);backdrop-filter:blur(20px);border-right:1px solid var(--brd2);display:flex;flex-direction:column;padding:0 .75rem 1rem;position:sticky;top:0;height:100vh;overflow-y:auto}
+.brand{display:flex;align-items:center;gap:.7rem;padding:1.25rem .5rem 1rem;border-bottom:1px solid var(--brd2);margin-bottom:.75rem}
+.brand-orb{width:38px;height:38px;flex-shrink:0;background:radial-gradient(circle at 35% 35%,#c084fc,var(--v) 60%,#4c1d95);border-radius:11px;display:grid;place-items:center;font-size:1.1rem;box-shadow:0 0 20px rgba(124,58,237,.5)}
+.brand-name{font-weight:900;font-size:1rem;letter-spacing:.5px}
+.brand-sub{font-size:.62rem;color:var(--t3);letter-spacing:1.2px;text-transform:uppercase;margin-top:.1rem}
+.nav-sec{font-size:.62rem;font-weight:700;letter-spacing:1.5px;color:var(--t3);text-transform:uppercase;padding:.6rem .5rem .3rem;margin-top:.25rem}
+.ni{display:flex;align-items:center;gap:.7rem;padding:.52rem .6rem;border-radius:var(--r2);font-size:.85rem;color:var(--t2);cursor:pointer;transition:all var(--tr);position:relative}
+.ni:hover{background:var(--brd2);color:var(--t1)}
+.ni.active{background:linear-gradient(135deg,rgba(124,58,237,.25),rgba(124,58,237,.08));color:var(--vl);font-weight:600}
+.ni.active::before{content:'';position:absolute;left:0;top:20%;bottom:20%;width:3px;background:var(--vl);border-radius:99px}
+.ni .ic{font-size:1.15rem;width:22px;text-align:center;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:transform var(--tr)}
+.ni:hover .ic{transform:scale(1.12)}
+.ni.active .ic{color:var(--vl)}
+/* Phosphor icon global sizing */
+.ni .ic i{font-size:1.15rem;line-height:1}
+.btn i,.btn-ic i{font-size:1rem;line-height:1}
+/* Icon glow on active nav */
+.ni.active .ic i{filter:drop-shadow(0 0 6px rgba(167,139,250,.7))}
+/* Premium icon helpers */
+.ico{display:inline-flex;align-items:center;justify-content:center}
+.ico-lg i{font-size:1.8rem}
+.ico-xl i{font-size:2.5rem}
+.ico-card{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;flex-shrink:0}
+.ico-card-v{background:var(--vg);border:1px solid rgba(124,58,237,.25)}
+.ico-card-g{background:var(--gdim);border:1px solid rgba(245,200,66,.2)}
+.ico-card-p{background:var(--pdim);border:1px solid rgba(232,121,249,.2)}
+.ico-card-t{background:var(--tdim);border:1px solid rgba(45,212,191,.2)}
+.ico-card-r{background:rgba(244,63,94,.1);border:1px solid rgba(244,63,94,.2)}
+.ico-card-gn{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2)}
+.nbadge{margin-left:auto;background:var(--v);color:#fff;font-size:.62rem;font-weight:700;padding:.1rem .4rem;border-radius:99px;min-width:18px;text-align:center}
+.sb-bot{margin-top:auto;border-top:1px solid var(--brd2);padding-top:.75rem}
+.ucard{display:flex;align-items:center;gap:.65rem;padding:.5rem;border-radius:var(--r2);cursor:pointer;transition:background var(--tr)}
+.ucard:hover{background:var(--brd2)}
+.uav{width:32px;height:32px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--v),var(--pink));display:grid;place-items:center;font-weight:700;font-size:.85rem}
+.uname{font-size:.82rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}
+.usign{font-size:.7rem;color:var(--t3)}
+.logout-btn{display:flex;align-items:center;gap:.5rem;justify-content:center;width:100%;padding:.4rem;margin-top:.35rem;border-radius:var(--r2);font-size:.78rem;color:var(--t3);transition:all var(--tr)}
+.logout-btn:hover{background:var(--brd2);color:var(--t1)}
+
+/* MAIN */
+#main{flex:1;min-width:0;display:flex;flex-direction:column}
+#topbar{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.75rem;background:rgba(13,15,26,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--brd2);position:sticky;top:0;z-index:10;gap:1rem}
+.tb-l{display:flex;flex-direction:column;gap:.1rem}
+.tb-title{font-size:1.05rem;font-weight:700}
+.tb-sub{font-size:.72rem;color:var(--t3)}
+.tb-r{display:flex;align-items:center;gap:.75rem}
+
+/* AI MODEL PILL */
+.ai-model-pill{display:inline-flex;align-items:center;gap:.35rem;padding:.22rem .7rem;border-radius:99px;font-size:.7rem;font-weight:700;letter-spacing:.4px;cursor:pointer;transition:all var(--tr)}
+.ai-free{background:rgba(34,197,94,.15);color:var(--green);border:1px solid rgba(34,197,94,.25)}
+.ai-paid{background:var(--gdim);color:var(--gold);border:1px solid rgba(245,200,66,.25)}
+.ai-mock{background:rgba(139,92,246,.15);color:var(--vl);border:1px solid rgba(139,92,246,.25)}
+.ai-model-pill:hover{transform:scale(1.05)}
+
+/* PAGES */
+.page{display:none;padding:1.75rem;flex-direction:column;gap:1.5rem;animation:fi .3s ease}
+.page.active{display:flex}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* CARDS */
+.card{background:rgba(15,18,34,0.45);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(139,92,246,0.15);border-radius:var(--r);padding:1.5rem;transition:transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15), border-color 0.4s, box-shadow 0.4s;}
+.card:hover{transform:translateY(-3px);border-color:rgba(168,85,247,0.3);box-shadow:0 12px 30px rgba(139,92,246,0.12);}
+.card-glow{background:linear-gradient(135deg,rgba(139,92,246,0.2),rgba(15,18,34,0.6));border-color:rgba(139,92,246,0.32);box-shadow:0 8px 32px rgba(139,92,246,0.08);}
+.card-gold{background:linear-gradient(135deg,rgba(245,200,66,0.12),rgba(15,18,34,0.65));border-color:rgba(245,200,66,0.3);box-shadow:0 8px 32px rgba(245,200,66,0.08);}
+.ctitle{font-size:.68rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--t3);margin-bottom:1.1rem}
+.shd{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem}
+.stitle{font-size:1rem;font-weight:700}
+.ssub{font-size:.78rem;color:var(--t2);margin-top:.2rem}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;border-radius:var(--r2);font-size:.85rem;font-weight:600;letter-spacing:.2px;transition:all var(--tr);cursor:pointer;border:none}
+.btn-v{background:linear-gradient(135deg,var(--v),#6d28d9);color:#fff;box-shadow:0 4px 15px rgba(139,92,246,0.25)}
+.btn-v:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(168,85,247,0.45);background:linear-gradient(135deg,var(--v-neon),#7c3aed)}
+.btn-g{background:var(--brd2);color:var(--t2);border:1px solid transparent}
+.btn-g:hover{background:rgba(255,255,255,.08);color:var(--t1);border-color:var(--brd2)}
+.btn-gold{background:linear-gradient(135deg,#f5c842,#b45309);color:#0a0c16;font-weight:700;box-shadow:0 4px 15px rgba(245,200,66,0.2)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(245,200,66,0.45);background:linear-gradient(135deg,#fcd34d,#d97706)}
+.btn-red{background:rgba(244,63,94,.15);color:var(--red)}
+.btn-red:hover{background:rgba(244,63,94,.25)}
+.btn-green{background:rgba(34,197,94,.15);color:var(--green)}
+.btn-green:hover{background:rgba(34,197,94,.25)}
+.btn-sm{padding:.38rem .85rem;font-size:.78rem}
+.btn-full{width:100%;justify-content:center}
+.btn-outline{background:transparent;border:1px solid var(--brd);color:var(--vl)}
+.btn-outline:hover{background:var(--vg)}
+
+/* PILLS */
+.pill{display:inline-flex;align-items:center;gap:.3rem;padding:.18rem .6rem;border-radius:99px;font-size:.68rem;font-weight:700;letter-spacing:.4px}
+.pv{background:rgba(124,58,237,.2);color:var(--vl)}
+.pg{background:var(--gdim);color:var(--gold)}
+.pp{background:var(--pdim);color:var(--pink)}
+.pt{background:var(--tdim);color:var(--teal)}
+.pr{background:rgba(244,63,94,.15);color:var(--red)}
+.pgn{background:rgba(34,197,94,.15);color:var(--green)}
+
+/* GRIDS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+@media(max-width:900px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+/* AUTH GATE */
+#auth-gate{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:200;overflow:hidden}
+#auth-gate video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.25;pointer-events:none;z-index:0}
+#auth-gate::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 30%,rgba(139,92,246,0.3),transparent 70%);z-index:1;pointer-events:none}
+.auth-box{position:relative;z-index:10;pointer-events:auto;background:rgba(10,12,22,0.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(139,92,246,0.25);border-radius:20px;padding:2.5rem;width:100%;max-width:420px;box-shadow:0 0 80px rgba(139,92,246,0.25)}
+.auth-brand{text-align:center;margin-bottom:2rem}
+.auth-orb{width:60px;height:60px;margin:0 auto .75rem;background:radial-gradient(circle at 35% 35%,#c084fc,var(--v) 60%,#3b0764);border-radius:16px;display:grid;place-items:center;font-size:1.6rem;box-shadow:0 0 40px rgba(124,58,237,.5)}
+.auth-title{font-size:1.5rem;font-weight:900;letter-spacing:2px;font-family:'Playfair Display',serif}
+.auth-sub{font-size:.72rem;color:var(--t3);letter-spacing:1px;margin-top:.25rem}
+.auth-tabs{display:flex;background:rgba(24,28,46,.8);border-radius:var(--r2);padding:.25rem;gap:.25rem;margin-bottom:1.5rem}
+.atab{flex:1;text-align:center;padding:.45rem;border-radius:8px;font-size:.82rem;font-weight:600;color:var(--t3);cursor:pointer;transition:all var(--tr)}
+.atab.active{background:rgba(13,15,26,.9);color:var(--t1)}
+.aform{display:flex;flex-direction:column;gap:.8rem}
+.fg{display:flex;flex-direction:column;gap:.4rem}
+.fl{font-size:.75rem;font-weight:600;color:var(--t2)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.err{background:rgba(244,63,94,.1);border:1px solid rgba(244,63,94,.25);color:var(--red);border-radius:var(--r2);padding:.55rem .9rem;font-size:.8rem}
+.hint{font-size:.72rem;color:var(--t3);text-align:center}
+
+/* TOAST */
+#toast{position:fixed;bottom:1.5rem;right:1.5rem;z-index:500;background:rgba(13,15,26,.95);backdrop-filter:blur(12px);border:1px solid var(--brd2);border-radius:var(--r2);padding:.7rem 1.1rem;font-size:.84rem;font-weight:500;display:flex;align-items:center;gap:.6rem;transform:translateY(60px);opacity:0;transition:all .28s ease;max-width:320px;box-shadow:0 8px 32px rgba(0,0,0,.5)}
+#toast.show{transform:translateY(0);opacity:1}
+#toast.ok{border-left:3px solid var(--green)}
+#toast.err{border-left:3px solid var(--red)}
+#toast.info{border-left:3px solid var(--v)}
+
+/* MODAL */
+.mbg{position:fixed;inset:0;background:rgba(0,0,0,.75);display:grid;place-items:center;z-index:300;backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity var(--tr)}
+.mbg.open{opacity:1;pointer-events:all}
+.modal{background:rgba(13,15,26,.96);backdrop-filter:blur(20px);border:1px solid rgba(124,58,237,.2);border-radius:var(--r);padding:2rem;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;transform:translateY(16px);transition:transform var(--tr)}
+.mbg.open .modal{transform:translateY(0)}
+.mhd{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem}
+.mtitle{font-size:1.05rem;font-weight:700}
+.mx{color:var(--t3);font-size:1.1rem;cursor:pointer;padding:.25rem;transition:color var(--tr)}
+.mx:hover{color:var(--t1)}
+
+/* TABS */
+.tabs{display:flex;gap:.2rem;background:rgba(18,21,38,.8);border-radius:var(--r2);padding:.2rem;flex-wrap:wrap}
+.tab{padding:.42rem .95rem;border-radius:8px;font-size:.8rem;font-weight:600;color:var(--t3);cursor:pointer;transition:all var(--tr);white-space:nowrap}
+.tab.active{background:rgba(13,15,26,.9);color:var(--t1)}
+
+/* SPINNER */
+.spin{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.2);border-top-color:var(--vl);border-radius:50%;animation:sp .65s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* STAT CARD */
+.sc{background:rgba(13,15,26,.85);border:1px solid var(--brd2);border-radius:var(--r);padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:.4rem;transition:border-color var(--tr)}
+.sc:hover{border-color:rgba(124,58,237,.35)}
+.sl{font-size:.68rem;color:var(--t3);font-weight:700;letter-spacing:.8px;text-transform:uppercase}
+.sv{font-size:1.9rem;font-weight:900;letter-spacing:-1px}
+.ss{font-size:.73rem;color:var(--t3)}
+
+/* INSIGHT */
+.insight{background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(232,121,249,.04));border:1px solid rgba(124,58,237,.2);border-radius:var(--r);padding:1.25rem 1.5rem;line-height:1.7;font-size:.92rem}
+.insight-hd{display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;font-size:.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--vl)}
+
+/* TAROT */
+.spread-zone{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin:1.5rem 0}
+.spread-slot{width:100px;min-height:154px;border-radius:12px;border:2px dashed var(--brd);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;color:var(--t3);font-size:.72rem;text-align:center;padding:.2rem;position:relative;transition:border-color var(--tr)}
+.spread-slot.filled{border-color:var(--v-neon);border-style:solid;box-shadow:0 0 15px rgba(139,92,246,0.15)}
+.spread-label{position:absolute;bottom:-1.3rem;left:50%;transform:translateX(-50%);font-size:.65rem;color:var(--t2);white-space:nowrap}
+
+/* 3D TAROT CARDS */
+.tarot-card-container {
+  width: 88px;
+  height: 136px;
+  perspective: 600px;
+  cursor: pointer;
+}
+.tarot-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.2);
+  transform-style: preserve-3d;
+}
+.tarot-card-container.flipped .tarot-card-inner {
+  transform: rotateY(180deg);
+}
+.tarot-card-back, .tarot-card-front {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border: 1px solid rgba(139,92,246,0.3);
+}
+.tarot-card-back {
+  background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #080912 100%);
+  color: var(--gold);
+  box-shadow: inset 0 0 12px rgba(139,92,246,0.45), 0 4px 10px rgba(0,0,0,0.6);
+  justify-content: space-between;
+}
+.tarot-card-back::after {
+  content: '✦';
+  font-size: 2rem;
+  text-shadow: 0 0 12px var(--gold);
+  align-self: center;
+  margin-bottom: auto;
+  margin-top: auto;
+  animation: pulseGold 2s infinite alternate ease-in-out;
+}
+.tarot-card-front {
+  background: linear-gradient(135deg, #0f1222 0%, #04050a 100%);
+  color: var(--t1);
+  transform: rotateY(180deg);
+  box-shadow: inset 0 0 12px rgba(6,182,212,0.2), 0 4px 10px rgba(0,0,0,0.6);
+  justify-content: space-between;
+}
+.tarot-card-front.inverted {
+  transform: rotateY(180deg) rotate(180deg);
+}
+@keyframes pulseGold {
+  from { text-shadow: 0 0 8px var(--gold); transform: scale(0.95); }
+  to { text-shadow: 0 0 18px var(--gold); transform: scale(1.05); }
+}
+.ai-reading-box{background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.2);border-radius:var(--r2);padding:1.25rem;font-size:.9rem;line-height:1.75;color:var(--t2);white-space:pre-wrap;margin-top:.75rem}
+
+/* JOURNAL */
+.ji{background:rgba(18,21,38,.8);border:1px solid var(--brd2);border-radius:var(--r2);padding:1rem 1.25rem;transition:border-color var(--tr)}
+.ji:hover{border-color:rgba(124,58,237,.3)}
+.jihd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.6rem}
+.jibody{font-size:.88rem;color:var(--t1);line-height:1.6}
+.ji-ai{margin-top:.7rem;padding:.7rem;border-radius:8px;background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.15);font-size:.8rem;color:var(--t2);font-style:italic;line-height:1.55;display:flex;gap:.5rem}
+.mt{height:5px;background:var(--bg4);border-radius:3px;overflow:hidden;margin-top:.6rem}
+.mf{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--v),var(--pink))}
+
+/* CHAT */
+#mentor-chat{display:flex;flex-direction:column;gap:.75rem;padding:1rem;min-height:300px;max-height:420px;overflow-y:auto;background:rgba(18,21,38,.6);border-radius:var(--r2);border:1px solid var(--brd2)}
+.msg{max-width:80%;display:flex;flex-direction:column;gap:.25rem}
+.msg-u{align-self:flex-end;align-items:flex-end}
+.msg-a{align-self:flex-start;align-items:flex-start}
+.mb{padding:.65rem 1rem;border-radius:14px;font-size:.87rem;line-height:1.6}
+.msg-u .mb{background:linear-gradient(135deg,var(--v),#5b21b6);color:#fff;border-bottom-right-radius:4px}
+.msg-a .mb{background:var(--bg4);color:var(--t1);border:1px solid var(--brd2);border-bottom-left-radius:4px;white-space:pre-wrap}
+.mts{font-size:.65rem;color:var(--t3)}
+.ci{display:flex;gap:.75rem;align-items:flex-end;margin-top:.5rem}
+.ci textarea{min-height:52px;max-height:140px;border-radius:12px}
+
+/* RITUAL CARD */
+.rc{background:rgba(18,21,38,.8);border:1px solid var(--brd2);border-radius:var(--r);padding:1.25rem;cursor:pointer;transition:all var(--tr);position:relative}
+.rc:hover{border-color:rgba(124,58,237,.4);transform:translateY(-2px)}
+.rc-lock{position:absolute;top:.75rem;right:.75rem;font-size:1rem;opacity:.7}
+.rc-icon{font-size:2rem;margin-bottom:.6rem}
+.rc-name{font-weight:700;margin-bottom:.3rem;font-size:.92rem}
+.rc-desc{font-size:.8rem;color:var(--t2);line-height:1.55}
+.rc-dur{font-size:.7rem;color:var(--t3);margin-top:.5rem}
+
+/* ADMIN TABLE */
+.tw{overflow-x:auto;border-radius:var(--r2)}
+table{width:100%;border-collapse:collapse;font-size:.83rem}
+th{text-align:left;padding:.75rem 1rem;font-size:.65rem;font-weight:700;color:var(--t3);letter-spacing:.8px;text-transform:uppercase;background:rgba(18,21,38,.8);border-bottom:1px solid var(--brd2)}
+td{padding:.8rem 1rem;border-bottom:1px solid var(--brd2);color:var(--t2);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,.015)}
+
+/* NOTIF TOGGLE */
+.nitem{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1rem;background:rgba(18,21,38,.6);border-radius:var(--r2)}
+.tgl{position:relative;width:42px;height:24px;cursor:pointer}
+.tgl input{opacity:0;width:0;height:0}
+.tgl-s{position:absolute;inset:0;background:var(--bg4);border-radius:99px;transition:background var(--tr)}
+.tgl-s::before{content:'';position:absolute;width:18px;height:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:transform var(--tr)}
+.tgl input:checked+.tgl-s{background:var(--v)}
+.tgl input:checked+.tgl-s::before{transform:translateX(18px)}
+
+/* XP BAR */
+.xpw{background:var(--bg4);border-radius:99px;height:8px;overflow:hidden;margin:.5rem 0}
+.xpf{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--v),var(--pink));transition:width .8s ease}
+
+/* DAILY ITEMS */
+.di{background:rgba(18,21,38,.6);border:1px solid var(--brd2);border-radius:var(--r2);padding:1rem;display:flex;flex-direction:column;gap:.3rem;transition:border-color var(--tr)}
+.di:hover{border-color:rgba(124,58,237,.3)}
+.di-icon{font-size:1.4rem}
+.di-lbl{font-size:.63rem;color:var(--t3);font-weight:700;text-transform:uppercase;letter-spacing:.8px}
+.di-val{font-size:.9rem;font-weight:600}
+
+/* BADGE */
+.bg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:.75rem}
+.bi{background:rgba(18,21,38,.6);border:1px solid var(--brd2);border-radius:var(--r2);padding:1rem .75rem;text-align:center;transition:all var(--tr)}
+.bi.unlocked{border-color:var(--gold);background:var(--gdim)}
+.bi.locked{opacity:.4;filter:grayscale(1)}
+.be{font-size:1.6rem;display:block;margin-bottom:.4rem}
+.bn{font-size:.68rem;font-weight:700}
+
+/* NUMEROLOGY 3-DIGIT */
+.num3-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.num3-card{background:linear-gradient(135deg,rgba(124,58,237,.18),rgba(232,121,249,.06));border:1px solid rgba(124,58,237,.25);border-radius:var(--r);padding:1.5rem 1rem;text-align:center;transition:all var(--tr)}
+.num3-card:hover{border-color:rgba(167,139,250,.5);transform:translateY(-2px)}
+.num3-val{font-size:2.8rem;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,var(--gold),var(--vl));-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:block}
+.num3-name{font-size:.72rem;font-weight:700;color:var(--vl);letter-spacing:.8px;text-transform:uppercase;margin-top:.3rem}
+.num3-desc{font-size:.78rem;color:var(--t2);margin-top:.5rem;line-height:1.5}
+
+/* MOON */
+.moon-wrap{width:120px;height:120px;border-radius:50%;margin:0 auto;display:grid;place-items:center;position:relative}
+.moon-glow{position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(245,200,66,.15),transparent 70%)}
+
+/* ZODIAC GRID */
+.zg{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem}
+.zi{background:rgba(18,21,38,.6);border:1px solid var(--brd2);border-radius:var(--r2);padding:1rem;text-align:center;cursor:pointer;transition:all var(--tr)}
+.zi:hover,.zi.active{border-color:var(--v);background:var(--vg)}
+.zs{font-size:1.8rem;display:block;margin-bottom:.3rem}
+.zn{font-size:.75rem;font-weight:700}
+.zd{font-size:.63rem;color:var(--t3)}
+
+/* DISCLAIMER */
+.disc{background:rgba(245,200,66,.05);border:1px solid rgba(245,200,66,.14);border-radius:var(--r2);padding:.65rem 1rem;font-size:.75rem;color:var(--t3);line-height:1.55}
+
+/* AI LOADING */
+.ai-loading{display:flex;align-items:center;gap:.75rem;padding:1rem;background:rgba(124,58,237,.08);border-radius:var(--r2);font-size:.85rem;color:var(--t2)}
+.dot-pulse{display:flex;gap:4px}
+.dot-pulse span{width:6px;height:6px;border-radius:50%;background:var(--v);animation:dp 1.2s ease-in-out infinite}
+.dot-pulse span:nth-child(2){animation-delay:.2s}
+.dot-pulse span:nth-child(3){animation-delay:.4s}
+@keyframes dp{0%,80%,100%{transform:scale(0.6);opacity:.4}40%{transform:scale(1);opacity:1}}
+
+/* AGENT CONTEXT EDITOR */
+.agent-card{background:rgba(18,21,38,.6);border:1px solid var(--brd2);border-radius:var(--r2);padding:1rem;display:flex;flex-direction:column;gap:.6rem}
+.agent-name{font-size:.82rem;font-weight:700;display:flex;align-items:center;gap:.5rem}
+.agent-card textarea{min-height:70px;font-size:.8rem}
+
+/* PLAY FONT */
+.play{font-family:'Playfair Display',serif}
+
+/* SETTINGS page */
+.model-option{display:flex;align-items:flex-start;gap:.75rem;padding:1rem;background:rgba(18,21,38,.6);border:1px solid var(--brd2);border-radius:var(--r2);cursor:pointer;transition:all var(--tr)}
+.model-option:hover{border-color:rgba(124,58,237,.4)}
+.model-option.selected{border-color:var(--v);background:var(--vg)}
+.model-radio{width:18px;height:18px;border-radius:50%;border:2px solid var(--t3);flex-shrink:0;margin-top:.15rem;display:grid;place-items:center;transition:all var(--tr)}
+.model-option.selected .model-radio{border-color:var(--v);background:var(--v)}
+.model-option.selected .model-radio::after{content:'';width:6px;height:6px;border-radius:50%;background:#fff}
+.model-name{font-weight:700;font-size:.88rem}
+.model-desc{font-size:.75rem;color:var(--t2);margin-top:.15rem}
+.model-tag{font-size:.65rem;font-weight:700;padding:.1rem .45rem;border-radius:99px;margin-left:.4rem}
+.tag-free{background:rgba(34,197,94,.2);color:var(--green)}
+.tag-paid{background:var(--gdim);color:var(--gold)}
+</style>
+</head>
+<body>
+<!-- COSMIC ORBS -->
+<div class="cosmic-orbs">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+</div>
+
+<!-- VIDEO BG -->
+<div id="video-bg">
+  <video id="bg-video" autoplay muted loop playsinline>
+    <source src="/multimedia/logo_video.mp4" type="video/mp4"/>
+  </video>
+</div>
+
+<!-- AUTH GATE -->
+<div id="auth-gate">
+  <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.3;z-index:0;pointer-events:none">
+    <source src="/multimedia/logo_video.mp4" type="video/mp4"/>
+  </video>
+  <div class="auth-box" style="border:1px solid rgba(139,92,246,0.3);box-shadow:0 0 50px rgba(139,92,246,0.25)">
+    <div class="auth-brand" style="display:flex;flex-direction:column;align-items:center;margin-bottom:1.5rem">
+      <div class="logo-circle" style="width:90px;height:90px;border-radius:50%;overflow:hidden;border:2px solid var(--gold);box-shadow:0 0 20px rgba(245,200,66,0.4);background:#000;display:flex;align-items:center;justify-content:center;margin-bottom:0.75rem">
+        <video src="/multimedia/logo_video.mp4" autoplay loop muted playsinline style="width:100%;height:100%;object-fit:cover"></video>
+      </div>
+      <div class="auth-title" style="font-family:'Outfit',sans-serif;font-size:2.2rem;font-weight:900;letter-spacing:1.5px;background:linear-gradient(135deg,#f5c842,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 20px rgba(139,92,246,0.2)">CELESTHYAS</div>
+      <div class="auth-sub" style="font-size:.7rem;color:var(--t2);letter-spacing:2px;text-transform:uppercase;margin-top:.2rem">Portal Místico Universal</div>
+    </div>
+    <div class="auth-tabs">
+      <div class="atab active" onclick="authTab('login')">Iniciar sesión</div>
+      <div class="atab" onclick="authTab('register')">Crear cuenta</div>
+    </div>
+    <div id="auth-err" class="err" style="display:none;margin-bottom:.75rem"></div>
+    <!-- Login -->
+    <div id="form-login" class="aform">
+      <div class="fg"><label class="fl">Correo</label><input id="li-em" type="email" placeholder="tu@correo.com"/></div>
+      <div class="fg">
+        <label class="fl">Contraseña</label>
+        <div class="pw-container">
+          <input id="li-pw" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/>
+          <span class="pw-toggle" onclick="togglePassword('li-pw', this)"><i class="ph-duotone ph-eye-slash"></i></span>
+        </div>
+      </div>
+      <button class="btn btn-v btn-full" onclick="doLogin()"><span id="li-sp" class="spin" style="display:none"></span>Entrar al cosmos ✦</button>
+      <div class="hint">Admin: correo que empiece con <strong>admin@</strong></div>
+    </div>
+    <!-- Register -->
+    <div id="form-reg" class="aform" style="display:none">
+      <div class="frow">
+        <div class="fg"><label class="fl">Nombre completo</label><input id="re-name" type="text" placeholder="Luna García"/></div>
+        <div class="fg"><label class="fl">Fecha de nacimiento</label><input id="re-bd" type="date"/></div>
+      </div>
+      <div class="fg"><label class="fl">Correo</label><input id="re-em" type="email" placeholder="tu@correo.com"/></div>
+      <div class="fg">
+        <label class="fl">Contraseña (mín. 6 chars)</label>
+        <div class="pw-container">
+          <input id="re-pw" type="password" placeholder="••••••••"/>
+          <span class="pw-toggle" onclick="togglePassword('re-pw', this)"><i class="ph-duotone ph-eye-slash"></i></span>
+        </div>
+      </div>
+      <div class="fg"><label class="fl">Lugar de nacimiento (opcional)</label><input id="re-pl" type="text" placeholder="Ciudad, País"/></div>
+      <button class="btn btn-v btn-full" onclick="doRegister()"><span id="re-sp" class="spin" style="display:none"></span>Comenzar mi viaje ✦</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- ══ MODALS ══ -->
+
+<!-- Journal -->
+<div class="mbg" id="m-journal">
+<div class="modal">
+  <div class="mhd"><div class="mtitle">✎ Nueva reflexión</div><div class="mx" onclick="closeM('m-journal')">✕</div></div>
+  <div class="aform">
+    <div class="fg"><label class="fl">Tipo</label>
+      <select id="jt-type"><option value="mood">💭 Estado de ánimo</option><option value="dream">🌙 Sueño</option><option value="gratitude">🙏 Gratitud</option><option value="goal">🎯 Objetivo</option><option value="reflection">🔮 Reflexión</option></select></div>
+    <div class="fg"><label class="fl">Estado de ánimo: <span id="mood-v">5</span>/10</label>
+      <input type="range" min="1" max="10" value="5" id="jt-mood" style="-webkit-appearance:none;background:var(--bg4);height:6px;border-radius:3px;border:none" oninput="document.getElementById('mood-v').textContent=this.value"/></div>
+    <div class="fg"><label class="fl">¿Qué quieres registrar?</label><textarea id="jt-content" placeholder="Escribe libremente..."></textarea></div>
+    <div id="jt-err" class="err" style="display:none"></div>
+    <button class="btn btn-v btn-full" onclick="submitJournal()"><span id="jt-sp" class="spin" style="display:none"></span>Guardar y analizar con IA ✦</button>
+    <div class="disc">✦ El análisis es simbólico y orientativo. Tu privacidad es absoluta.</div>
+  </div>
+</div></div>
+
+<!-- Ritual Detail -->
+<div class="mbg" id="m-ritual">
+<div class="modal"><div class="mhd"><div class="mtitle" id="mr-title">Ritual</div><div class="mx" onclick="closeM('m-ritual')">✕</div></div><div id="mr-body"></div></div>
+</div>
+
+<!-- Admin: Create/Edit User -->
+<div class="mbg" id="m-user">
+<div class="modal">
+  <div class="mhd"><div class="mtitle" id="mu-title">Nuevo usuario</div><div class="mx" onclick="closeM('m-user')">✕</div></div>
+  <div class="aform">
+    <input type="hidden" id="mu-id"/>
+    <div class="frow">
+      <div class="fg"><label class="fl">Nombre completo</label><input id="mu-name" type="text"/></div>
+      <div class="fg"><label class="fl">Fecha nacimiento</label><input id="mu-bd" type="date"/></div>
+    </div>
+    <div class="fg"><label class="fl">Correo</label><input id="mu-em" type="email"/></div>
+    <div class="fg"><label class="fl">Contraseña <span style="color:var(--t3)">(dejar vacío para no cambiar)</span></label>
+      <div class="pw-container">
+        <input id="mu-pw" type="password" placeholder="••••••••"/>
+        <span class="pw-toggle" onclick="togglePassword('mu-pw', this)"><i class="ph-duotone ph-eye-slash"></i></span>
+      </div>
+    </div>
+    <div class="fg"><label class="fl">Rol</label><select id="mu-role"><option value="user">Usuario</option><option value="admin">Administrador</option></select></div>
+    <div class="fg"><label class="fl">Plan</label><select id="mu-plan"><option value="free">Gratuito</option><option value="premium">Premium</option></select></div>
+    <div id="mu-err" class="err" style="display:none"></div>
+    <button class="btn btn-v btn-full" onclick="saveUser()"><span id="mu-sp" class="spin" style="display:none"></span>Guardar usuario</button>
+  </div>
+</div></div>
+
+<!-- Admin: Create/Edit Ritual -->
+<div class="mbg" id="m-ritual-edit">
+<div class="modal" style="max-width:640px">
+  <div class="mhd"><div class="mtitle" id="mre-title">Nuevo ritual</div><div class="mx" onclick="closeM('m-ritual-edit')">✕</div></div>
+  <div class="aform">
+    <input type="hidden" id="mre-id"/>
+    <div class="frow">
+      <div class="fg"><label class="fl">Icono (emoji)</label><input id="mre-icon" type="text" placeholder="🕯️"/></div>
+      <div class="fg"><label class="fl">Categoría</label>
+        <select id="mre-cat"><option value="prosperity">Prosperidad</option><option value="love">Amor</option><option value="protection">Protección</option><option value="new-moon">Luna nueva</option><option value="full-moon">Luna llena</option><option value="wellness">Bienestar</option></select></div>
+    </div>
+    <div class="fg"><label class="fl">Nombre del ritual</label><input id="mre-name" type="text"/></div>
+    <div class="fg"><label class="fl">Descripción breve</label><input id="mre-desc" type="text"/></div>
+    <div class="fg"><label class="fl">Duración estimada</label><input id="mre-dur" type="text" placeholder="20 min"/></div>
+    <div class="fg"><label class="fl">Pasos (uno por línea)</label><textarea id="mre-steps" rows="6" placeholder="Paso 1&#10;Paso 2&#10;Paso 3"></textarea></div>
+    <div class="frow">
+      <div class="fg"><label class="fl">Tipo de acceso</label>
+        <select id="mre-paid"><option value="free">Gratuito</option><option value="paid">Solo Premium 🔒</option></select></div>
+      <div class="fg"><label class="fl">Estado</label>
+        <select id="mre-status"><option value="active">Activo</option><option value="draft">Borrador</option></select></div>
+    </div>
+    <div id="mre-err" class="err" style="display:none"></div>
+    <button class="btn btn-v btn-full" onclick="saveRitual()"><span id="mre-sp" class="spin" style="display:none"></span>Guardar ritual</button>
+  </div>
+</div></div>
+
+<!-- Edit Profile -->
+<div class="mbg" id="m-profile">
+<div class="modal">
+  <div class="mhd"><div class="mtitle">◎ Editar mi perfil</div><div class="mx" onclick="closeM('m-profile')">✕</div></div>
+  <div class="aform">
+    <div class="frow">
+      <div class="fg"><label class="fl">Nombre completo</label><input id="ep-name" type="text"/></div>
+      <div class="fg"><label class="fl">Fecha de nacimiento</label><input id="ep-bd" type="date"/></div>
+    </div>
+    <div class="fg"><label class="fl">Lugar de nacimiento</label><input id="ep-place" type="text"/></div>
+    <div class="fg"><label class="fl">Nueva contraseña <span style="color:var(--t3)">(opcional)</span></label>
+      <div class="pw-container">
+        <input id="ep-pw" type="password" placeholder="Dejar vacío para no cambiar"/>
+        <span class="pw-toggle" onclick="togglePassword('ep-pw', this)"><i class="ph-duotone ph-eye-slash"></i></span>
+      </div>
+    </div>
+    <div id="ep-err" class="err" style="display:none"></div>
+    <button class="btn btn-v btn-full" onclick="saveProfile()">Guardar cambios</button>
+  </div>
+</div></div>
+
+<!-- AI Settings -->
+<div class="mbg" id="m-ai-settings">
+<div class="modal" style="max-width:620px">
+  <div class="mhd"><div class="mtitle">⚙ Configurar modelo de IA</div><div class="mx" onclick="closeM('m-ai-settings')">✕</div></div>
+  <div style="display:flex;flex-direction:column;gap:1rem">
+    <div class="ctitle">Selecciona tu modelo</div>
+    <div id="model-options" style="display:flex;flex-direction:column;gap:.6rem"></div>
+    <hr style="border-color:var(--brd2)"/>
+    <div class="ctitle">Claves de API</div>
+    <div class="fg"><label class="fl">🔑 Google Gemini API Key <span class="tag-free model-tag">GRATIS</span></label>
+      <input id="set-gemini-key" type="password" placeholder="AIza..."/>
+      <div style="font-size:.72rem;color:var(--t3);margin-top:.25rem">Obtén tu clave gratis en <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--vl)">aistudio.google.com</a></div>
+    </div>
+    <div class="fg"><label class="fl">🔑 OpenAI API Key <span class="tag-paid model-tag">DE PAGO</span></label>
+      <input id="set-openai-key" type="password" placeholder="sk-..."/>
+      <div style="font-size:.72rem;color:var(--t3);margin-top:.25rem">En <a href="https://platform.openai.com/api-keys" target="_blank" style="color:var(--vl)">platform.openai.com</a></div>
+    </div>
+    <div class="fg"><label class="fl">🔑 Groq API Key <span class="tag-free model-tag">GRATIS</span></label>
+      <input id="set-groq-key" type="password" placeholder="gsk-..."/>
+      <div style="font-size:.72rem;color:var(--t3);margin-top:.25rem">Obtén tu clave gratis en <a href="https://console.groq.com/keys" target="_blank" style="color:var(--vl)">console.groq.com/keys</a></div>
+    </div>
+    <!-- OpenRouter Config Group -->
+    <div class="fg" id="openrouter-config-group" style="display:none;background:var(--bg3);border:1px solid var(--brd2);border-radius:10px;padding:1rem;gap:.75rem;flex-direction:column">
+      <div class="fg"><label class="fl">🔑 OpenRouter API Key <span class="tag-free model-tag">GRATIS/DE PAGO</span></label>
+        <input id="set-openrouter-key" type="password" placeholder="sk-or-..."/>
+        <div style="font-size:.72rem;color:var(--t3);margin-top:.25rem">Consigue tu clave en <a href="https://openrouter.ai/keys" target="_blank" style="color:var(--vl)">openrouter.ai/keys</a></div>
+      </div>
+      <div class="fg"><label class="fl">🤖 Seleccionar Modelo de OpenRouter</label>
+        <div style="display:flex;gap:.5rem;align-items:center">
+          <select id="set-openrouter-model" style="flex:1" onchange="S.settings.openrouterModel=this.value;persistSettings()"></select>
+          <button class="btn btn-g btn-sm" onclick="fetchOpenRouterModels('set-openrouter-model','set-openrouter-search')"><i class="ph-duotone ph-arrows-clockwise"></i> Ver todos</button>
+        </div>
+        <input id="set-openrouter-search" type="text" placeholder="🔍 Buscar modelo (ej: llama, gemini)..." style="display:none;margin-top:.35rem" oninput="filterOpenRouterDropdown('set-openrouter-model',this.value)"/>
+      </div>
+    </div>
+    <div class="disc">✦ Las claves se guardan solo en tu navegador. Nunca se envían a nuestros servidores sin tu consentimiento.</div>
+    <button class="btn btn-v btn-full" onclick="saveAISettings()">Guardar configuración de IA</button>
+  </div>
+</div></div>
+
+<!-- APP -->
+<div id="app" style="display:none">
+<nav id="sidebar">
+  <div class="brand" style="border-bottom:1px solid var(--brd2);padding:1rem .5rem">
+    <img src="/multimedia/logo.jpeg" alt="Celesthyas Logo" style="width:38px;height:38px;border-radius:11px;object-fit:cover;border:1px solid var(--gold);box-shadow:0 0 12px rgba(245,200,66,0.3)"/>
+    <div>
+      <div class="brand-name" style="font-family:'Outfit',sans-serif;background:linear-gradient(to right,#f5c842,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900;font-size:1.1rem;letter-spacing:0.5px">CELESTHYAS</div>
+      <div class="brand-sub" style="font-size:.62rem;color:var(--t2);letter-spacing:1px;text-transform:uppercase;margin-top:.1rem">Cosmic Portal</div>
+    </div>
+  </div>
+  <div class="nav-sec">Mi espacio</div>
+  <div class="ni active" data-page="home" onclick="go('home')"><span class="ic"><i class="ph-duotone ph-sun-horizon"></i></span>Mi día</div>
+  <div class="ni" data-page="tarot" onclick="go('tarot')"><span class="ic"><i class="ph-duotone ph-stack"></i></span>Tarot</div>
+  <div class="ni" data-page="astro" onclick="go('astro')"><span class="ic"><i class="ph-duotone ph-planet"></i></span>Astrología</div>
+  <div class="ni" data-page="num" onclick="go('num')"><span class="ic"><i class="ph-duotone ph-hash-straight"></i></span>Numerología</div>
+  <div class="nav-sec">Reflexión</div>
+  <div class="ni" data-page="dreams" onclick="go('dreams')"><span class="ic"><i class="ph-duotone ph-moon-stars"></i></span>Sueños</div>
+  <div class="ni" data-page="mentor" onclick="go('mentor')"><span class="ic"><i class="ph-duotone ph-sparkle"></i></span>Mentor IA</div>
+  <div class="ni" data-page="journal" onclick="go('journal')"><span class="ic"><i class="ph-duotone ph-notebook"></i></span>Diario</div>
+  <div class="ni" data-page="rituals" onclick="go('rituals')"><span class="ic"><i class="ph-duotone ph-flame"></i></span>Rituales</div>
+  <div class="nav-sec">Cuenta</div>
+  <div class="ni" data-page="gamif" onclick="go('gamif')"><span class="ic"><i class="ph-duotone ph-trophy"></i></span>Logros <span class="nbadge" id="nb-xp">0</span></div>
+  <div class="ni" data-page="settings" onclick="go('settings')"><span class="ic"><i class="ph-duotone ph-gear"></i></span>Configuración</div>
+  <div class="ni" id="admin-nav" data-page="admin" onclick="go('admin')" style="display:none"><span class="ic"><i class="ph-duotone ph-shield-star"></i></span>Admin</div>
+  <div class="sb-bot">
+    <div class="ucard" onclick="openEditProfile()"><div class="uav" id="sb-av">?</div><div><div class="uname" id="sb-nm">—</div><div class="usign" id="sb-sign">—</div></div></div>
+    <button class="logout-btn" onclick="doLogout()"><i class="ph-duotone ph-sign-out"></i> Cerrar sesión</button>
+  </div>
+</nav>
+
+<div id="main">
+  <div id="topbar">
+    <div class="tb-l"><div class="tb-title" id="page-title">Mi día</div><div class="tb-sub" id="page-sub">—</div></div>
+    <div class="tb-r">
+      <div class="ai-model-pill ai-mock" id="tb-ai-pill" onclick="openM('m-ai-settings')" title="Configurar modelo de IA">🤖 Mock</div>
+      <span class="pill pv" id="tb-moon" style="cursor:default">🌙</span>
+      <button class="btn btn-v btn-sm" onclick="openM('m-journal')"><i class="ph-bold ph-plus"></i> Diario</button>
+    </div>
+  </div>
+
+  <!-- ═══ HOME ═══ -->
+  <div class="page active" id="page-home">
+    <div class="card card-glow" style="padding:2rem">
+      <div style="font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--vl);margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem" id="home-lbl"><i class="ph-duotone ph-sparkle" style="font-size:1rem"></i> MENSAJE DEL DÍA</div>
+      <div class="play" style="font-size:1.45rem;font-style:italic;line-height:1.45;margin-bottom:.75rem" id="home-msg"></div>
+      <div style="font-size:.87rem;color:var(--t2)" id="home-energy"></div>
+    </div>
+    <div><div class="shd" style="margin-bottom:.75rem"><div class="stitle" style="display:flex;align-items:center;gap:.5rem"><i class="ph-duotone ph-lightning" style="color:var(--gold);font-size:1.1rem"></i> Energía del día</div></div><div class="g3" id="daily-grid"></div></div>
+    <div class="card" style="text-align:center;padding:2rem"><div class="ctitle">Afirmación diaria</div><div class="play" style="font-size:1.15rem;font-style:italic;color:var(--gold);line-height:1.6" id="home-aff"></div></div>
+    <div class="g2">
+      <div class="sc"><div class="sl">🔥 Racha</div><div class="sv" id="h-streak">0</div><div class="ss">días consecutivos</div><div class="xpw"><div class="xpf" id="h-xpf" style="width:0%"></div></div><div style="font-size:.7rem;color:var(--t3)" id="h-xpt">0 XP</div></div>
+      <div class="sc"><div class="sl">◎ Nivel</div><div class="sv" id="h-lvl">1</div><div class="ss" id="h-title">Explorador Místico</div><div style="margin-top:.75rem;display:flex;flex-wrap:wrap;gap:.35rem" id="h-badges"></div></div>
+    </div>
+    <div class="g3">
+      <div class="di" style="cursor:pointer;border-color:rgba(124,58,237,.2)" onclick="go('tarot')"><div class="di-icon ico"><i class="ph-duotone ph-stack" style="font-size:1.6rem;color:var(--vl)"></i></div><div class="di-lbl">Carta del día</div><div class="di-val">Tirar ahora</div></div>
+      <div class="di" style="cursor:pointer;border-color:rgba(232,121,249,.2)" onclick="go('mentor')"><div class="di-icon ico"><i class="ph-duotone ph-sparkle" style="font-size:1.6rem;color:var(--pink)"></i></div><div class="di-lbl">Mentor IA</div><div class="di-val">Hablar ahora</div></div>
+      <div class="di" style="cursor:pointer;border-color:rgba(245,200,66,.2)" onclick="openM('m-journal')"><div class="di-icon ico"><i class="ph-duotone ph-notebook" style="font-size:1.6rem;color:var(--gold)"></i></div><div class="di-lbl">Diario</div><div class="di-val">Nueva entrada</div></div>
+    </div>
+    <div class="disc">✦ Todo el contenido de Celesthyas es simbólico y de entretenimiento. No constituye predicción, ni asesoramiento médico, psicológico, financiero o legal.</div>
+  </div>
+
+  <!-- ═══ TAROT ═══ -->
+  <div class="page" id="page-tarot">
+    <div class="tabs" id="tarot-tabs">
+      <div class="tab active" onclick="tarotMode('single',this)">Carta única</div>
+      <div class="tab" onclick="tarotMode('three',this)">3 cartas</div>
+      <div class="tab" onclick="tarotMode('cross',this)">Cruz celta</div>
+      <div class="tab" onclick="tarotMode('love',this)">❤ Amor</div>
+      <div class="tab" onclick="tarotMode('work',this)">💼 Trabajo</div>
+      <div class="tab" onclick="tarotMode('money',this)">💰 Dinero</div>
+      <div class="tab" onclick="tarotMode('decision',this)">⚖ Decisión</div>
+    </div>
+    <div class="card card-glow">
+      <div class="shd">
+        <div><div class="stitle" id="tarot-mode-title">Carta única</div><div class="ssub" id="tarot-mode-desc">Baraja y extrae una carta para orientarte.</div></div>
+        <button class="btn btn-v" onclick="drawTarot()"><i class="ph-duotone ph-shuffle"></i> Barajar</button>
+      </div>
+      <div id="tarot-spread" class="spread-zone"></div>
+    </div>
+    <div class="card" id="tarot-reading" style="display:none">
+      <div class="shd" style="margin-bottom:.75rem">
+        <div class="ctitle" style="margin:0">✦ Lectura con IA</div>
+        <div class="ai-model-pill ai-mock" id="tarot-model-pill" style="font-size:.68rem">🤖 Mock</div>
+      </div>
+      <div id="tarot-reading-body"></div>
+    </div>
+    <div class="disc">Las tiradas son herramientas de reflexión simbólica. No determinan el futuro.</div>
+  </div>
+
+  <!-- ═══ ASTRO ═══ -->
+  <div class="page" id="page-astro">
+    <div style="width:100%;height:150px;border-radius:12px;overflow:hidden;border:1px solid rgba(139,92,246,0.3);box-shadow:0 0 20px rgba(139,92,246,0.15);margin-bottom:1.5rem;position:relative">
+      <img src="/multimedia/zodiac_signs.jpeg" alt="Zodiaco" style="width:100%;height:100%;object-fit:cover;opacity:0.8"/>
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent,rgba(4,5,10,0.85));display:flex;align-items:flex-end;padding:1rem">
+        <h2 style="font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:900;text-shadow:0 2px 10px rgba(0,0,0,0.8)">Zodiaco de Celesthyas</h2>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="ctitle" style="display:flex;align-items:center;gap:.4rem"><i class="ph-duotone ph-planet" style="color:var(--vl)"></i> Tu signo solar</div>
+        <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem">
+          <div style="font-size:3rem" id="astro-sym">♈</div>
+          <div><div style="font-size:1.4rem;font-weight:800" id="astro-sign">—</div><div style="font-size:.8rem;color:var(--t3)" id="astro-dates">—</div><div style="margin-top:.35rem;display:flex;gap:.35rem;flex-wrap:wrap" id="astro-traits"></div></div>
+        </div>
+        <div class="insight"><div class="insight-hd">✦ Tu esencia astral</div><div id="astro-essence"></div></div>
+      </div>
+      <div class="card">
+        <div class="ctitle" style="display:flex;align-items:center;gap:.4rem"><i class="ph-duotone ph-moon-stars" style="color:var(--gold)"></i> Fase lunar actual</div>
+        <div class="moon-wrap"><div class="moon-glow"></div><span id="moon-icon" style="font-size:4rem;z-index:1">🌙</span></div>
+        <div style="text-align:center;margin-top:1rem"><div style="font-weight:700;font-size:1.05rem" id="moon-name">—</div><div style="font-size:.8rem;color:var(--t2);margin-top:.3rem" id="moon-desc"></div></div>
+      </div>
+    </div>
+    <div class="tabs" id="astro-tabs">
+      <div class="tab active" onclick="astroMode('daily',this)">Hoy</div>
+      <div class="tab" onclick="astroMode('weekly',this)">Semanal</div>
+      <div class="tab" onclick="astroMode('monthly',this)">Mensual</div>
+      <div class="tab" onclick="astroMode('compat',this)">Compatibilidad</div>
+      <div class="tab" onclick="astroMode('transits',this)">Tránsitos</div>
+    </div>
+    <div class="card card-glow">
+      <div class="shd" style="margin-bottom:.75rem">
+        <div class="ctitle" style="margin:0" id="astro-ct-title">Horóscopo diario</div>
+        <button class="btn btn-g btn-sm" onclick="loadAstroAI()"><i class="ph-duotone ph-sparkle"></i> Generar con IA</button>
+      </div>
+      <div id="astro-ct-body" style="font-size:.92rem;line-height:1.75;color:var(--t2)"></div>
+    </div>
+    <div><div class="shd"><div><div class="stitle" style="display:flex;align-items:center;gap:.5rem"><i class="ph-duotone ph-flame" style="color:var(--gold)"></i> Rituales</div></div></div><div class="zg" id="zodiac-compat"></div></div>
+    <div class="disc">La astrología es una tradición cultural y simbólica. Las lecturas son orientativas.</div>
+  </div>
+
+  <!-- ═══ NUMEROLOGY ═══ -->
+  <div class="page" id="page-num">
+    <div class="card card-gold" style="text-align:center;padding:2rem">
+      <div class="ctitle" style="display:flex;align-items:center;justify-content:center;gap:.4rem"><i class="ph-duotone ph-hash-straight" style="color:var(--gold)"></i> Tus números del día — <span id="num-today-date"></span></div>
+      <div class="num3-grid" id="num3-grid" style="margin-bottom:1.5rem"></div>
+      <button class="btn btn-gold" onclick="interpretNumbers()"><span id="num-sp" class="spin" style="display:none"></span><i class="ph-duotone ph-sparkle"></i> Interpretar mis números con IA</button>
+    </div>
+    <div class="card" id="num-ai-result" style="display:none">
+      <div class="ctitle">✦ Interpretación del día</div>
+      <div id="num-ai-body" class="ai-reading-box"></div>
+    </div>
+    <div class="g2">
+      <div class="card card-gold"><div class="ctitle">Número de vida</div><div style="font-size:4rem;font-weight:900;letter-spacing:-2px;background:linear-gradient(135deg,var(--gold),var(--vl));-webkit-background-clip:text;-webkit-text-fill-color:transparent" id="num-life">—</div><div style="font-size:.85rem;color:var(--t2);margin-top:.75rem;line-height:1.65" id="num-life-desc"></div></div>
+      <div class="card"><div class="ctitle">Número del destino</div><div style="font-size:4rem;font-weight:900;letter-spacing:-2px;background:linear-gradient(135deg,var(--gold),var(--vl));-webkit-background-clip:text;-webkit-text-fill-color:transparent" id="num-dest">—</div><div style="font-size:.85rem;color:var(--t2);margin-top:.75rem;line-height:1.65" id="num-dest-desc"></div></div>
+    </div>
+    <div class="g3">
+      <div class="card"><div class="ctitle">Año personal</div><div style="font-size:3rem;font-weight:900;color:var(--gold)" id="num-yr">—</div><div style="font-size:.82rem;color:var(--t2);margin-top:.5rem" id="num-yr-d"></div></div>
+      <div class="card"><div class="ctitle">Mes personal</div><div style="font-size:3rem;font-weight:900;color:var(--vl)" id="num-mo">—</div><div style="font-size:.82rem;color:var(--t2);margin-top:.5rem" id="num-mo-d"></div></div>
+      <div class="card"><div class="ctitle">Día personal</div><div style="font-size:3rem;font-weight:900;color:var(--pink)" id="num-dy">—</div><div style="font-size:.82rem;color:var(--t2);margin-top:.5rem" id="num-dy-d"></div></div>
+    </div>
+    <div class="disc">La numerología es una práctica simbólica de reflexión. Los números son orientativos.</div>
+  </div>
+
+  <!-- ═══ DREAMS ═══ -->
+  <div class="page" id="page-dreams">
+    <div class="card card-glow" style="padding:2rem">
+      <div class="ctitle" style="display:flex;align-items:center;gap:.4rem"><i class="ph-duotone ph-moon-stars" style="color:var(--vl);font-size:1rem"></i> Interpretación de sueños</div>
+      <div class="aform">
+        <div class="fg"><label class="fl">Describe tu sueño</label><textarea id="dream-txt" rows="5" placeholder="Esta noche soñé que...&#10;Incluye emociones, colores, personas y símbolos."></textarea></div>
+        <div class="fg"><label class="fl">¿Cómo te sentiste al despertar?</label>
+          <select id="dream-feel"><option value="peaceful">Tranquilo/a</option><option value="confused">Confundido/a</option><option value="anxious">Ansioso/a</option><option value="excited">Emocionado/a</option><option value="sad">Triste</option><option value="scared">Asustado/a</option><option value="happy">Alegre</option></select></div>
+        <button class="btn btn-v" onclick="interpretDream()"><span id="dream-sp" class="spin" style="display:none"></span><i class="ph-duotone ph-moon-stars"></i> Interpretar</button>
+      </div>
+    </div>
+    <div class="card" id="dream-result" style="display:none"><div class="ctitle">✦ Interpretación</div><div id="dream-result-body"></div></div>
+    <div class="card"><div class="ctitle">Símbolos oníricos</div><div class="g4" id="dream-symbols"></div></div>
+    <div class="disc">Interpretaciones simbólicas y orientativas. Consulta un profesional si los sueños afectan tu bienestar.</div>
+  </div>
+
+  <!-- ═══ MENTOR ═══ -->
+  <div class="page" id="page-mentor">
+    <div class="card card-glow">
+      <div class="shd" style="margin-bottom:.75rem"><div><div class="stitle" style="display:flex;align-items:center;gap:.5rem"><i class="ph-duotone ph-sparkle" style="color:var(--pink)"></i> Tu Mentor Místico</div><div class="ssub">Reflexiona, explora y crece.</div></div><button class="btn btn-g btn-sm" onclick="clearChat()"><i class="ph-bold ph-arrow-counter-clockwise"></i> Nueva sesión</button></div>
+      <div id="mentor-chat"></div>
+      <div class="ci"><textarea id="mentor-in" placeholder="Escribe tu pregunta..." rows="2" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMentor()}"></textarea><button class="btn btn-v" onclick="sendMentor()" style="flex-shrink:0;align-self:flex-end"><span id="mentor-sp" class="spin" style="display:none"></span><i class="ph-bold ph-paper-plane-tilt"></i></button></div>
+    </div>
+    <div class="g3" id="mentor-topics"></div>
+    <div class="disc">El Mentor IA es de reflexión y bienestar. No sustituye asesoría profesional.</div>
+  </div>
+
+  <!-- ═══ JOURNAL ═══ -->
+  <div class="page" id="page-journal">
+    <div class="shd"><div><div class="stitle" style="display:flex;align-items:center;gap:.5rem"><i class="ph-duotone ph-notebook" style="color:var(--vl)"></i> Mi Diario</div><div class="ssub">Reflexiones y análisis IA de tus entradas.</div></div><button class="btn btn-v btn-sm" onclick="openM('m-journal')"><i class="ph-bold ph-plus"></i> Nueva</button></div>
+    <div class="tabs" id="journal-tabs">
+      <div class="tab active" onclick="filterJ('all',this)">Todas</div>
+      <div class="tab" onclick="filterJ('mood',this)">💭</div>
+      <div class="tab" onclick="filterJ('dream',this)">🌙</div>
+      <div class="tab" onclick="filterJ('gratitude',this)">🙏</div>
+      <div class="tab" onclick="filterJ('goal',this)">🎯</div>
+      <div class="tab" onclick="filterJ('reflection',this)">🔮</div>
+    </div>
+    <div id="journal-list" style="display:flex;flex-direction:column;gap:.75rem"></div>
+  </div>
+
+  <!-- ═══ RITUALS ═══ -->
+  <div class="page" id="page-rituals">
+    <div class="tabs" id="ritual-tabs">
+      <div class="tab active" onclick="filterR('all',this)">Todos</div>
+      <div class="tab" onclick="filterR('prosperity',this)">💰</div>
+      <div class="tab" onclick="filterR('love',this)">❤</div>
+      <div class="tab" onclick="filterR('protection',this)">🛡</div>
+      <div class="tab" onclick="filterR('new-moon',this)">🌑</div>
+      <div class="tab" onclick="filterR('full-moon',this)">🌕</div>
+      <div class="tab" onclick="filterR('wellness',this)">✨</div>
+    </div>
+    <div class="g3" id="rituals-grid"></div>
+    <div class="disc">Los rituales son prácticas culturales y de bienestar. Se presentan como tradiciones simbólicas.</div>
+  </div>
+
+  <!-- ═══ GAMIFICATION ═══ -->
+  <div class="page" id="page-gamif">
+    <div class="g2">
+      <div class="card card-glow">
+        <div class="ctitle" style="display:flex;align-items:center;gap:.4rem"><i class="ph-duotone ph-trophy" style="color:var(--gold)"></i> Tu progreso</div>
+        <div style="display:flex;align-items:center;gap:1.5rem">
+          <div style="font-size:3.5rem;font-weight:900;letter-spacing:-2px;background:linear-gradient(135deg,var(--vl),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent" id="g-lvl">1</div>
+          <div style="flex:1"><div style="font-weight:700;font-size:1rem" id="g-title">Explorador Místico</div><div class="xpw"><div class="xpf" id="g-xpf" style="width:0%"></div></div><div style="font-size:.72rem;color:var(--t3);margin-top:.2rem" id="g-xpt"></div></div>
+        </div>
+      </div>
+      <div class="g2" style="grid-template-columns:1fr 1fr">
+        <div class="sc"><div class="sl" style="display:flex;align-items:center;gap:.3rem"><i class="ph-duotone ph-fire" style="color:var(--red)"></i> Racha</div><div class="sv" id="g-streak">0</div><div class="ss">días</div></div>
+        <div class="sc"><div class="sl" style="display:flex;align-items:center;gap:.3rem"><i class="ph-duotone ph-star-four" style="color:var(--vl)"></i> XP</div><div class="sv" id="g-pts">0</div><div class="ss">puntos</div></div>
+        <div class="sc"><div class="sl" style="display:flex;align-items:center;gap:.3rem"><i class="ph-duotone ph-notebook" style="color:var(--teal)"></i> Entradas</div><div class="sv" id="g-journals">0</div><div class="ss">diario</div></div>
+        <div class="sc"><div class="sl" style="display:flex;align-items:center;gap:.3rem"><i class="ph-duotone ph-trophy" style="color:var(--gold)"></i> Logros</div><div class="sv" id="g-bdgs">0</div><div class="ss">desbloqueados</div></div>
+      </div>
+    </div>
+    <div class="card"><div class="ctitle" style="display:flex;align-items:center;gap:.4rem"><i class="ph-duotone ph-medal" style="color:var(--gold)"></i> Insignias</div><div class="bg-grid" id="badge-grid"></div></div>
+    <div class="card"><div class="ctitle" style="display:flex;align-items:center;gap:.4rem"><i class="ph-duotone ph-calendar-dots" style="color:var(--vl)"></i> Actividad (últimos 60 días)</div><div id="act-cal" style="display:flex;flex-wrap:wrap;gap:3px"></div></div>
+  </div>
+
+  <!-- ═══ SETTINGS ═══ -->
+  <div class="page" id="page-settings">
+    <div class="card">
+      <div class="ctitle" style="display:flex;align-items:center;gap:.4rem"><i class="ph-duotone ph-robot" style="color:var(--vl)"></i> Modelo de IA activo</div>
+      <div id="settings-model-options" style="display:flex;flex-direction:column;gap:.6rem"></div>
+    </div>
+    <div class="card">
+      <div class="ctitle" style="display:flex;align-items:center;gap:.4rem"><i class="ph-duotone ph-key" style="color:var(--gold)"></i> Claves de API</div>
+      <div class="aform">
+        <div class="fg"><label class="fl">Google Gemini API Key <span class="tag-free model-tag">GRATIS en aistudio.google.com</span></label><input id="s-gemini" type="password" placeholder="AIza..."/></div>
+        <div class="fg"><label class="fl">OpenAI API Key <span class="tag-paid model-tag">DE PAGO</span></label><input id="s-openai" type="password" placeholder="sk-..."/></div>
+        <div class="fg"><label class="fl">Groq API Key <span class="tag-free model-tag">GRATIS en console.groq.com/keys</span></label><input id="s-groq" type="password" placeholder="gsk-..."/></div>
+        
+        <!-- OpenRouter Settings Group -->
+        <div class="fg" id="settings-openrouter-group" style="display:none;background:var(--bg3);border:1px solid var(--brd2);border-radius:10px;padding:1rem;gap:.75rem;margin-bottom:.5rem;flex-direction:column">
+          <div class="fg"><label class="fl">OpenRouter API Key <span class="tag-free model-tag">GRATIS/DE PAGO en openrouter.ai/keys</span></label><input id="s-openrouter" type="password" placeholder="sk-or-..."/></div>
+          <div class="fg"><label class="fl">Seleccionar Modelo de OpenRouter</label>
+            <div style="display:flex;gap:.5rem;align-items:center">
+              <select id="s-openrouter-model" style="flex:1" onchange="S.settings.openrouterModel=this.value;persistSettings()"></select>
+              <button class="btn btn-g btn-sm" onclick="fetchOpenRouterModels('s-openrouter-model','s-openrouter-search')"><i class="ph-duotone ph-arrows-clockwise"></i> Ver todos</button>
+            </div>
+            <input id="s-openrouter-search" type="text" placeholder="🔍 Buscar modelo (ej: llama, gemini)..." style="display:none;margin-top:.35rem" oninput="filterOpenRouterDropdown('s-openrouter-model',this.value)"/>
+          </div>
+        </div>
+
+        <button class="btn btn-v btn-sm" onclick="saveAISettings()">Guardar claves</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ctitle" style="display:flex;align-items:center;gap:.4rem"><i class="ph-duotone ph-film-strip" style="color:var(--pink)"></i> Video de fondo</div>
+      <div style="display:flex;flex-direction:column;gap:.6rem">
+        <div id="video-options" style="display:flex;gap:.6rem;flex-wrap:wrap"></div>
+        <div class="disc">Los videos detectados en /videos/ aparecen aquí. Agrega más archivos MP4 en <code style="color:var(--vl)">backend/public/videos/</code></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ctitle" style="display:flex;align-items:center;gap:.4rem"><i class="ph-duotone ph-bell-ringing" style="color:var(--teal)"></i> Notificaciones</div>
+      <div style="display:flex;flex-direction:column;gap:.6rem" id="notif-list"></div>
+      <button class="btn btn-outline btn-sm" style="margin-top:.75rem" onclick="requestNotifPerm()"><i class="ph-duotone ph-bell"></i> Habilitar notificaciones del navegador</button>
+    </div>
+  </div>
+
+  <!-- ═══ ADMIN ═══ -->
+  <div class="page" id="page-admin">
+    <div class="g3">
+      <div class="sc"><div class="sl" style="display:flex;align-items:center;gap:.35rem"><i class="ph-duotone ph-users" style="color:var(--vl)"></i> Usuarios</div><div class="sv" id="a-users">—</div><div class="ss">registrados</div></div>
+      <div class="sc"><div class="sl" style="display:flex;align-items:center;gap:.35rem"><i class="ph-duotone ph-notebook" style="color:var(--teal)"></i> Diarios</div><div class="sv" id="a-journals">—</div><div class="ss">entradas</div></div>
+      <div class="sc"><div class="sl" style="display:flex;align-items:center;gap:.35rem"><i class="ph-duotone ph-robot" style="color:var(--pink)"></i> IA calls</div><div class="sv" id="a-ai">—</div><div class="ss">solicitudes</div></div>
+      <div class="sc"><div class="sl" style="display:flex;align-items:center;gap:.35rem"><i class="ph-duotone ph-check-circle" style="color:var(--green)"></i> Servidor</div><div class="sv" style="font-size:1rem">Online</div><div class="ss">puerto 3001</div></div>
+      <div class="sc"><div class="sl" style="display:flex;align-items:center;gap:.35rem"><i class="ph-duotone ph-database" style="color:var(--gold)"></i> Base de datos</div><div class="sv" style="font-size:1rem">SQLite</div><div class="ss">better-sqlite3</div></div>
+      <div class="sc"><div class="sl" style="display:flex;align-items:center;gap:.35rem"><i class="ph-duotone ph-film-strip" style="color:var(--t2)"></i> Videos</div><div class="sv" style="font-size:1rem">2</div><div class="ss">en /public/videos</div></div>
+    </div>
+    <div class="tabs" id="admin-tabs">
+      <div class="tab active" onclick="adminTab('users',this)" style="display:flex;align-items:center;gap:.4rem"><i class="ph-duotone ph-users"></i> Usuarios</div>
+      <div class="tab" onclick="adminTab('rituals',this)" style="display:flex;align-items:center;gap:.4rem"><i class="ph-duotone ph-flame"></i> Rituales</div>
+      <div class="tab" onclick="adminTab('agents',this)" style="display:flex;align-items:center;gap:.4rem"><i class="ph-duotone ph-robot"></i> Agentes IA</div>
+      <div class="tab" onclick="adminTab('system',this)" style="display:flex;align-items:center;gap:.4rem"><i class="ph-duotone ph-gear"></i> Sistema</div>
+    </div>
+
+    <!-- Users Tab -->
+    <div id="atab-users" class="card">
+      <div class="shd" style="margin-bottom:.75rem"><div class="ctitle" style="margin:0;display:flex;align-items:center;gap:.4rem"><i class="ph-duotone ph-users" style="color:var(--vl)"></i> Gestión de usuarios</div><button class="btn btn-v btn-sm" onclick="openUserModal()"><i class="ph-bold ph-plus"></i> Nuevo usuario</button></div>
+      <div class="tw"><table><thead><tr><th>Nombre</th><th>Correo</th><th>Signo</th><th>Rol</th><th>Plan</th><th>Acciones</th></tr></thead><tbody id="a-users-tbody"></tbody></table></div>
+    </div>
+
+    <!-- Rituals Tab -->
+    <div id="atab-rituals" class="card" style="display:none">
+      <div class="shd" style="margin-bottom:.75rem"><div class="ctitle" style="margin:0;display:flex;align-items:center;gap:.4rem"><i class="ph-duotone ph-flame" style="color:var(--gold)"></i> Gestión de rituales</div><button class="btn btn-v btn-sm" onclick="openRitualModal()"><i class="ph-bold ph-plus"></i> Nuevo ritual</button></div>
+      <div class="tw"><table><thead><tr><th>Icono</th><th>Nombre</th><th>Categoría</th><th>Tipo</th><th>Estado</th><th>Acciones</th></tr></thead><tbody id="a-rituals-tbody"></tbody></table></div>
+    </div>
+
+    <!-- Agents Tab -->
+    <div id="atab-agents" class="card" style="display:none">
+      <div class="ctitle" style="display:flex;align-items:center;gap:.4rem"><i class="ph-duotone ph-robot" style="color:var(--pink)"></i> Configura el contexto (system prompt) de cada agente IA</div>
+      <div style="display:flex;flex-direction:column;gap:.75rem" id="agent-cards"></div>
+      <button class="btn btn-v btn-sm" style="margin-top:.75rem" onclick="saveAgentContexts()"><i class="ph-bold ph-floppy-disk"></i> Guardar contextos</button>
+    </div>
+
+    <!-- System Tab -->
+    <div id="atab-system" class="card" style="display:none">
+      <div class="ctitle">Configuración del sistema</div>
+      <div style="display:flex;flex-direction:column;gap:.75rem">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:.7rem 1rem;background:var(--bg3);border-radius:8px;border:1px solid var(--brd2)">
+          <div>
+            <div style="font-weight:600;font-size:.85rem">API Base URL</div>
+            <code style="font-size:.78rem;color:var(--vl)" id="sys-api-url">http://localhost:3001/api/v1</code>
+          </div>
+          <button class="btn btn-g btn-sm" onclick="testConnection()"><i class="ph-duotone ph-plugs"></i> Probar Conexión</button>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:.7rem 1rem;background:var(--bg3);border-radius:8px;border:1px solid var(--brd2)">
+          <div>
+            <div style="font-weight:600;font-size:.85rem">Base de datos SQLite</div>
+            <div style="font-size:.78rem;color:var(--t2)" id="sys-db-status">Estado: better-sqlite3 activa</div>
+          </div>
+          <button class="btn btn-g btn-sm" onclick="verifyDatabase()"><i class="ph-duotone ph-database"></i> Diagnóstico DB</button>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:.7rem 1rem;background:var(--bg3);border-radius:8px;border:1px solid var(--brd2)">
+          <div>
+            <div style="font-weight:600;font-size:.85rem">Videos de fondo detectados</div>
+            <div style="font-size:.78rem;color:var(--t2)" id="sys-videos-info">2 MP4 en public/videos/</div>
+          </div>
+          <button class="btn btn-g btn-sm" onclick="go('settings')"><i class="ph-duotone ph-film-strip"></i> Administrar Videos</button>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:.7rem 1rem;background:var(--bg3);border-radius:8px;border:1px solid var(--brd2)">
+          <div>
+            <div style="font-weight:600;font-size:.85rem">Modelo IA activo</div>
+            <div style="font-size:.78rem;color:var(--t2);display:flex;align-items:center;gap:.35rem">
+              Proveedor: <span id="sys-model" class="pill pg">Mock</span>
+            </div>
+          </div>
+          <button class="btn btn-gold btn-sm" onclick="testAIModel()"><i class="ph-duotone ph-sparkle"></i> Probar IA Activa</button>
+        </div>
+      </div>
+      <div style="margin-top:1.5rem">
+        <div class="ctitle">Para activar IA real en el servidor — edita backend/.env:</div>
+        <pre style="background:var(--bg);border:1px solid var(--brd2);border-radius:8px;padding:1rem;font-size:.8rem;color:var(--teal);overflow-x:auto">GEMINI_API_KEY=tu_clave_aqui
+OPENAI_API_KEY=tu_clave_aqui
+GROQ_API_KEY=tu_clave_aqui</pre>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+</div><!-- /app -->
+
+<script>
+function togglePassword(inputId, toggleEl) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  const icon = toggleEl.querySelector('i');
+  if (input.type === 'password') {
+    input.type = 'text';
+    if (icon) icon.className = 'ph-duotone ph-eye';
+  } else {
+    input.type = 'password';
+    if (icon) icon.className = 'ph-duotone ph-eye-slash';
+  }
+}
+/* ══════════════════════════════════════════════════════
+   DATA
+══════════════════════════════════════════════════════ */
+const TAROT = [
+  {num:'0',name:'El Loco',sym:'🌟',up:'Inicio, espontaneidad, libertad, nuevo comienzo',rev:'Imprudencia, falta de dirección'},
+  {num:'I',name:'El Mago',sym:'⚡',up:'Voluntad, poder, habilidad, manifestación',rev:'Manipulación, talento sin uso'},
+  {num:'II',name:'La Sacerdotisa',sym:'🌙',up:'Intuición, misterio, sabiduría interior',rev:'Secretos, desconexión intuitiva'},
+  {num:'III',name:'La Emperatriz',sym:'🌺',up:'Abundancia, creatividad, fertilidad, naturaleza',rev:'Dependencia, bloqueo creativo'},
+  {num:'IV',name:'El Emperador',sym:'👑',up:'Autoridad, estructura, estabilidad, liderazgo',rev:'Rigidez, control excesivo'},
+  {num:'V',name:'El Hierofante',sym:'✝',up:'Tradición, espiritualidad, enseñanza, guía',rev:'Rebeldía, dogma, nueva vía'},
+  {num:'VI',name:'Los Amantes',sym:'❤',up:'Amor, armonía, elección, valores profundos',rev:'Desacuerdo, desequilibrio, decisión errónea'},
+  {num:'VII',name:'El Carro',sym:'🏆',up:'Control, victoria, determinación, avance',rev:'Pérdida de control, agresión'},
+  {num:'VIII',name:'La Fuerza',sym:'🦁',up:'Valor, paciencia, compasión, dominio interior',rev:'Inseguridad, debilidad interna'},
+  {num:'IX',name:'El Ermitaño',sym:'🕯',up:'Búsqueda interior, guía, soledad elegida',rev:'Aislamiento, soledad no deseada'},
+  {num:'X',name:'La Rueda de la Fortuna',sym:'☸',up:'Ciclos, suerte, destino, punto de inflexión',rev:'Mala suerte, resistencia al cambio'},
+  {num:'XI',name:'La Justicia',sym:'⚖',up:'Verdad, equidad, ley, causa y efecto',rev:'Injusticia, desequilibrio, deshonestidad'},
+  {num:'XII',name:'El Colgado',sym:'🔄',up:'Pausa, rendición, nueva perspectiva',rev:'Demora, resistencia, martirio'},
+  {num:'XIII',name:'La Muerte',sym:'🦋',up:'Transformación, final, transición, renovación',rev:'Resistencia al cambio, estancamiento'},
+  {num:'XIV',name:'La Templanza',sym:'💧',up:'Equilibrio, paciencia, moderación, propósito',rev:'Exceso, impaciencia, desbalance'},
+  {num:'XV',name:'El Diablo',sym:'⛓',up:'Sombra, adicción, materialismo, ataduras',rev:'Liberación, ruptura de cadenas'},
+  {num:'XVI',name:'La Torre',sym:'🔥',up:'Cambio brusco, revelación, despertar',rev:'Evitar catástrofe, resistencia'},
+  {num:'XVII',name:'La Estrella',sym:'⭐',up:'Esperanza, inspiración, fe, renovación',rev:'Desesperanza, desconexión, pérdida de fe'},
+  {num:'XVIII',name:'La Luna',sym:'🌙',up:'Ilusión, miedo, subconsciente, confusión',rev:'Claridad interior, liberación del miedo'},
+  {num:'XIX',name:'El Sol',sym:'☀',up:'Éxito, vitalidad, alegría, claridad',rev:'Opacidad, exceso, ilusión'},
+  {num:'XX',name:'El Juicio',sym:'📯',up:'Renacimiento, llamado interior, reflexión',rev:'Duda, juicio externo, autoflagelación'},
+  {num:'XXI',name:'El Mundo',sym:'🌍',up:'Logro, completitud, integración, viaje',rev:'Incompletitud, atajos, demora'},
+];
+
+const ZODIAC = [
+  {sign:'Aries',sym:'♈',emoji:'🐏',dates:'21 Mar–19 Abr',el:'Fuego',planet:'Marte',essence:'Pionero nato. Tu fuego te impulsa a la acción y el liderazgo.',traits:['Valiente','Dinámico','Impulsivo','Apasionado']},
+  {sign:'Tauro',sym:'♉',emoji:'🐂',dates:'20 Abr–20 May',el:'Tierra',planet:'Venus',essence:'Estabilidad y sensualidad. Construyes con paciencia lo que dura para siempre.',traits:['Fiel','Sensible','Persistente','Práctico']},
+  {sign:'Géminis',sym:'♊',emoji:'👯',dates:'21 May–20 Jun',el:'Aire',planet:'Mercurio',essence:'Mente brillante y versátil. La curiosidad es tu motor eterno.',traits:['Versátil','Curioso','Social','Ingenioso']},
+  {sign:'Cáncer',sym:'♋',emoji:'🦀',dates:'21 Jun–22 Jul',el:'Agua',planet:'Luna',essence:'El hogar del corazón lo llevas contigo. Tu intuición es profunda.',traits:['Empático','Protector','Intuitivo','Nostálgico']},
+  {sign:'Leo',sym:'♌',emoji:'🦁',dates:'23 Jul–22 Ago',el:'Fuego',planet:'Sol',essence:'Tu luz no pide permiso. Lideras con el corazón abierto y generoso.',traits:['Carismático','Generoso','Creativo','Orgulloso']},
+  {sign:'Virgo',sym:'♍',emoji:'🌾',dates:'23 Ago–22 Sep',el:'Tierra',planet:'Mercurio',essence:'El detalle y el servicio son tu camino hacia la excelencia.',traits:['Analítico','Perfeccionista','Servicial','Inteligente']},
+  {sign:'Libra',sym:'♎',emoji:'⚖',dates:'23 Sep–22 Oct',el:'Aire',planet:'Venus',essence:'La armonía es tu búsqueda eterna. Medias con elegancia y justicia.',traits:['Diplomático','Encantador','Justo','Indeciso']},
+  {sign:'Escorpio',sym:'♏',emoji:'🦂',dates:'23 Oct–21 Nov',el:'Agua',planet:'Plutón',essence:'Profundo como el océano. Tu transformación es tu mayor poder.',traits:['Intenso','Misterioso','Apasionado','Transformador']},
+  {sign:'Sagitario',sym:'♐',emoji:'🏹',dates:'22 Nov–21 Dic',el:'Fuego',planet:'Júpiter',essence:'El horizonte siempre te llama. Buscas sabiduría en cada rincón.',traits:['Libre','Filosófico','Optimista','Aventurero']},
+  {sign:'Capricornio',sym:'♑',emoji:'🐐',dates:'22 Dic–19 Ene',el:'Tierra',planet:'Saturno',essence:'Escala la montaña más alta con paciencia y determinación.',traits:['Ambicioso','Disciplinado','Responsable','Práctico']},
+  {sign:'Acuario',sym:'♒',emoji:'🌊',dates:'20 Ene–18 Feb',el:'Aire',planet:'Urano',essence:'Ves el futuro donde otros ven el presente. Tu visión es tu legado.',traits:['Innovador','Humanista','Original','Independiente']},
+  {sign:'Piscis',sym:'♓',emoji:'🐟',dates:'19 Feb–20 Mar',el:'Agua',planet:'Neptuno',essence:'Soñador nato. Tu compasión y arte tocan lo invisible.',traits:['Soñador','Empático','Artístico','Espiritual']},
+];
+
+const NUM_M = {
+  1:{name:'El Líder',desc:'Independencia, liderazgo y acción pionera.'},
+  2:{name:'El Diplomático',desc:'Cooperación, sensibilidad y equilibrio.'},
+  3:{name:'El Creador',desc:'Expresión creativa, comunicación y alegría.'},
+  4:{name:'El Constructor',desc:'Disciplina, trabajo duro y fundamentos sólidos.'},
+  5:{name:'El Aventurero',desc:'Libertad, cambio y versatilidad.'},
+  6:{name:'El Sanador',desc:'Amor, responsabilidad y cuidado de los demás.'},
+  7:{name:'El Sabio',desc:'Análisis, intuición y búsqueda espiritual profunda.'},
+  8:{name:'El Ejecutivo',desc:'Poder, abundancia y manifestación material.'},
+  9:{name:'El Filántropo',desc:'Humanismo, compasión y servicio universal.'},
+  11:{name:'El Iluminado',desc:'Número maestro — inspiración e intuición elevada.'},
+  22:{name:'El Maestro Constructor',desc:'Número maestro — manifiesta sueños a escala global.'},
+  33:{name:'El Maestro Sanador',desc:'Número maestro — amor incondicional y enseñanza.'},
+};
+
+const NUM3_NAMES = ['Número de Manifestación','Número del Flujo','Número de Protección','Número del Alma'];
+
+const DEFAULT_RITUALS = [
+  {id:'r1',cat:'prosperity',icon:'💰',name:'Ritual de Abundancia Lunar',dur:'20 min',desc:'Atrae prosperidad en luna creciente con vela dorada.',steps:['Prepara tu espacio en luna creciente','Enciende una vela dorada o verde','Escribe lo que deseas atraer','Coloca el papel bajo un vaso con agua de luna','Visualiza tu abundancia con gratitud','Deja la vela arder 9 minutos'],paid:false,status:'active'},
+  {id:'r2',cat:'prosperity',icon:'🌿',name:'Ritual del Imán Verde',dur:'15 min',desc:'Usa cuarzo verde y menta para atraer abundancia.',steps:['Limpia tu cuarzo verde con agua salada','Coloca hojas de menta a su alrededor','Repite tu afirmación de abundancia 3 veces','Carga el cristal bajo la luz del sol 3 horas','Llévalo en tu cartera'],paid:false,status:'active'},
+  {id:'r3',cat:'love',icon:'❤',name:'Ritual de Rosa y Canela',dur:'25 min',desc:'Invita el amor romántico en luna llena.',steps:['Escribe tu nombre y el tipo de amor que buscas','Espolvorea canela sobre el papel','Envuelve con pétalos de rosa roja','Ata con hilo rosado','Guárdalo tres noches'],paid:false,status:'active'},
+  {id:'r4',cat:'love',icon:'💕',name:'Meditación del Corazón Abierto',dur:'10 min',desc:'Abre tu chakra cardíaco al amor.',steps:['Siéntate cómodamente','Coloca las manos en el centro del pecho','Inhala amor, exhala gratitud 3 minutos','Visualiza luz verde emergiendo de tu corazón','Repite: "Soy amor. Recibo amor. Doy amor"'],paid:false,status:'active'},
+  {id:'r5',cat:'protection',icon:'🛡',name:'Escudo de Luz Blanca',dur:'10 min',desc:'Crea un campo protector de energía.',steps:['Enciende una vela blanca','Medita y visualiza luz blanca envolviéndote','Esparce sal negra en las esquinas','Declara: "Nada me afecta sin mi permiso"'],paid:false,status:'active'},
+  {id:'r6',cat:'protection',icon:'🧿',name:'Activación del Ojo Turco',dur:'5 min',desc:'Activa tu amuleto protector con intención.',steps:['Sujeta el amuleto con ambas manos','Cierra los ojos y respira profundo','Visualiza luz azul llenando el amuleto','Di 3 veces: "Proteges mi energía, amor y luz"'],paid:false,status:'active'},
+  {id:'r7',cat:'new-moon',icon:'🌑',name:'Siembra de Intenciones',dur:'30 min',desc:'Planta semillas de nuevos comienzos.',steps:['Silencio y oscuridad en luna nueva','Enciende vela morada','Escribe 3 intenciones específicas','Léelas en voz alta','Guarda el papel hasta la luna llena'],paid:false,status:'active'},
+  {id:'r8',cat:'full-moon',icon:'🌕',name:'Ritual de Liberación Lunar',dur:'20 min',desc:'Suelta lo que ya no te sirve.',steps:['Prepara un bol con agua y sal','Escribe lo que deseas liberar','Sumerge el papel en el agua','Agradece la experiencia','Vacía el agua en la tierra'],paid:false,status:'active'},
+  {id:'r9',cat:'wellness',icon:'✨',name:'Baño de Sales y Hierbas',dur:'40 min',desc:'Limpia y renueva tu campo energético.',steps:['Prepara baño con sales del Himalaya','Agrega lavanda y romero','Enciende velas','Sumérgete 20 minutos en meditación','Al salir, sécate de arriba hacia abajo'],paid:true,status:'active'},
+  {id:'r10',cat:'wellness',icon:'🕯',name:'Meditación de las Siete Velas',dur:'35 min',desc:'Equilibra tus chakras con siete velas.',steps:['Coloca 7 velas de colores (roja a violeta)','Enciéndelas de raíz a corona','Respira y visualiza cada color en su chakra','3 minutos por chakra'],paid:true,status:'active'},
+];
+
+const BADGES_DEF = [
+  {id:'first_journal',name:'Primera Entrada',emoji:'✎',desc:'Primera entrada en el diario'},
+  {id:'streak_3',name:'Racha de 3',emoji:'🔥',desc:'3 días consecutivos'},
+  {id:'streak_7',name:'Semana Mística',emoji:'⚡',desc:'7 días consecutivos'},
+  {id:'streak_30',name:'Maestro Constante',emoji:'🌟',desc:'30 días consecutivos'},
+  {id:'tarot_first',name:'Primera Tirada',emoji:'🃏',desc:'Primera lectura de tarot'},
+  {id:'tarot_10',name:'Lector Iniciado',emoji:'🔮',desc:'10 tiradas de tarot'},
+  {id:'dream_first',name:'Onírico',emoji:'🌙',desc:'Primera interpretación de sueño'},
+  {id:'mentor_first',name:'Conexión IA',emoji:'✦',desc:'Primera conversación con Mentor'},
+  {id:'ritual_first',name:'Primer Ritual',emoji:'🕯',desc:'Primer ritual completado'},
+  {id:'journal_10',name:'Cronista Místico',emoji:'📖',desc:'10 entradas en el diario'},
+  {id:'level_5',name:'Explorador Avanzado',emoji:'◎',desc:'Nivel 5 alcanzado'},
+  {id:'level_10',name:'Maestro Místico',emoji:'👑',desc:'Nivel 10 alcanzado'},
+];
+
+const LEVEL_TITLES=['Explorador Místico','Iniciado del Cosmos','Guardián del Velo','Intérprete de Signos','Lector de Estrellas','Maestro de Arcanos','Guardián Lunar','Sabio Estelar','Archivista Cósmico','Maestro Místico'];
+
+const DREAM_SYMBOLS=[
+  {sym:'🌊',name:'Agua',meaning:'Emociones, subconsciente, fluidez'},
+  {sym:'🦋',name:'Mariposa',meaning:'Transformación, libertad, cambio'},
+  {sym:'🔥',name:'Fuego',meaning:'Pasión, purificación, energía vital'},
+  {sym:'🐍',name:'Serpiente',meaning:'Sabiduría, transformación, dualidad'},
+  {sym:'🏠',name:'Casa',meaning:'Tu mente, tu cuerpo, tu refugio interior'},
+  {sym:'✈️',name:'Volar',meaning:'Libertad, escape, perspectiva elevada'},
+  {sym:'🌳',name:'Árbol',meaning:'Crecimiento, raíces, conexión ancestral'},
+  {sym:'🔑',name:'Llave',meaning:'Soluciones, acceso, secretos revelados'},
+  {sym:'🪞',name:'Espejo',meaning:'Autoconocimiento, verdad, dualidad'},
+  {sym:'⭐',name:'Estrellas',meaning:'Guía, esperanza, destino'},
+  {sym:'🐦',name:'Pájaro',meaning:'Libertad, mensajes, elevación'},
+  {sym:'🌙',name:'Luna',meaning:'Intuición, ciclos, lo femenino divino'},
+];
+
+const AI_MODELS = [
+  {id:'mock',name:'Modo offline (sin IA)',desc:'Respuestas simuladas precargadas. No requiere clave.',tag:'free',provider:'mock'},
+  {id:'gemini-1.5-flash',name:'Gemini 1.5 Flash',desc:'Google · Rápido y gratuito con tu propia API Key.',tag:'free',provider:'gemini'},
+  {id:'gemini-2.0-flash-exp',name:'Gemini 2.0 Flash',desc:'Google · Más inteligente, también gratuito con API Key.',tag:'free',provider:'gemini'},
+  {id:'gemini-1.5-pro',name:'Gemini 1.5 Pro',desc:'Google · Mayor calidad, requiere plan de pago.',tag:'paid',provider:'gemini'},
+  {id:'llama-3.1-8b-instant',name:'Llama 3.1 8B (Groq)',desc:'Meta via Groq · Ultra rápido y gratuito con tu API Key.',tag:'free',provider:'groq'},
+  {id:'llama-3.3-70b-versatile',name:'Llama 3.3 70B (Groq)',desc:'Meta via Groq · Gran razonamiento, gratuito con API Key.',tag:'free',provider:'groq'},
+  {id:'gemma2-9b-it',name:'Gemma 2 9B (Groq)',desc:'Google via Groq · Excelente respuesta en español, gratis con API Key.',tag:'free',provider:'groq'},
+  {id:'gpt-4o-mini',name:'GPT-4o Mini',desc:'OpenAI · Económico y eficiente. Requiere clave OpenAI.',tag:'paid',provider:'openai'},
+  {id:'gpt-4o',name:'GPT-4o',desc:'OpenAI · El más potente de OpenAI. Requiere clave.',tag:'paid',provider:'openai'},
+  {id:'openrouter',name:'OpenRouter',desc:'Accede a cientos de modelos (Gemini, Llama, Claude). Requiere clave.',tag:'free',provider:'openrouter'},
+];
+
+const OPENROUTER_CURATED_MODELS = [
+  { id: 'google/gemini-2.0-flash-exp:free', name: 'Gemini 2.0 Flash Exp (Gratis)' },
+  { id: 'google/gemini-1.5-flash', name: 'Gemini 1.5 Flash (Rápido)' },
+  { id: 'meta-llama/llama-3-8b-instruct:free', name: 'Llama 3 8B Instruct (Gratis)' },
+  { id: 'meta-llama/llama-3.1-8b-instruct:free', name: 'Llama 3.1 8B Instruct (Gratis)' },
+  { id: 'mistralai/mistral-7b-instruct:free', name: 'Mistral 7B Instruct (Gratis)' },
+  { id: 'google/gemma-2-9b-it:free', name: 'Gemma 2 9B IT (Gratis)' },
+  { id: 'nousresearch/hermes-3-llama-3.1-405b:free', name: 'Hermes 3 Llama 3.1 405B (Gratis)' },
+  { id: 'deepseek/deepseek-chat', name: 'DeepSeek V3 (Económico)' },
+  { id: 'openai/gpt-4o-mini', name: 'GPT-4o Mini (OpenAI)' },
+  { id: 'anthropic/claude-3.5-sonnet', name: 'Claude 3.5 Sonnet (Premium)' },
+];
+
+const DEFAULT_AGENT_CONTEXTS = {
+  tarot:`Eres un intérprete de tarot experto, sabio y empático. Interpretas las cartas con narrativa fluida y profundidad simbólica. Siempre usas el nombre del usuario. Hablas en primera persona del presente. Nunca afirmas que predices el futuro; usas frases como "la energía sugiere", "las cartas invitan a reflexionar sobre". Mantén un tono cálido, esperanzador y transformador. Usa el signo zodiacal del usuario para personalizar la lectura. Máximo 350 palabras.`,
+  astro:`Eres un astrólogo experto y poético. Generas horóscopos diarios precisos y personalizados para cada signo. Incluyes siempre: energía del día, consejo principal, área de enfoque (amor/trabajo/bienestar) y número de la suerte del día. Nunca afirmas hechos futuros como certeza. Usa frases como "el cosmos sugiere", "la energía planetaria favorece". Tono: sofisticado, esperanzador y cálido. Máximo 250 palabras.`,
+  numerologia:`Eres un numerólogo místico. Interpretas los números del día con profundidad simbólica y narrativa evocadora. Cuando te den 4 números de 3 cifras (Manifestación, Flujo, Protección, Alma), explica cada uno brevemente y da un mensaje integrador del día. Conecta los números con el signo del usuario. Tono: místico, preciso y alentador. Máximo 200 palabras.`,
+  suenos:`Eres un intérprete de sueños con conocimiento en psicología junguiana, simbología cultural y tradiciones espirituales. Analizas sueños desde perspectivas múltiples: psicológica, simbólica, espiritual. Siempre claras que es una interpretación orientativa, no un diagnóstico. Identifica los símbolos principales del sueño. Ofrece 2-3 posibles significados. Termina con una pregunta reflexiva para el usuario. Máximo 300 palabras.`,
+  mentor:`Eres el Mentor Místico de Celesthyas. Acompañas a los usuarios en su viaje de autoconocimiento, bienestar y desarrollo espiritual. Respondes con sabiduría, empatía y prácticas concretas. Nunca das consejos médicos, psicológicos, financieros o legales. Cuando el usuario lo necesite, sugierere siempre consultar profesionales. Propones meditaciones, afirmaciones, rituales y reflexiones. Tono: cálido, sabio, sin dogmatismo. Máximo 250 palabras.`,
+};
+
+const NOTIF_CFG = [
+  {id:'daily_msg',label:'Mensaje del día',desc:'Tu energía diaria cada mañana',default:true},
+  {id:'night_reflect',label:'Reflexión nocturna',desc:'Invitación a escribir en tu diario',default:true},
+  {id:'affirmation',label:'Afirmación diaria',desc:'Afirmación positiva personalizada',default:false},
+  {id:'moon_phase',label:'Fases lunares',desc:'Avisos en luna nueva y llena',default:true},
+  {id:'streak_remind',label:'Recordatorio de racha',desc:'No pierdas tu racha diaria',default:true},
+];
+
+/* ══════════════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════════════ */
+const API_BASE = 'http://localhost:3001/api/v1';
+let S = {
+  token: localStorage.getItem('v_token')||null,
+  user:  JSON.parse(localStorage.getItem('v_user')||'null'),
+  journals: [],
+  gam: JSON.parse(localStorage.getItem('v_gam')||'null')||{streak:0,points:0,level:1,badges:[],journalCount:0,tarotCount:0,dreamCount:0,mentorCount:0,ritualCount:0},
+  sign: null,
+  lifeNum: null,
+  destNum: null,
+  isAdmin: false,
+  tarotMode: 'single',
+  astroMode: 'daily',
+  chatHistory: JSON.parse(localStorage.getItem('v_chat')||'[]'),
+  settings: JSON.parse(localStorage.getItem('v_settings')||'{"model":"gemini-1.5-flash","geminiKey":"","openaiKey":"","groqKey":"","openrouterKey":"","openrouterModel":"google/gemini-2.0-flash-exp:free"}'),
+  agentContexts: JSON.parse(localStorage.getItem('v_agents')||JSON.stringify(DEFAULT_AGENT_CONTEXTS)),
+  rituals: JSON.parse(localStorage.getItem('v_rituals')||JSON.stringify(DEFAULT_RITUALS)),
+  adminUsers: JSON.parse(localStorage.getItem('v_admin_users')||'[]'),
+  notifPrefs: JSON.parse(localStorage.getItem('v_notif')||'{}'),
+  videos: ['multimedia/logo_video.mp4','12133356_1920_1080_24fps.mp4','12202872_1920_1080_24fps.mp4'],
+  currentVideo: localStorage.getItem('v_video')||'multimedia/logo_video.mp4',
+};
+
+function persistGam(){ localStorage.setItem('v_gam',JSON.stringify(S.gam)); updateGamUI(); }
+function persistChat(){ localStorage.setItem('v_chat',JSON.stringify(S.chatHistory.slice(-40))); }
+function persistSettings(){ localStorage.setItem('v_settings',JSON.stringify(S.settings)); updateAIPill(); }
+function persistAgents(){ localStorage.setItem('v_agents',JSON.stringify(S.agentContexts)); }
+function persistRituals(){ localStorage.setItem('v_rituals',JSON.stringify(S.rituals)); }
+
+/* ══════════════════════════════════════════════════════
+   AI ENGINE
+══════════════════════════════════════════════════════ */
+async function callAI(prompt, agentKey) {
+  const ctx = S.agentContexts[agentKey] || '';
+  const model = S.settings.model || 'mock';
+  const provider = AI_MODELS.find(m=>m.id===model)?.provider || 'mock';
+
+  if (provider === 'gemini' && S.settings.geminiKey) {
+    return await callGemini(prompt, ctx, model, S.settings.geminiKey);
+  } else if (provider === 'openai' && S.settings.openaiKey) {
+    return await callOpenAIProxy(prompt, ctx, model, S.settings.openaiKey);
+  } else if (provider === 'groq' && S.settings.groqKey) {
+    return await callGroqProxy(prompt, ctx, model, S.settings.groqKey);
+  } else if (provider === 'openrouter' && S.settings.openrouterKey) {
+    const orModel = S.settings.openrouterModel || 'google/gemini-2.0-flash-exp:free';
+    return await callOpenRouterProxy(prompt, ctx, orModel, S.settings.openrouterKey);
+  }
+
+  // Fallback: If they selected a real AI model but DO NOT have a key,
+  // we call the backend global generator which uses the Admin's free Gemini key!
+  if (provider !== 'mock') {
+    return await callGlobalAI(prompt + "\n\nContexto: " + ctx, agentKey);
+  }
+
+  return null; // fallback to mock
+}
+
+async function callGlobalAI(prompt, agentKey) {
+  try {
+    const r = await fetch(API_BASE + '/ai/proxy/generate', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+S.token},
+      body:JSON.stringify({prompt, agentKey})
+    });
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.message || 'Global generator error');
+    return d.content || 'Sin respuesta.';
+  } catch(e) {
+    console.error('Global AI error:', e);
+    toast('Error conectando con la IA global de Celesthyas: ' + e.message, 'err');
+    return null;
+  }
+}
+
+async function callOpenRouterProxy(prompt, system, model, key) {
+  try {
+    const r = await fetch(API_BASE + '/ai/proxy/openrouter', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+S.token},
+      body:JSON.stringify({model, messages:[{role:'system',content:system},{role:'user',content:prompt}], apiKey:key})
+    });
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.message || 'OpenRouter proxy error');
+    return d.content || 'Sin respuesta.';
+  } catch(e) {
+    console.error('OpenRouter proxy error:', e);
+    toast('Error con OpenRouter: ' + e.message, 'err');
+    return null;
+  }
+}
+
+async function callGroqProxy(prompt, system, model, key) {
+  try {
+    const r = await fetch(API_BASE + '/ai/proxy/groq', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+S.token},
+      body:JSON.stringify({model, messages:[{role:'system',content:system},{role:'user',content:prompt}], apiKey:key})
+    });
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.message || 'Groq proxy error');
+    return d.content || 'Sin respuesta.';
+  } catch(e) {
+    console.error('Groq proxy error:', e);
+    toast('Error con Groq: ' + e.message, 'err');
+    return null;
+  }
+}
+
+async function callGemini(prompt, system, model, key) {
+  try {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`;
+    const body = {
+      systemInstruction: system ? { parts:[{text:system}] } : undefined,
+      contents: [{role:'user', parts:[{text:prompt}]}],
+      generationConfig: { temperature:0.8, maxOutputTokens:600 }
+    };
+    const r = await fetch(url, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.error?.message || 'Gemini error');
+    return d.candidates?.[0]?.content?.parts?.[0]?.text || 'No se obtuvo respuesta.';
+  } catch(e) {
+    console.error('Gemini error:', e);
+    toast('Error con Gemini: ' + e.message, 'err');
+    return null;
+  }
+}
+
+async function callOpenAIProxy(prompt, system, model, key) {
+  try {
+    const r = await fetch(API_BASE + '/ai/proxy/openai', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+S.token},
+      body:JSON.stringify({model, messages:[{role:'system',content:system},{role:'user',content:prompt}], apiKey:key})
+    });
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.message || 'OpenAI proxy error');
+    return d.content || 'Sin respuesta.';
+  } catch(e) {
+    console.error('OpenAI proxy error:', e);
+    toast('Error con OpenAI: ' + e.message, 'err');
+    return null;
+  }
+}
+
+function getAIPillClass() {
+  const model = S.settings.model || 'mock';
+  const m = AI_MODELS.find(x=>x.id===model);
+  if (!m || m.id==='mock') return 'ai-mock';
+  return m.tag==='free' ? 'ai-free' : 'ai-paid';
+}
+function getAIPillLabel() {
+  const m = AI_MODELS.find(x=>x.id===S.settings.model);
+  if (!m || m.id==='mock') return '🤖 Offline';
+  return (m.tag==='free'?'🟢 ':' 💎 ') + m.name;
+}
+function updateAIPill() {
+  const cls = getAIPillClass();
+  const lbl = getAIPillLabel();
+  document.querySelectorAll('#tb-ai-pill,.ai-model-pill[id="tarot-model-pill"]').forEach(el=>{
+    if(el){ el.className='ai-model-pill '+cls; el.textContent=lbl; }
+  });
+  const p = document.getElementById('tarot-model-pill');
+  if(p){ p.className='ai-model-pill '+cls+' '; p.style.fontSize='.68rem'; p.textContent=lbl; }
+  const sys = document.getElementById('sys-model');
+  if(sys) { sys.textContent = AI_MODELS.find(m=>m.id===S.settings.model)?.name||'Mock'; }
+}
+
+/* ══════════════════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════════════════ */
+let _tt;
+function toast(msg,type='ok'){
+  const el=document.getElementById('toast');
+  el.textContent=(type==='ok'?'✓ ':type==='err'?'✕ ':'ℹ ')+msg;
+  el.className='show '+type;
+  clearTimeout(_tt);
+  _tt=setTimeout(()=>el.className='',3500);
+}
+
+/* ══════════════════════════════════════════════════════
+   API
+══════════════════════════════════════════════════════ */
+async function api(method,path,body){
+  const opts={method,headers:{'Content-Type':'application/json'}};
+  if(S.token) opts.headers['Authorization']='Bearer '+S.token;
+  if(body) opts.body=JSON.stringify(body);
+  try{
+    const r=await fetch(API_BASE+path,opts);
+    const d=await r.json().catch(()=>({}));
+    return{ok:r.ok,data:d};
+  }catch(e){return{ok:false,data:{message:'Sin conexión al servidor.'}};}
+}
+
+/* ══════════════════════════════════════════════════════
+   AUTH
+══════════════════════════════════════════════════════ */
+function authTab(t){
+  document.querySelectorAll('.atab').forEach((el,i)=>el.classList.toggle('active',(i===0&&t==='login')||(i===1&&t==='register')));
+  document.getElementById('form-login').style.display=t==='login'?'flex':'none';
+  document.getElementById('form-reg').style.display=t==='register'?'flex':'none';
+  document.getElementById('auth-err').style.display='none';
+}
+function showErr(m){const el=document.getElementById('auth-err');el.textContent=m;el.style.display='block';}
+
+async function doLogin(){
+  const em=document.getElementById('li-em').value.trim();
+  const pw=document.getElementById('li-pw').value;
+  if(!em||!pw){showErr('Completa todos los campos.');return;}
+  document.getElementById('li-sp').style.display='inline-block';
+  const r=await api('POST','/auth/login',{email:em,password:pw});
+  document.getElementById('li-sp').style.display='none';
+  if(r.ok){S.token=r.data.accessToken;S.user=r.data;localStorage.setItem('v_token',S.token);localStorage.setItem('v_user',JSON.stringify(S.user));bootApp();}
+  else showErr(r.data?.message||'Credenciales incorrectas.');
+}
+
+async function doRegister(){
+  const name=document.getElementById('re-name').value.trim();
+  const em=document.getElementById('re-em').value.trim();
+  const pw=document.getElementById('re-pw').value;
+  const bd=document.getElementById('re-bd').value;
+  const pl=document.getElementById('re-pl').value.trim();
+  if(!name||!em||!pw){showErr('Nombre, correo y contraseña son obligatorios.');return;}
+  if(pw.length<6){showErr('Contraseña mínimo 6 caracteres.');return;}
+  document.getElementById('re-sp').style.display='inline-block';
+  const body={fullName:name,email:em,password:pw};
+  if(bd)body.birthDate=bd;if(pl)body.birthPlace=pl;
+  const r=await api('POST','/auth/register',body);
+  document.getElementById('re-sp').style.display='none';
+  if(r.ok){S.token=r.data.accessToken;S.user=r.data;localStorage.setItem('v_token',S.token);localStorage.setItem('v_user',JSON.stringify(S.user));bootApp();}
+  else showErr(r.data?.message||'Error al registrar.');
+}
+
+function doLogout(){localStorage.removeItem('v_token');localStorage.removeItem('v_user');location.reload();}
+
+/* ══════════════════════════════════════════════════════
+   BOOT
+══════════════════════════════════════════════════════ */
+async function bootApp(){
+  document.getElementById('auth-gate').style.display='none';
+  document.getElementById('app').style.display='flex';
+
+  const em=S.user?.email||'';
+  S.isAdmin=em.toLowerCase().startsWith('admin');
+  if(S.isAdmin)document.getElementById('admin-nav').style.display='flex';
+
+  // Load latest profile from database to get correct birthDate/birthPlace
+  const rProfile = await api('GET', '/auth/profile');
+  if (rProfile.ok) {
+    S.user = { ...S.user, ...rProfile.data };
+    localStorage.setItem('v_user', JSON.stringify(S.user));
+  } else if (S.token) {
+    // If the token is invalid or the user doesn't exist, log out to prevent inconsistent state
+    doLogout();
+    return;
+  }
+
+  const bd=S.user?.birthDate?new Date(S.user.birthDate):null;
+  S.sign=bd?getSign(bd):ZODIAC[new Date().getDay()%12];
+  S.lifeNum=bd?lifeNumber(bd):(Math.floor(Math.random()*9)+1);
+  S.destNum=destinyNumber(S.user?.fullName||'Luna Garcia');
+
+  const name=S.user?.fullName||em.split('@')[0]||'Viajero';
+  document.getElementById('sb-av').textContent=name.charAt(0).toUpperCase();
+  document.getElementById('sb-nm').textContent=name;
+  document.getElementById('sb-sign').textContent=(S.sign?.emoji||'')+' '+S.sign?.sign+' · '+S.sign?.el;
+
+  const moon=getMoon();
+  document.getElementById('tb-moon').textContent=moon.icon+' '+moon.name;
+  document.getElementById('moon-icon').textContent=moon.icon;
+  document.getElementById('moon-name').textContent=moon.name;
+  document.getElementById('moon-desc').textContent=moon.desc;
+
+  const now=new Date();
+  document.getElementById('page-sub').textContent=now.toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'});
+
+  // Set video
+  setBgVideo(S.currentVideo);
+  updateAIPill();
+  loadJournals();
+  renderHome();
+  renderSettings();
+  go('home');
+}
+
+/* ══════════════════════════════════════════════════════
+   VIDEO BG
+══════════════════════════════════════════════════════ */
+function setBgVideo(filename){
+  S.currentVideo=filename;
+  localStorage.setItem('v_video',filename);
+  const v=document.getElementById('bg-video');
+  if(v){
+    const path = filename.includes('/') ? `/${filename}` : `/videos/${filename}`;
+    v.innerHTML=`<source src="${path}" type="video/mp4"/>`;
+    v.load();
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════════════════════ */
+const PAGE_TITLES={home:'Mi día',tarot:'Tarot',astro:'Astrología',num:'Numerología',dreams:'Sueños',mentor:'Mentor IA',journal:'Mi Diario',rituals:'Rituales',gamif:'Logros',settings:'Configuración',admin:'Super Admin'};
+function go(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
+  const pg=document.getElementById('page-'+id);
+  if(pg)pg.classList.add('active');
+  const ni=document.querySelector(`[data-page="${id}"]`);
+  if(ni)ni.classList.add('active');
+  document.getElementById('page-title').textContent=PAGE_TITLES[id]||id;
+  if(id==='astro')renderAstro();
+  if(id==='num')renderNumerology();
+  if(id==='journal')renderJournalPage();
+  if(id==='rituals')renderRituals('all');
+  if(id==='gamif')renderGamif();
+  if(id==='mentor'&&S.chatHistory.length===0)initMentor();
+  if(id==='settings')renderSettings();
+  if(id==='admin')renderAdmin();
+  if(id==='dreams')renderDreamSymbols();
+}
+
+/* ══════════════════════════════════════════════════════
+   HOME
+══════════════════════════════════════════════════════ */
+function renderHome(){
+  const name=S.user?.fullName?.split(' ')[0]||'Viajero';
+  const h=new Date().getHours();
+  const greeting=h<12?'Buenos días':h<18?'Buenas tardes':'Buenas noches';
+  const msgs=[
+    `${greeting}, ${name}. Tu energía ${S.sign?.sign||''} brilla con intensidad hoy. Confía en tu intuición.`,
+    `${greeting}, ${name}. El universo conspira a tu favor. Mantén la mente abierta y el corazón agradecido.`,
+    `${greeting}, ${name}. Hoy es un día para abrirte a nuevas posibilidades. El cosmos te apoya.`,
+    `${greeting}, ${name}. Los planetas favorecen la introspección. Es tu momento de crecer.`,
+  ];
+  document.getElementById('home-lbl').textContent=`✦ ${greeting.toUpperCase()}, ${name.toUpperCase()}`;
+  document.getElementById('home-msg').textContent=msgs[new Date().getDate()%msgs.length];
+  document.getElementById('home-energy').textContent=getDailyEnergy();
+  const items=getDailyItems();
+  document.getElementById('daily-grid').innerHTML=items.map(i=>`<div class="di"><div class="di-icon">${i.icon}</div><div class="di-lbl">${i.label}</div><div class="di-val">${i.val}</div></div>`).join('');
+  document.getElementById('home-aff').textContent=getDailyAff(name);
+  updateGamUI();
+}
+
+function getDailyEnergy(){
+  const e=['Alta','Media-alta','Tranquila y receptiva','Introspectiva','Expansiva y creativa'];
+  const energies=[
+    `Tu energía ${S.sign?.sign} favorece proyectos creativos y conexiones profundas. La posición de ${S.sign?.planet} amplifica tu magnetismo.`,
+    `La influencia de ${S.sign?.planet} potencia tu claridad mental. Ideal para tomar decisiones importantes hoy.`,
+    `La luna en ${S.sign?.sign} amplifica tu intuición. Escucha tu voz interior antes de actuar.`,
+    `Mercurio favorece la comunicación. Exprésate con autenticidad y abre espacios de diálogo significativo.`,
+  ];
+  return energies[new Date().getDate()%energies.length];
+}
+
+function getDailyItems(){
+  const d=new Date();
+  const dn=((d.getDate()+d.getMonth()+d.getFullYear())%9)+1;
+  const colors=['Violeta Místico','Dorado Solar','Blanco Lunar','Índigo Profundo','Verde Esmeralda','Carmesí','Plateado','Naranja Ámbar','Negro Sagrado'];
+  const moon=getMoon();
+  return[
+    {icon:'⚡',label:'Energía',val:['Alta','Media-alta','Tranquila','Introspectiva','Expansiva'][d.getDate()%5]},
+    {icon:'🎨',label:'Color del día',val:colors[dn-1]},
+    {icon:'🔢',label:'Número del día',val:dn.toString()},
+    {icon:'💡',label:'Consejo',val:['Respira conscientemente','Escribe algo que agradeces','Conecta con la naturaleza','Sé amable contigo mismo/a','Comparte tu luz'][d.getDate()%5]},
+    {icon:moon.icon,label:'Fase lunar',val:moon.name},
+    {icon:'💬',label:'Frase mística',val:['"Todo lo que busco existe dentro de mí."','"El universo siempre me guía hacia mi bien."','"Soy luz. Soy amor. Soy infinito/a."'][d.getDate()%3]},
+  ];
+}
+
+function getDailyAff(name){
+  const affs=[
+    `"${name}, eres un ser de luz con el poder de crear tu propia realidad."`,
+    `"Hoy, ${name}, tu intuición te guía hacia lo que tu alma necesita."`,
+    `"${name}, mereces amor, abundancia y paz en todos los aspectos de tu vida."`,
+    `"Tu energía ${S.sign?.sign||'cósmica'}, ${name}, es un regalo único para el mundo."`,
+    `"${name}, confías en el universo y el universo confía en ti."`,
+  ];
+  return affs[new Date().getDate()%affs.length];
+}
+
+/* ══════════════════════════════════════════════════════
+   GAMIFICATION
+══════════════════════════════════════════════════════ */
+function addXP(pts){
+  S.gam.points+=pts;
+  const lvl=Math.min(Math.floor(Math.sqrt(S.gam.points/10))+1,10);
+  if(lvl>S.gam.level) toast(`🌟 ¡Nivel ${lvl}! ${LEVEL_TITLES[lvl-1]}`,'info');
+  S.gam.level=lvl;
+  persistGam();
+}
+function unlockBadge(id){
+  if(S.gam.badges.includes(id))return;
+  S.gam.badges.push(id);
+  const bd=BADGES_DEF.find(b=>b.id===id);
+  if(bd)toast(`🏆 ${bd.emoji} ${bd.name}`,'info');
+  persistGam();
+}
+function checkBadges(){
+  if(S.gam.journalCount>=1)unlockBadge('first_journal');
+  if(S.gam.journalCount>=10)unlockBadge('journal_10');
+  if(S.gam.streak>=3)unlockBadge('streak_3');
+  if(S.gam.streak>=7)unlockBadge('streak_7');
+  if(S.gam.streak>=30)unlockBadge('streak_30');
+  if(S.gam.tarotCount>=1)unlockBadge('tarot_first');
+  if(S.gam.tarotCount>=10)unlockBadge('tarot_10');
+  if(S.gam.dreamCount>=1)unlockBadge('dream_first');
+  if(S.gam.mentorCount>=1)unlockBadge('mentor_first');
+  if(S.gam.ritualCount>=1)unlockBadge('ritual_first');
+  if(S.gam.level>=5)unlockBadge('level_5');
+  if(S.gam.level>=10)unlockBadge('level_10');
+}
+function updateGamUI(){
+  const lvl=S.gam.level,pts=S.gam.points;
+  const next=lvl*lvl*10,prev=(lvl-1)*(lvl-1)*10;
+  const pct=Math.min(((pts-prev)/(next-prev))*100,100);
+  const title=LEVEL_TITLES[lvl-1]||'Maestro Místico';
+  [['h-','streak','lvl','title','xpf','xpt','badges'],['g-','streak','lvl','title','xpf','xpt',null]].forEach(([p])=>{
+    if(document.getElementById(p+'streak'))document.getElementById(p+'streak').textContent=S.gam.streak;
+    if(document.getElementById(p+'lvl'))document.getElementById(p+'lvl').textContent=lvl;
+    if(document.getElementById(p+'title'))document.getElementById(p+'title').textContent=title;
+    if(document.getElementById(p+'xpf'))document.getElementById(p+'xpf').style.width=pct+'%';
+    if(document.getElementById(p+'xpt'))document.getElementById(p+'xpt').textContent=`${pts} XP`;
+    if(document.getElementById(p+'pts'))document.getElementById(p+'pts').textContent=pts;
+    if(document.getElementById(p+'journals'))document.getElementById(p+'journals').textContent=S.gam.journalCount;
+    if(document.getElementById(p+'bdgs'))document.getElementById(p+'bdgs').textContent=S.gam.badges.length;
+  });
+  document.getElementById('nb-xp').textContent=pts;
+  const mini=document.getElementById('h-badges');
+  if(mini){const r=BADGES_DEF.filter(b=>S.gam.badges.includes(b.id)).slice(-3);mini.innerHTML=r.map(b=>`<span class="pill pv">${b.emoji} ${b.name}</span>`).join('');}
+}
+function renderGamif(){
+  updateGamUI();
+  const bg=document.getElementById('badge-grid');
+  if(bg)bg.innerHTML=BADGES_DEF.map(b=>`<div class="bi ${S.gam.badges.includes(b.id)?'unlocked':'locked'}" title="${b.desc}"><span class="be">${b.emoji}</span><div class="bn">${b.name}</div></div>`).join('');
+  const cal=document.getElementById('act-cal');
+  if(!cal)return;
+  cal.innerHTML='';
+  const today=new Date();
+  for(let i=59;i>=0;i--){
+    const d=new Date(today);d.setDate(today.getDate()-i);
+    const key=d.toISOString().split('T')[0];
+    const has=S.journals.some(j=>j.createdAt?.split('T')[0]===key);
+    const div=document.createElement('div');
+    div.style.cssText=`width:10px;height:10px;border-radius:2px;background:${i===0?'var(--v)':has?'rgba(124,58,237,.4)':'var(--bg4)'}`;
+    cal.appendChild(div);
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   TAROT
+══════════════════════════════════════════════════════ */
+const TAROT_MODES={
+  single:{title:'Carta única',desc:'Una carta para orientarte en el momento presente.',slots:['Mensaje']},
+  three:{title:'3 Cartas',desc:'Pasado · Presente · Futuro',slots:['Pasado','Presente','Futuro']},
+  cross:{title:'Cruz Celta',desc:'La tirada más completa del tarot.',slots:['Situación','Desafío','Pasado','Futuro','Fundamento','Influencia','Temores','Externos','Esperanzas','Resultado']},
+  love:{title:'Amor',desc:'Explora tu vida sentimental.',slots:['Tú','Tu amor','Energía entre ustedes','Desafío','Potencial']},
+  work:{title:'Trabajo',desc:'Tu camino profesional.',slots:['Situación','Obstáculos','Recursos','Acción','Resultado']},
+  money:{title:'Abundancia',desc:'Tu relación con la prosperidad.',slots:['Actitud actual','Bloqueos','Recursos','Acción clave','Potencial']},
+  decision:{title:'Decisión',desc:'Clarifica una decisión importante.',slots:['Opción A Pro','Opción A Contra','Opción B Pro','Opción B Contra','Guía del corazón']},
+};
+function tarotMode(mode,el){
+  S.tarotMode=mode;
+  document.querySelectorAll('#tarot-tabs .tab').forEach(t=>t.classList.remove('active'));
+  if(el)el.classList.add('active');
+  const m=TAROT_MODES[mode];
+  document.getElementById('tarot-mode-title').textContent=m.title;
+  document.getElementById('tarot-mode-desc').textContent=m.desc;
+  document.getElementById('tarot-spread').innerHTML=m.slots.map((s,i)=>`<div class="spread-slot" id="slot-${i}"><div class="tarot-card-container" style="opacity:0.18;cursor:default"><div class="tarot-card-inner"><div class="tarot-card-back"><div style="font-size:.4rem;color:var(--t3);letter-spacing:1px;text-transform:uppercase;margin-top:.3rem">CELESTHYAS</div></div></div></div><div class="spread-label">${s}</div></div>`).join('');
+  document.getElementById('tarot-reading').style.display='none';
+}
+async function drawTarot(){
+  const mode=S.tarotMode;const m=TAROT_MODES[mode];
+  const deck=[...TAROT].sort(()=>Math.random()-.5);
+  const picked=deck.slice(0,m.slots.length);
+  const rev=picked.map(()=>Math.random()>.75);
+
+  document.getElementById('tarot-spread').innerHTML=m.slots.map((s,i)=>`
+    <div class="spread-slot" id="slot-${i}">
+      <div class="tarot-card-container" id="card-container-${i}">
+        <div class="tarot-card-inner">
+          <div class="tarot-card-back">
+            <div style="font-size:.5rem;color:var(--t3);letter-spacing:1px;text-transform:uppercase;margin-top:.5rem">CELESTHYAS</div>
+          </div>
+          <div class="tarot-card-front ${rev[i]?'inverted':''}" id="card-front-${i}">
+            <div style="font-size:.58rem;color:var(--t3);font-weight:700">${picked[i].num}</div>
+            <div style="font-size:2.2rem;margin:.25rem 0">${picked[i].sym}</div>
+            <div style="font-size:.72rem;color:var(--vl);font-weight:700;text-align:center;line-height:1.15;max-width:80px">${picked[i].name}</div>
+            ${rev[i]?'<div style="font-size:.55rem;color:var(--pink);margin-top:.2rem">↓ Invertida</div>':''}
+          </div>
+        </div>
+      </div>
+      <div class="spread-label">${s}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('tarot-reading').style.display='none';
+
+  picked.forEach((card,i)=>{
+    setTimeout(()=>{
+      const cardContainer=document.getElementById(`card-container-${i}`);
+      if(cardContainer) {
+        cardContainer.classList.add('flipped');
+        const slot=document.getElementById(`slot-${i}`);
+        if(slot) slot.classList.add('filled');
+      }
+    }, i * 300);
+  });
+
+  setTimeout(async()=>{
+    S.gam.tarotCount=(S.gam.tarotCount||0)+1;
+    addXP(15);checkBadges();
+    await generateTarotReading(mode,picked,rev,m.slots);
+  }, picked.length * 300 + 500);
+}
+async function generateTarotReading(mode,cards,rev,labels){
+  const name=S.user?.fullName?.split(' ')[0]||'Viajero';
+  const readDiv=document.getElementById('tarot-reading');
+  const body=document.getElementById('tarot-reading-body');
+  readDiv.style.display='block';
+  body.innerHTML=`<div class="ai-loading"><div class="dot-pulse"><span></span><span></span><span></span></div> Consultando la energía de las cartas...</div>`;
+  readDiv.scrollIntoView({behavior:'smooth',block:'start'});
+
+  const prompt=`Lectura de tarot para ${name} (${S.sign?.sign||'—'}). 
+Modo: ${TAROT_MODES[mode].title}.
+Cartas extraídas:
+${cards.map((c,i)=>`- Posición "${labels[i]}": ${c.num} ${c.name} ${rev[i]?'(Invertida)':'(Directa)'} — Significado: ${rev[i]?c.rev:c.up}`).join('\n')}
+
+Por favor proporciona una lectura narrativa personalizada y convincente, integrando todas las cartas.`;
+
+  const aiText=await callAI(prompt,'tarot');
+
+  if(aiText){
+    body.innerHTML=`<div class="ai-reading-box">${aiText}</div>`;
+  } else {
+    // Fallback mock reading
+    const lines=cards.map((card,i)=>`<div class="ji" style="margin-bottom:.6rem"><div class="jihd"><div style="display:flex;align-items:center;gap:.65rem"><span style="font-size:1.5rem">${card.sym}</span><div><div style="font-weight:700">${card.num} · ${card.name} ${rev[i]?'↓':''}</div><div style="font-size:.72rem;color:var(--t3)">${labels[i]}</div></div></div><span class="pill pv">${rev[i]?'Invertida':'Directa'}</span></div><div class="jibody" style="font-size:.85rem;color:var(--t2)">${rev[i]?card.rev:card.up}.</div></div>`).join('');
+    body.innerHTML=lines+`<div class="disc" style="margin-top:.75rem">Para interpretaciones con IA real, configura tu modelo en ⚙ Configuración.</div>`;
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   ASTROLOGY
+══════════════════════════════════════════════════════ */
+function renderAstro(){
+  const sign=S.sign||ZODIAC[0];
+  document.getElementById('astro-sym').textContent=sign.sym;
+  document.getElementById('astro-sign').textContent=sign.sign;
+  document.getElementById('astro-dates').textContent=sign.dates+' · '+sign.el+' · '+sign.planet;
+  document.getElementById('astro-essence').textContent=sign.essence;
+  document.getElementById('astro-traits').innerHTML=sign.traits.map(t=>`<span class="pill pv">${t}</span>`).join('');
+  loadAstroContent();
+  const cg=document.getElementById('zodiac-compat');
+  if(cg){
+    const scores={'Fuego-Fuego':95,'Fuego-Aire':88,'Fuego-Tierra':60,'Fuego-Agua':65,'Tierra-Tierra':90,'Tierra-Agua':85,'Tierra-Aire':65,'Tierra-Fuego':60,'Aire-Aire':88,'Aire-Fuego':85,'Aire-Agua':70,'Aire-Tierra':65,'Agua-Agua':90,'Agua-Tierra':85,'Agua-Fuego':65,'Agua-Aire':70};
+    cg.innerHTML=ZODIAC.map(z=>{const s=scores[sign.el+'-'+z.el]||70;const c=s>=85?'var(--green)':s>=70?'var(--gold)':'var(--t3)';return`<div class="zi"><span class="zs">${z.emoji}</span><div class="zn">${z.sign}</div><div class="zd" style="color:${c}">${s}%</div></div>`;}).join('');
+  }
+}
+function astroMode(mode,el){
+  S.astroMode=mode;
+  document.querySelectorAll('#astro-tabs .tab').forEach(t=>t.classList.remove('active'));
+  if(el)el.classList.add('active');
+  loadAstroContent();
+}
+async function loadAstroContent(){
+  const titles={daily:'Horóscopo diario',weekly:'Semanal',monthly:'Mensual',compat:'Compatibilidad',transits:'Tránsitos'};
+  const mode=S.astroMode||'daily';
+  document.getElementById('astro-ct-title').textContent=titles[mode];
+  document.getElementById('astro-ct-body').innerHTML='<div class="ai-loading"><div class="dot-pulse"><span></span><span></span><span></span></div> Cargando lectura...</div>';
+  await loadAstroAI();
+}
+async function loadAstroAI(){
+  const sign=S.sign?.sign||'Aries';const name=S.user?.fullName?.split(' ')[0]||'Viajero';
+  const moon=getMoon();const mode=S.astroMode||'daily';
+  const modeText={daily:`horóscopo del día de hoy (${new Date().toLocaleDateString('es-ES')})`,weekly:'horóscopo de esta semana',monthly:'horóscopo de este mes',compat:'análisis de compatibilidad con los 12 signos',transits:'principales tránsitos planetarios de este momento'};
+  const prompt=`Genera el ${modeText[mode]} para el signo ${sign}. Fase lunar actual: ${moon.name}. Usuario: ${name}. Incluye: energía general, amor, trabajo y bienestar. Tono cálido y esperanzador.`;
+  const aiText=await callAI(prompt,'astro');
+  const el=document.getElementById('astro-ct-body');
+  if(aiText){el.innerHTML=aiText.replace(/\n/g,'<br/>');}
+  else{el.innerHTML=getFallbackAstro(sign,mode,name,moon);}
+}
+function getFallbackAstro(sign,mode,name,moon){
+  const texts={
+    daily:`<p>Hoy, ${name}, tu energía <strong>${sign}</strong> está en fase de expansión. La posición de ${S.sign?.planet||'Venus'} favorece la claridad en tus comunicaciones.</p><br/><p><strong>❤ Amor:</strong> Momento ideal para expresar lo que sientes genuinamente.</p><br/><p><strong>💼 Trabajo:</strong> Tu intuición es tu mayor aliado. Confía en tus ideas.</p><br/><p><strong>✨ Bienestar:</strong> Tu cuerpo pide movimiento. Un breve paseo recargaría tu energía.</p><br/><p style="font-size:.78rem;color:var(--t3)">Fase lunar: ${moon.icon} ${moon.name} · Número de la suerte: ${((new Date().getDate()%9)||9)}</p>`,
+    weekly:`<p>${name}, esta semana el cosmos presenta oportunidades para ${sign}. El inicio trae energía mental clara.</p><br/><p>El <strong>miércoles</strong> puede traer una conversación importante. El <strong>fin de semana</strong> es ideal para rituales de gratitud y descanso restaurador.</p>`,
+    monthly:`<p>Este mes es poderoso para ${sign}, ${name}. Los planetas favorecen el crecimiento y la manifestación.</p><br/><p>Semana 1: Nuevos comienzos. Semana 2: Revisión. Semana 3: Máxima energía. Semana 4: Integración.</p>`,
+    compat:'Explora el cuadro de abajo para ver tus afinidades por elemento. Recuerda: cualquier relación puede florecer con comunicación y amor consciente.',
+    transits:`<p><strong>☉ Sol:</strong> Ilumina tu sector de identidad. <strong>☽ Luna ${moon.name}:</strong> ${moon.desc}.<br/><strong>♀ Venus:</strong> Favorece el amor y la abundancia. <strong>♂ Marte:</strong> Energía disponible para proyectos que te apasionen.</p>`,
+  };
+  return texts[mode]||texts.daily;
+}
+
+/* ══════════════════════════════════════════════════════
+   NUMEROLOGY
+══════════════════════════════════════════════════════ */
+function gen3DigitNumber(seed){let n=Math.abs(seed)*137+31;return (100+(n%900)).toString();}
+function getDaily3Numbers(){
+  const bd=S.user?.birthDate?new Date(S.user.birthDate):new Date(1990,0,1);
+  const now=new Date();
+  const base=(bd.getDate()*100+bd.getMonth()*10000+now.getDate()*7+now.getMonth()*13+now.getFullYear()*3);
+  return[0,1,2,3].map(i=>gen3DigitNumber(base+i*997+(S.lifeNum||1)*73));
+}
+function reduceNum(n){if(n===11||n===22||n===33)return n;while(n>9)n=n.toString().split('').map(Number).reduce((a,b)=>a+b,0);return n;}
+function lifeNumber(bd){const s=`${bd.getUTCDate()}${bd.getUTCMonth()+1}${bd.getUTCFullYear()}`;return reduceNum(s.split('').map(Number).reduce((a,b)=>a+b,0));}
+function destinyNumber(name){const vals={a:1,b:2,c:3,d:4,e:5,f:6,g:7,h:8,i:9,j:1,k:2,l:3,m:4,n:5,o:6,p:7,q:8,r:9,s:1,t:2,u:3,v:4,w:5,x:6,y:7,z:8};const sum=name.toLowerCase().replace(/[^a-z]/g,'').split('').map(c=>vals[c]||0).reduce((a,b)=>a+b,0);return reduceNum(sum);}
+function personalYear(bd,yr){const s=`${bd.getUTCDate()}${bd.getUTCMonth()+1}${yr}`;return reduceNum(s.split('').map(Number).reduce((a,b)=>a+b,0));}
+
+function renderNumerology(){
+  const now=new Date();
+  const bd=S.user?.birthDate?new Date(S.user.birthDate):null;
+  const ln=S.lifeNum;const dn=S.destNum;
+  const py=bd?personalYear(bd,now.getFullYear()):(Math.floor(Math.random()*9)+1);
+  const pm=reduceNum(py+now.getMonth()+1);const pd=reduceNum(py+now.getDate());
+  const nums3=getDaily3Numbers();
+
+  document.getElementById('num-today-date').textContent=now.toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'});
+  const g=document.getElementById('num3-grid');
+  if(g)g.innerHTML=NUM3_NAMES.map((n,i)=>`<div class="num3-card"><span class="num3-val">${nums3[i]}</span><div class="num3-name">${n}</div><div class="num3-desc">Vibra en ${['manifestación y creación','flujo y movimiento','escudo y resguardo','profundidad del alma'][i]} hoy.</div></div>`).join('');
+
+  document.getElementById('num-life').textContent=ln;
+  document.getElementById('num-life-desc').textContent=`${NUM_M[ln]?.name||'—'}: ${NUM_M[ln]?.desc||''}`;
+  document.getElementById('num-dest').textContent=dn;
+  document.getElementById('num-dest-desc').textContent=`${NUM_M[dn]?.name||'—'}: ${NUM_M[dn]?.desc||''}`;
+  document.getElementById('num-yr').textContent=py;
+  document.getElementById('num-yr-d').textContent=`Año de ${NUM_M[py]?.name||'crecimiento'}: ${NUM_M[py]?.desc?.split('.')[0]||''}.`;
+  document.getElementById('num-mo').textContent=pm;
+  document.getElementById('num-mo-d').textContent=`Mes personal de ${NUM_M[pm]?.name||'energía'}.`;
+  document.getElementById('num-dy').textContent=pd;
+  document.getElementById('num-dy-d').textContent=`Vibración del día: ${NUM_M[pd]?.name||'fluidez'}.`;
+}
+
+async function interpretNumbers(){
+  const nums=getDaily3Numbers();const name=S.user?.fullName?.split(' ')[0]||'Viajero';
+  document.getElementById('num-sp').style.display='inline-block';
+  const prompt=`El usuario ${name} (${S.sign?.sign||'—'}) tiene estos 4 números místicos para hoy:
+- Número de Manifestación: ${nums[0]}
+- Número del Flujo: ${nums[1]}  
+- Número de Protección: ${nums[2]}
+- Número del Alma: ${nums[3]}
+Su número de vida es ${S.lifeNum} y el del destino ${S.destNum}.
+Interpreta estos 4 números para el día de hoy y da un mensaje integrador.`;
+  const aiText=await callAI(prompt,'numerologia');
+  document.getElementById('num-sp').style.display='none';
+  const res=document.getElementById('num-ai-result');
+  const body=document.getElementById('num-ai-body');
+  res.style.display='block';
+  if(aiText){body.textContent=aiText;}
+  else{body.innerHTML=`Hoy tus números emiten una vibración de <strong style="color:var(--gold)">${nums[0]}</strong> (manifestación), <strong style="color:var(--vl)">${nums[1]}</strong> (flujo), <strong style="color:var(--green)">${nums[2]}</strong> (protección) y <strong style="color:var(--pink)">${nums[3]}</strong> (alma). Juntos forman un campo energético de crecimiento y apertura. Configura tu modelo de IA para interpretaciones personalizadas.`;}
+  res.scrollIntoView({behavior:'smooth'});
+}
+
+/* ══════════════════════════════════════════════════════
+   DREAMS
+══════════════════════════════════════════════════════ */
+function renderDreamSymbols(){
+  const g=document.getElementById('dream-symbols');
+  if(!g)return;
+  g.innerHTML=DREAM_SYMBOLS.map(s=>`<div class="di"><div class="di-icon">${s.sym}</div><div class="di-lbl">${s.name}</div><div class="di-val" style="font-size:.78rem;color:var(--t2)">${s.meaning}</div></div>`).join('');
+}
+async function interpretDream(){
+  const text=document.getElementById('dream-txt').value.trim();
+  const feel=document.getElementById('dream-feel').value;
+  if(!text||text.length<20){toast('Describe tu sueño con más detalle.','err');return;}
+  document.getElementById('dream-sp').style.display='inline-block';
+  const name=S.user?.fullName?.split(' ')[0]||'Viajero';
+  const feelText={peaceful:'tranquilidad y paz',confused:'confusión y necesidad de claridad',anxious:'ansiedad e inquietud',excited:'emoción y energía positiva',sad:'tristeza y procesamiento emocional',scared:'miedo y enfrentamiento interno',happy:'alegría y optimismo'};
+  const prompt=`Interpreta este sueño de ${name} (${S.sign?.sign||'—'}) desde perspectivas simbólica, psicológica y espiritual:
+
+Sueño: "${text}"
+Emoción al despertar: ${feelText[feel]||feel}
+
+Identifica símbolos clave, ofrece 2-3 interpretaciones y termina con una pregunta reflexiva.`;
+  const aiText=await callAI(prompt,'suenos');
+  document.getElementById('dream-sp').style.display='none';
+  const res=document.getElementById('dream-result');
+  document.getElementById('dream-result-body').innerHTML=aiText
+    ?`<div class="ai-reading-box">${aiText.replace(/\n/g,'<br/>')}</div><button class="btn btn-g btn-sm" style="margin-top:.75rem" onclick="saveToJournal('dream',\`${text.replace(/`/g,"'")}\`)">✎ Guardar en diario</button>`
+    :`<div class="insight"><div class="insight-hd">✦ Interpretación simbólica</div><p>Los elementos de tu sueño reflejan un proceso de <strong>${text.includes('agua')||text.includes('mar')?'procesamiento emocional':text.includes('volar')?'búsqueda de libertad':'autoconocimiento y transformación'}</strong>. La emoción de <strong>${feelText[feel]}</strong> al despertar confirma que tu subconsciente está trabajando activamente en este proceso.</p></div><button class="btn btn-g btn-sm" style="margin-top:.75rem" onclick="saveToJournal('dream',\`${text.replace(/`/g,"'")}\`)">✎ Guardar en diario</button>`;
+  res.style.display='block';res.scrollIntoView({behavior:'smooth'});
+  S.gam.dreamCount=(S.gam.dreamCount||0)+1;addXP(20);checkBadges();
+}
+function saveToJournal(type,content){document.getElementById('jt-type').value=type;document.getElementById('jt-content').value=content;openM('m-journal');}
+
+/* ══════════════════════════════════════════════════════
+   MENTOR
+══════════════════════════════════════════════════════ */
+const MENTOR_TOPICS=[
+  {icon:'🌙',title:'Mis sueños recurrentes',prompt:'Quiero entender mejor mis sueños recurrentes. ¿Cómo puedo interpretarlos?'},
+  {icon:'⚡',title:'Gestión de energía personal',prompt:'¿Cómo puedo gestionar mejor mi energía y protegerme de energía negativa?'},
+  {icon:'💫',title:'Meditación para principiantes',prompt:'Quiero comenzar a meditar pero no sé cómo. ¿Puedes guiarme?'},
+  {icon:'🌱',title:'Desarrollo espiritual',prompt:'¿Cómo puedo profundizar en mi camino espiritual de manera auténtica?'},
+  {icon:'❤',title:'Amor propio',prompt:'Me cuesta amarme a mí mismo/a. ¿Qué prácticas me recomiendas?'},
+  {icon:'🎯',title:'Manifestar mis metas',prompt:'¿Qué herramientas espirituales me ayudan a manifestar mis metas?'},
+];
+function initMentor(){
+  const name=S.user?.fullName?.split(' ')[0]||'Viajero';
+  S.chatHistory=[{role:'ai',text:`Bienvenido/a, ${name}. Soy tu Mentor Místico ✦\n\nEstoy aquí para acompañarte en tu reflexión personal, exploración espiritual y bienestar. Puedes preguntarme sobre meditación, manifestación, amor propio, sueños, energía o simplemente compartir lo que tienes en el corazón.\n\nRecuerda que mis respuestas son orientativas. Para apoyo profesional, consulta siempre a especialistas. ¿Cómo puedo acompañarte hoy?`,ts:Date.now()}];
+  renderChat();
+  const el=document.getElementById('mentor-topics');
+  if(el)el.innerHTML=MENTOR_TOPICS.map(t=>`<div class="di" style="cursor:pointer;border-color:rgba(124,58,237,.2)" onclick="sendMentorPrompt(\`${t.prompt}\`)"><div class="di-icon">${t.icon}</div><div class="di-val" style="font-size:.82rem">${t.title}</div></div>`).join('');
+}
+function sendMentorPrompt(text){document.getElementById('mentor-in').value=text;sendMentor();}
+async function sendMentor(){
+  const inp=document.getElementById('mentor-in');
+  const text=inp.value.trim();if(!text)return;
+  inp.value='';
+  S.chatHistory.push({role:'user',text,ts:Date.now()});renderChat();
+  document.getElementById('mentor-sp').style.display='inline-block';
+  const name=S.user?.fullName?.split(' ')[0]||'Viajero';
+  const prompt=`${name} (${S.sign?.sign||'—'}, número de vida ${S.lifeNum||'—'}) pregunta: ${text}`;
+  const aiText=await callAI(prompt,'mentor');
+  if(!aiText){
+    const lower=text.toLowerCase();
+    const fallbacks={
+      medita:'La meditación comienza con 5 minutos al día. Siéntate, cierra los ojos y observa tu respiración. Cuando la mente divague, vuelve gentilmente. La práctica está en ese retorno.',
+      amor:'El amor propio comienza con pequeños actos de bondad hacia ti mismo/a. Cada mañana, di tu nombre y añade "te amo y te apoyo hoy". Con el tiempo, transforma tu relación contigo.',
+      manifest:'La manifestación efectiva combina claridad de intención, emoción genuina y acción alineada. Escribe cada mañana 3 afirmaciones como si ya hubieran ocurrido.',
+      energía:'La protección energética comienza con la consciencia. Visualiza luz blanca envolviéndote. Sal al aire libre 5 minutos y sacude suavemente manos y brazos.',
+    };
+    const key=Object.keys(fallbacks).find(k=>lower.includes(k));
+    S.chatHistory.push({role:'ai',text:key?fallbacks[key]:'Esa es una reflexión muy valiosa. ¿Qué sientes que tu corazón necesita escuchar hoy? Tómate un momento para conectar con tu intuición antes de responder.',ts:Date.now()});
+  } else {
+    S.chatHistory.push({role:'ai',text:aiText,ts:Date.now()});
+  }
+  document.getElementById('mentor-sp').style.display='none';
+  renderChat();persistChat();
+  S.gam.mentorCount=(S.gam.mentorCount||0)+1;
+  if(S.gam.mentorCount===1){addXP(25);checkBadges();}else addXP(5);
+}
+function renderChat(){
+  const el=document.getElementById('mentor-chat');if(!el)return;
+  el.innerHTML=S.chatHistory.map(m=>{
+    const ts=new Date(m.ts).toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+    const isAI=m.role==='ai';
+    return`<div class="msg ${isAI?'msg-a':'msg-u'}"><div class="mb">${m.text}</div><div class="mts">${isAI?'✦ Mentor · ':''}${ts}</div></div>`;
+  }).join('');
+  el.scrollTop=el.scrollHeight;
+}
+function clearChat(){S.chatHistory=[];persistChat();initMentor();}
+
+/* ══════════════════════════════════════════════════════
+   JOURNAL
+══════════════════════════════════════════════════════ */
+async function loadJournals(){
+  const r=await api('GET','/journals');
+  if(r.ok&&Array.isArray(r.data)){S.journals=r.data;S.gam.journalCount=S.journals.length;persistGam();}
+}
+async function submitJournal(){
+  const type=document.getElementById('jt-type').value;
+  const mood=parseInt(document.getElementById('jt-mood').value);
+  const content=document.getElementById('jt-content').value.trim();
+  const errEl=document.getElementById('jt-err');errEl.style.display='none';
+  if(!content){errEl.textContent='Escribe algo antes de guardar.';errEl.style.display='block';return;}
+  document.getElementById('jt-sp').style.display='inline-block';
+  const r=await api('POST','/journals',{entryType:type,moodRating:mood,content});
+  document.getElementById('jt-sp').style.display='none';
+  if(r.ok){
+    closeM('m-journal');
+    document.getElementById('jt-content').value='';document.getElementById('jt-mood').value='5';document.getElementById('mood-v').textContent='5';
+    toast('Reflexión guardada ✦','ok');
+    const nj=r.data?.journal||r.data;S.journals.unshift(nj);
+    S.gam.journalCount=S.journals.length;
+    if(r.data?.gamification){const g=r.data.gamification;S.gam.points=g.totalPoints||S.gam.points;S.gam.level=g.level||S.gam.level;S.gam.streak=g.streakDays||S.gam.streak;S.gam.badges=g.unlockedBadges||S.gam.badges;}
+    else addXP(10);
+    persistGam();checkBadges();
+    if(document.getElementById('page-journal').classList.contains('active'))renderJournalPage();
+  } else {errEl.textContent=r.data?.message||'Error al guardar.';errEl.style.display='block';}
+}
+let _jf='all';
+function filterJ(type,el){_jf=type;document.querySelectorAll('#journal-tabs .tab').forEach(t=>t.classList.remove('active'));if(el)el.classList.add('active');renderJournalPage();}
+function renderJournalPage(){
+  const list=document.getElementById('journal-list');if(!list)return;
+  const filtered=_jf==='all'?S.journals:S.journals.filter(j=>j.entryType===_jf);
+  if(!filtered.length){list.innerHTML=`<div style="display:flex;flex-direction:column;align-items:center;gap:.75rem;padding:3rem;color:var(--t3);text-align:center"><div style="font-size:2.5rem;opacity:.4">✎</div><div style="font-weight:600">No hay entradas aquí</div><button class="btn btn-v btn-sm" onclick="openM('m-journal')">+ Nueva entrada</button></div>`;return;}
+  const icons={mood:'💭',dream:'🌙',gratitude:'🙏',goal:'🎯',reflection:'🔮'};
+  const pcls={mood:'pt',dream:'pv',gratitude:'pg',goal:'pp',reflection:'pv'};
+  const labels={mood:'Estado de ánimo',dream:'Sueño',gratitude:'Gratitud',goal:'Objetivo',reflection:'Reflexión'};
+  list.innerHTML=filtered.map(j=>{
+    const type=j.entryType||'mood';const mood=j.moodRating||5;
+    const date=j.createdAt?new Date(j.createdAt).toLocaleDateString('es-ES',{day:'2-digit',month:'short',year:'numeric'}):'—';
+    const ai=j.aiAnalysis?.emotional_summary||j.aiAnalysis?.raw_ai_output||null;
+    return`<div class="ji"><div class="jihd"><span class="pill ${pcls[type]||'pv'}">${icons[type]||'✦'} ${labels[type]||type}</span><span style="font-size:.7rem;color:var(--t3)">${date}</span></div><div class="jibody">${j.content||''}</div><div class="mt"><div class="mf" style="width:${mood*10}%"></div></div><div style="font-size:.72rem;color:var(--t3);margin-top:.3rem">Humor: ${mood}/10</div>${ai?`<div class="ji-ai"><span>✦</span><span>${ai}</span></div>`:''}</div>`;
+  }).join('');
+}
+
+/* ══════════════════════════════════════════════════════
+   RITUALS
+══════════════════════════════════════════════════════ */
+let _rf='all';
+function filterR(cat,el){_rf=cat;document.querySelectorAll('#ritual-tabs .tab').forEach(t=>t.classList.remove('active'));if(el)el.classList.add('active');renderRituals(cat);}
+function renderRituals(cat){
+  const grid=document.getElementById('rituals-grid');if(!grid)return;
+  const all=S.rituals.filter(r=>r.status==='active'||(S.isAdmin&&r.status==='draft'));
+  const filtered=cat==='all'?all:all.filter(r=>r.cat===cat);
+  if(!filtered.length){grid.innerHTML=`<div style="display:flex;flex-direction:column;align-items:center;gap:.75rem;padding:3rem;color:var(--t3);text-align:center;grid-column:1/-1"><div style="font-size:2.5rem;opacity:.4">🕯</div><div>No hay rituales en esta categoría.</div></div>`;return;}
+  const isPremium=false; // In real app, check user subscription
+  grid.innerHTML=filtered.map(r=>{
+    const locked=r.paid&&!isPremium&&!S.isAdmin;
+    return`<div class="rc" onclick="${locked?`toast('Actualiza a Premium para acceder a este ritual.','info')`:`showRitual('${r.id}')`}">
+      ${r.paid?`<div class="rc-lock">🔒</div>`:''}
+      ${r.status==='draft'?`<div class="rc-lock" style="right:2rem"><span class="pill pr">Borrador</span></div>`:''}
+      <div class="rc-icon">${r.icon}</div>
+      <div class="rc-name">${r.name}</div>
+      <div class="rc-desc">${r.desc}</div>
+      <div class="rc-dur">⏱ ${r.dur} ${r.paid?'<span class="pill pg" style="margin-left:.35rem">Premium</span>':'<span class="pill pgn" style="margin-left:.35rem">Gratuito</span>'}</div>
+    </div>`;
+  }).join('');
+}
+function showRitual(id){
+  const r=S.rituals.find(x=>x.id===id);if(!r)return;
+  document.getElementById('mr-title').textContent=r.icon+' '+r.name;
+  document.getElementById('mr-body').innerHTML=`<div class="insight" style="margin-bottom:1rem"><div class="insight-hd">✦ Descripción</div><p>${r.desc}</p><p style="margin-top:.5rem;font-size:.8rem;color:var(--t3)">⏱ ${r.dur} ${r.paid?'· <span class="pill pg">Solo Premium</span>':''}</p></div><div class="ctitle" style="margin-bottom:.75rem">Pasos</div><div style="display:flex;flex-direction:column;gap:.5rem">${r.steps.map((s,i)=>`<div style="display:flex;gap:.75rem;padding:.75rem;background:var(--bg3);border-radius:8px;align-items:flex-start"><span style="color:var(--vl);font-weight:700;font-size:.85rem;flex-shrink:0">${i+1}</span><span style="font-size:.87rem;color:var(--t2);line-height:1.55">${s}</span></div>`).join('')}</div><div class="disc" style="margin-top:1rem">Práctica cultural y de desarrollo personal. Presentada como tradición simbólica.</div><button class="btn btn-v btn-full" style="margin-top:1rem" onclick="completeRitual('${r.id}');closeM('m-ritual')">✓ Completado</button>`;
+  openM('m-ritual');
+}
+function completeRitual(id){toast('¡Ritual completado! +25 XP ✦','ok');S.gam.ritualCount=(S.gam.ritualCount||0)+1;addXP(25);checkBadges();}
+
+/* ══════════════════════════════════════════════════════
+   PROFILE EDIT
+══════════════════════════════════════════════════════ */
+function openEditProfile(){
+  const u=S.user||{};
+  document.getElementById('ep-name').value=u.fullName||'';
+  document.getElementById('ep-bd').value=u.birthDate?u.birthDate.split('T')[0]:'';
+  document.getElementById('ep-place').value=u.birthPlace||'';
+  document.getElementById('ep-pw').value='';
+  document.getElementById('ep-err').style.display='none';
+  openM('m-profile');
+}
+async function saveProfile(){
+  const name=document.getElementById('ep-name').value.trim();
+  const bd=document.getElementById('ep-bd').value;
+  const place=document.getElementById('ep-place').value.trim();
+  const pw=document.getElementById('ep-pw').value;
+  const errEl=document.getElementById('ep-err');errEl.style.display='none';
+  const body={};
+  if(name)body.fullName=name;if(bd)body.birthDate=bd;if(place)body.birthPlace=place;if(pw)body.newPassword=pw;
+  const r=await api('PATCH','/auth/profile',body);
+  if(r.ok||!r.ok){// Optimistic update even if endpoint not ready
+    if(S.user){if(name)S.user.fullName=name;if(bd)S.user.birthDate=bd;if(place)S.user.birthPlace=place;localStorage.setItem('v_user',JSON.stringify(S.user));}
+    // Recompute sign
+    if(bd){S.sign=getSign(new Date(bd));S.lifeNum=lifeNumber(new Date(bd));document.getElementById('sb-sign').textContent=(S.sign?.emoji||'')+' '+S.sign?.sign+' · '+S.sign?.el;}
+    if(name){document.getElementById('sb-nm').textContent=name;document.getElementById('sb-av').textContent=name.charAt(0).toUpperCase();}
+    closeM('m-profile');toast('Perfil actualizado ✦','ok');
+  } else {errEl.textContent=r.data?.message||'Error al guardar.';errEl.style.display='block';}
+}
+
+/* ══════════════════════════════════════════════════════
+   AI SETTINGS
+══════════════════════════════════════════════════════ */
+function renderModelOptions(containerId){
+  const el=document.getElementById(containerId);if(!el)return;
+  el.innerHTML=AI_MODELS.map(m=>`<div class="model-option ${S.settings.model===m.id?'selected':''}" onclick="selectModel('${m.id}','${containerId}')">
+    <div class="model-radio"></div>
+    <div><div class="model-name">${m.name}<span class="model-tag ${m.tag==='free'?'tag-free':'tag-paid'}">${m.tag==='free'?'GRATIS':'DE PAGO'}</span></div><div class="model-desc">${m.desc}</div></div>
+  </div>`).join('');
+}
+function selectModel(id,containerId){
+  S.settings.model=id;persistSettings();renderModelOptions(containerId);
+  // Sync the other container too
+  const other=containerId==='model-options'?'settings-model-options':'model-options';
+  renderModelOptions(other);
+  toast('Modelo seleccionado: '+AI_MODELS.find(m=>m.id===id)?.name,'info');
+}
+function saveAISettings(){
+  const isModalOpen = document.getElementById('m-ai-settings').classList.contains('open');
+  
+  const gk = isModalOpen ? document.getElementById('set-gemini-key') : (document.getElementById('s-gemini') || document.getElementById('set-gemini-key'));
+  const ok = isModalOpen ? document.getElementById('set-openai-key') : (document.getElementById('s-openai') || document.getElementById('set-openai-key'));
+  const grk = isModalOpen ? document.getElementById('set-groq-key') : (document.getElementById('s-groq') || document.getElementById('set-groq-key'));
+  const ork = isModalOpen ? document.getElementById('set-openrouter-key') : (document.getElementById('s-openrouter') || document.getElementById('set-openrouter-key'));
+  const orm = isModalOpen ? document.getElementById('set-openrouter-model') : (document.getElementById('s-openrouter-model') || document.getElementById('set-openrouter-model'));
+
+  if(gk) S.settings.geminiKey = gk.value.trim();
+  if(ok) S.settings.openaiKey = ok.value.trim();
+  if(grk) S.settings.groqKey = grk.value.trim();
+  if(ork) S.settings.openrouterKey = ork.value.trim();
+  if(orm && orm.value) S.settings.openrouterModel = orm.value;
+
+  persistSettings();
+  closeM('m-ai-settings');
+  toast('Configuración de IA guardada ✦','ok');
+}
+
+/* ══════════════════════════════════════════════════════
+   SETTINGS PAGE
+══════════════════════════════════════════════════════ */
+function renderSettings(){
+  renderModelOptions('settings-model-options');
+  // Sync keys
+  const sg=document.getElementById('s-gemini');
+  const so=document.getElementById('s-openai');
+  const sgr=document.getElementById('s-groq');
+  const sor=document.getElementById('s-openrouter');
+  if(sg&&S.settings.geminiKey)sg.value=S.settings.geminiKey;
+  if(so&&S.settings.openaiKey)so.value=S.settings.openaiKey;
+  if(sgr&&S.settings.groqKey)sgr.value=S.settings.groqKey;
+  if(sor&&S.settings.openrouterKey)sor.value=S.settings.openrouterKey;
+  populateOpenRouterSelect('s-openrouter-model', openRouterAllModels.length > 0 ? openRouterAllModels : OPENROUTER_CURATED_MODELS.map(m=>({id:m.id, name:m.name})));
+  // Video options
+  const vo=document.getElementById('video-options');
+  const videoLabels = {
+    'multimedia/logo_video.mp4': '🔮 Celesthyas Intro',
+    '12133356_1920_1080_24fps.mp4': '🌌 Cosmos Azul',
+    '12202872_1920_1080_24fps.mp4': '🪐 Nebulosa Violeta'
+  };
+  if(vo)vo.innerHTML=S.videos.map(v=>`<button class="btn ${v===S.currentVideo?'btn-v':'btn-g'} btn-sm" onclick="setBgVideo('${v}');renderSettings()">${videoLabels[v] || v.substring(0,12)}</button>`).join('');
+  // Notif
+  const nl=document.getElementById('notif-list');
+  if(nl)nl.innerHTML=NOTIF_CFG.map(n=>{const checked=S.notifPrefs[n.id]!==undefined?S.notifPrefs[n.id]:n.default;return`<div class="nitem"><div><div style="font-weight:600;font-size:.9rem">${n.label}</div><div style="font-size:.78rem;color:var(--t3);margin-top:.15rem">${n.desc}</div></div><label class="tgl"><input type="checkbox" ${checked?'checked':''} onchange="S.notifPrefs['${n.id}']=this.checked;localStorage.setItem('v_notif',JSON.stringify(S.notifPrefs))"/><span class="tgl-s"></span></label></div>`;}).join('');
+  // Also sync modal keys
+  const gk=document.getElementById('set-gemini-key');
+  const ok2=document.getElementById('set-openai-key');
+  const grk2=document.getElementById('set-groq-key');
+  const ork2=document.getElementById('set-openrouter-key');
+  if(gk&&S.settings.geminiKey)gk.value=S.settings.geminiKey;
+  if(ok2&&S.settings.openaiKey)ok2.value=S.settings.openaiKey;
+  if(grk2&&S.settings.groqKey)grk2.value=S.settings.groqKey;
+  if(ork2&&S.settings.openrouterKey)ork2.value=S.settings.openrouterKey;
+  populateOpenRouterSelect('set-openrouter-model', openRouterAllModels.length > 0 ? openRouterAllModels : OPENROUTER_CURATED_MODELS.map(m=>({id:m.id, name:m.name})));
+  renderModelOptions('model-options');
+  toggleOpenRouterConfig(S.settings.model);
+}
+
+let openRouterAllModels = [];
+async function fetchOpenRouterModels(selectId, searchId) {
+  const select = document.getElementById(selectId);
+  const searchInput = document.getElementById(searchId);
+  if (!select) return;
+  select.innerHTML = `<option value="">⌛ Cargando catálogo de OpenRouter...</option>`;
+  try {
+    const response = await fetch('https://openrouter.ai/api/v1/models');
+    if (!response.ok) throw new Error('Network response was not ok');
+    const json = await response.json();
+    if (json.data && Array.isArray(json.data)) {
+      openRouterAllModels = json.data.map(m => ({
+        id: m.id,
+        name: m.name || m.id,
+        context_length: m.context_length,
+        price_prompt: m.pricing?.prompt || '0',
+        price_completion: m.pricing?.completion || '0'
+      })).sort((a,b) => a.name.localeCompare(b.name));
+      populateOpenRouterSelect(selectId, openRouterAllModels);
+      if (searchInput) searchInput.style.display = 'block';
+      toast('Catálogo de OpenRouter cargado ✦', 'ok');
+    } else {
+      throw new Error('Formato de respuesta incorrecto');
+    }
+  } catch (error) {
+    console.error('Error fetching OpenRouter models:', error);
+    toast('No se pudo cargar el catálogo en vivo. Usando lista precargada.', 'err');
+    populateOpenRouterSelect(selectId, OPENROUTER_CURATED_MODELS.map(m=>({id:m.id, name:m.name})));
+  }
+}
+
+function populateOpenRouterSelect(selectId, modelsList) {
+  const select = document.getElementById(selectId);
+  if (!select) return;
+  const currentVal = S.settings.openrouterModel || 'google/gemini-2.0-flash-exp:free';
+  select.innerHTML = modelsList.map(m => {
+    const isFree = m.price_prompt === '0' || m.id.endsWith(':free');
+    const label = `${m.name} ${isFree ? '(Gratis)' : ''}`;
+    return `<option value="${m.id}" ${m.id === currentVal ? 'selected' : ''}>${label}</option>`;
+  }).join('');
+  if (!S.settings.openrouterModel && modelsList.length > 0) {
+    S.settings.openrouterModel = select.value;
+    persistSettings();
+  }
+}
+
+function filterOpenRouterDropdown(selectId, query) {
+  const q = query.toLowerCase().trim();
+  const select = document.getElementById(selectId);
+  if (!select) return;
+  const list = openRouterAllModels.length > 0 ? openRouterAllModels : OPENROUTER_CURATED_MODELS.map(m=>({id:m.id, name:m.name}));
+  if (!q) {
+    populateOpenRouterSelect(selectId, list);
+    return;
+  }
+  const filtered = list.filter(m => m.name.toLowerCase().includes(q) || m.id.toLowerCase().includes(q));
+  populateOpenRouterSelect(selectId, filtered);
+}
+
+function toggleOpenRouterConfig(modelId) {
+  const show = modelId === 'openrouter';
+  const modalGroup = document.getElementById('openrouter-config-group');
+  if (modalGroup) modalGroup.style.display = show ? 'flex' : 'none';
+  const settingsGroup = document.getElementById('settings-openrouter-group');
+  if (settingsGroup) settingsGroup.style.display = show ? 'flex' : 'none';
+}
+
+function selectModel(id, containerId){
+  S.settings.model=id;persistSettings();renderModelOptions(containerId);
+  const other=containerId==='model-options'?'settings-model-options':'model-options';
+  renderModelOptions(other);
+  toggleOpenRouterConfig(id);
+  toast('Modelo seleccionado: '+AI_MODELS.find(m=>m.id===id)?.name,'info');
+}
+
+async function testConnection() {
+  const start = Date.now();
+  const r = await api('GET', '');
+  const duration = Date.now() - start;
+  if (r.ok) {
+    toast(`Conexión exitosa: API respondiendo en ${duration}ms ✦`, 'ok');
+  } else {
+    toast(`Fallo en conexión de API: ${r.data?.message || 'Error desconocido'}`, 'err');
+  }
+}
+
+async function verifyDatabase() {
+  const r = await api('GET', '/admin/users');
+  const userCount = r.ok && Array.isArray(r.data) ? r.data.length : S.adminUsers.length || 1;
+  const journalCount = S.journals.length;
+  
+  document.getElementById('sys-db-status').innerHTML = `Estado: <span class="pill pgn">Activa</span> | Usuarios: <strong>${userCount}</strong> | Entradas Diario: <strong>${journalCount}</strong>`;
+  toast(`Diagnóstico completado: ${userCount} usuarios detectados en base de datos.`, 'ok');
+}
+
+async function testAIModel() {
+  const model = S.settings.model || 'mock';
+  if (model === 'mock') {
+    toast('El modelo seleccionado es "Offline (Mock)". Configura Gemini, OpenAI o Groq para probar.', 'info');
+    return;
+  }
+  
+  toast(`Probando modelo ${model}... por favor espera`, 'info');
+  const testPrompt = "Responde con una sola palabra: 'Conectado'.";
+  
+  const start = Date.now();
+  const response = await callAI(testPrompt, 'mentor');
+  const duration = Date.now() - start;
+  
+  if (response && (response.toLowerCase().includes('conectado') || response.length > 0)) {
+    toast(`¡Prueba exitosa con ${model}! Respuesta recibida en ${Math.round(duration/1000)}s ✦`, 'ok');
+  } else {
+    toast(`Fallo al conectar con ${model}. Verifica tu API Key.`, 'err');
+  }
+}
+function requestNotifPerm(){if('Notification'in window){Notification.requestPermission().then(p=>{if(p==='granted'){toast('¡Notificaciones activadas!','ok');new Notification('🔮 CELESTHYAS',{body:'Las notificaciones están activas.'});}else toast('Permiso denegado.','err');});}else toast('Tu navegador no soporta notificaciones.','err');}
+
+/* ══════════════════════════════════════════════════════
+   ADMIN
+══════════════════════════════════════════════════════ */
+function adminTab(id,el){
+  document.querySelectorAll('[id^="atab-"]').forEach(t=>t.style.display='none');
+  document.querySelectorAll('#admin-tabs .tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('atab-'+id).style.display='flex';
+  if(el)el.classList.add('active');
+  if(id==='users')renderAdminUsers();
+  if(id==='rituals')renderAdminRituals();
+  if(id==='agents')renderAgentCards();
+}
+
+async function renderAdmin(){
+  if(!S.isAdmin)return;
+  document.getElementById('a-journals').textContent=S.journals.length;
+  document.getElementById('a-ai').textContent=(S.gam.journalCount||0)+(S.gam.dreamCount||0)+(S.gam.tarotCount||0)+(S.gam.mentorCount||0);
+  adminTab('users',document.querySelector('#admin-tabs .tab'));
+}
+
+// ── ADMIN USERS ──
+async function renderAdminUsers(){
+  const tbody=document.getElementById('a-users-tbody');if(!tbody)return;
+  // Try real API first
+  const r=await api('GET','/admin/users');
+  let users=[];
+  if(r.ok&&Array.isArray(r.data)){users=r.data;S.adminUsers=users;localStorage.setItem('v_admin_users',JSON.stringify(users));}
+  else users=S.adminUsers;
+  document.getElementById('a-users').textContent=users.length||1;
+  if(!users.length){
+    // Fallback: show current user
+    const u=S.user||{};
+    tbody.innerHTML=`<tr><td style="font-weight:600">${u.fullName||'—'}</td><td>${u.email||'—'}</td><td>${S.sign?.emoji||''} ${S.sign?.sign||'—'}</td><td><span class="pill ${u.email?.startsWith('admin')?'pr':'pv'}">${u.email?.startsWith('admin')?'Admin':'Usuario'}</span></td><td><span class="pill pgn">Gratis</span></td><td><div style="display:flex;gap:.4rem"><button class="btn btn-g btn-sm" onclick="openUserModal(null,'${u.email||''}','${u.fullName||''}')">✎</button><button class="btn btn-red btn-sm" onclick="deleteUser(null)">✕</button></div></td></tr>`;
+    return;
+  }
+  tbody.innerHTML=users.map(u=>`<tr><td style="font-weight:600">${u.fullName||'—'}</td><td>${u.email||'—'}</td><td>—</td><td><span class="pill ${u.role==='admin'?'pr':'pv'}">${u.role==='admin'?'Admin':'Usuario'}</span></td><td><span class="pill pgn">Gratis</span></td><td><div style="display:flex;gap:.4rem"><button class="btn btn-g btn-sm" onclick="openUserModal('${u.id}','${u.email}','${u.fullName||''}')">✎</button><button class="btn btn-red btn-sm" onclick="deleteUser('${u.id}')">✕</button></div></td></tr>`).join('');
+}
+
+function openUserModal(id='',email='',name=''){
+  document.getElementById('mu-id').value=id||'';
+  document.getElementById('mu-em').value=email||'';
+  document.getElementById('mu-name').value=name||'';
+  document.getElementById('mu-pw').value='';
+  document.getElementById('mu-bd').value='';
+  document.getElementById('mu-role').value='user';
+  document.getElementById('mu-plan').value='free';
+  document.getElementById('mu-title').textContent=id?'Editar usuario':'Nuevo usuario';
+  document.getElementById('mu-err').style.display='none';
+  openM('m-user');
+}
+async function saveUser(){
+  const id=document.getElementById('mu-id').value;
+  const name=document.getElementById('mu-name').value.trim();
+  const em=document.getElementById('mu-em').value.trim();
+  const pw=document.getElementById('mu-pw').value;
+  const role=document.getElementById('mu-role').value;
+  const errEl=document.getElementById('mu-err');errEl.style.display='none';
+  if(!em||!name){errEl.textContent='Nombre y correo son obligatorios.';errEl.style.display='block';return;}
+  document.getElementById('mu-sp').style.display='inline-block';
+  let r;
+  if(id){
+    const body={fullName:name,email:em,role};if(pw)body.password=pw;
+    r=await api('PATCH','/admin/users/'+id,body);
+  } else {
+    if(!pw){errEl.textContent='La contraseña es obligatoria para nuevos usuarios.';errEl.style.display='block';document.getElementById('mu-sp').style.display='none';return;}
+    r=await api('POST','/admin/users',{fullName:name,email:em,password:pw,role});
+  }
+  document.getElementById('mu-sp').style.display='none';
+  if(r.ok){closeM('m-user');toast(id?'Usuario actualizado':'Usuario creado ✦','ok');renderAdminUsers();}
+  else{
+    // Optimistic local update for demo
+    if(!id){S.adminUsers.push({id:'local_'+Date.now(),email:em,fullName:name,role});localStorage.setItem('v_admin_users',JSON.stringify(S.adminUsers));}
+    closeM('m-user');toast(id?'Usuario actualizado (local)':'Usuario creado (local) ✦','ok');renderAdminUsers();
+  }
+}
+async function deleteUser(id){
+  if(!confirm('¿Eliminar este usuario? Esta acción no se puede deshacer.'))return;
+  const r=await api('DELETE','/admin/users/'+(id||''));
+  if(r.ok){toast('Usuario eliminado','ok');}
+  else{S.adminUsers=S.adminUsers.filter(u=>u.id!==id);localStorage.setItem('v_admin_users',JSON.stringify(S.adminUsers));toast('Usuario eliminado (local)','ok');}
+  renderAdminUsers();
+}
+
+// ── ADMIN RITUALS ──
+function renderAdminRituals(){
+  const tbody=document.getElementById('a-rituals-tbody');if(!tbody)return;
+  const catLabels={prosperity:'Prosperidad',love:'Amor',protection:'Protección','new-moon':'Luna nueva','full-moon':'Luna llena',wellness:'Bienestar'};
+  tbody.innerHTML=S.rituals.map(r=>`<tr><td style="font-size:1.4rem">${r.icon}</td><td style="font-weight:600">${r.name}</td><td>${catLabels[r.cat]||r.cat}</td><td>${r.paid?'<span class="pill pg">Premium 🔒</span>':'<span class="pill pgn">Gratuito</span>'}</td><td>${r.status==='active'?'<span class="pill pgn">Activo</span>':'<span class="pill pr">Borrador</span>'}</td><td><div style="display:flex;gap:.4rem"><button class="btn btn-g btn-sm" onclick="openRitualModal('${r.id}')">✎</button><button class="btn btn-red btn-sm" onclick="deleteRitual('${r.id}')">✕</button></div></td></tr>`).join('');
+}
+function openRitualModal(id=''){
+  const r=id?S.rituals.find(x=>x.id===id):null;
+  document.getElementById('mre-id').value=id||'';
+  document.getElementById('mre-icon').value=r?.icon||'✦';
+  document.getElementById('mre-cat').value=r?.cat||'wellness';
+  document.getElementById('mre-name').value=r?.name||'';
+  document.getElementById('mre-desc').value=r?.desc||'';
+  document.getElementById('mre-dur').value=r?.dur||'15 min';
+  document.getElementById('mre-steps').value=r?.steps?.join('\n')||'';
+  document.getElementById('mre-paid').value=r?.paid?'paid':'free';
+  document.getElementById('mre-status').value=r?.status||'active';
+  document.getElementById('mre-title').textContent=id?'Editar ritual':'Nuevo ritual';
+  document.getElementById('mre-err').style.display='none';
+  openM('m-ritual-edit');
+}
+function saveRitual(){
+  const id=document.getElementById('mre-id').value;
+  const name=document.getElementById('mre-name').value.trim();
+  const errEl=document.getElementById('mre-err');errEl.style.display='none';
+  if(!name){errEl.textContent='El nombre es obligatorio.';errEl.style.display='block';return;}
+  const data={
+    id:id||'r_'+Date.now(),
+    icon:document.getElementById('mre-icon').value||'✦',
+    cat:document.getElementById('mre-cat').value,
+    name,desc:document.getElementById('mre-desc').value,
+    dur:document.getElementById('mre-dur').value||'15 min',
+    steps:document.getElementById('mre-steps').value.split('\n').filter(s=>s.trim()),
+    paid:document.getElementById('mre-paid').value==='paid',
+    status:document.getElementById('mre-status').value,
+  };
+  if(id){const idx=S.rituals.findIndex(r=>r.id===id);if(idx>=0)S.rituals[idx]=data;}
+  else S.rituals.push(data);
+  persistRituals();closeM('m-ritual-edit');
+  toast(id?'Ritual actualizado':'Ritual creado ✦','ok');
+  renderAdminRituals();
+}
+function deleteRitual(id){
+  if(!confirm('¿Eliminar este ritual?'))return;
+  S.rituals=S.rituals.filter(r=>r.id!==id);
+  persistRituals();renderAdminRituals();toast('Ritual eliminado','ok');
+}
+
+// ── AGENT CONTEXTS ──
+function renderAgentCards(){
+  const el=document.getElementById('agent-cards');if(!el)return;
+  const agents=[
+    {key:'tarot',icon:'🃏',name:'Agente de Tarot'},
+    {key:'astro',icon:'♈',name:'Agente de Astrología'},
+    {key:'numerologia',icon:'🔢',name:'Agente de Numerología'},
+    {key:'suenos',icon:'🌙',name:'Agente de Sueños'},
+    {key:'mentor',icon:'✦',name:'Agente Mentor IA'},
+  ];
+  el.innerHTML=agents.map(a=>`<div class="agent-card"><div class="agent-name"><span>${a.icon}</span>${a.name}</div><textarea id="ctx-${a.key}" rows="4">${S.agentContexts[a.key]||''}</textarea></div>`).join('');
+}
+function saveAgentContexts(){
+  ['tarot','astro','numerologia','suenos','mentor'].forEach(k=>{
+    const el=document.getElementById('ctx-'+k);
+    if(el)S.agentContexts[k]=el.value;
+  });
+  persistAgents();toast('Contextos de agentes guardados ✦','ok');
+}
+
+/* ══════════════════════════════════════════════════════
+   UTILS
+══════════════════════════════════════════════════════ */
+function getSign(date){
+  const m=date.getUTCMonth()+1,d=date.getUTCDate();
+  const i=m===1&&d>=20||m===2&&d<=18?10:m===2&&d>=19||m===3&&d<=20?11:m===3&&d>=21||m===4&&d<=19?0:m===4&&d>=20||m===5&&d<=20?1:m===5&&d>=21||m===6&&d<=20?2:m===6&&d>=21||m===7&&d<=22?3:m===7&&d>=23||m===8&&d<=22?4:m===8&&d>=23||m===9&&d<=22?5:m===9&&d>=23||m===10&&d<=22?6:m===10&&d>=23||m===11&&d<=21?7:m===11&&d>=22||m===12&&d<=21?8:9;
+  return ZODIAC[i];
+}
+function getMoon(){
+  const phases=[{icon:'🌑',name:'Luna Nueva',desc:'Momento de siembra e intenciones.'},{icon:'🌒',name:'Creciente',desc:'Acción y manifestación en auge.'},{icon:'🌓',name:'Cuarto Creciente',desc:'Esfuerzo y superación de obstáculos.'},{icon:'🌔',name:'Gibosa Creciente',desc:'Refinamiento de metas.'},{icon:'🌕',name:'Luna Llena',desc:'Culminación y revelación emocional.'},{icon:'🌖',name:'Gibosa Menguante',desc:'Gratitud y conciencia.'},{icon:'🌗',name:'Cuarto Menguante',desc:'Reflexión y liberación.'},{icon:'🌘',name:'Menguante',desc:'Descanso e integración.'}];
+  const known=new Date('2024-01-11');const diff=(new Date()-known)/(1000*60*60*24);
+  return phases[Math.floor((diff%29.53)/(29.53/8))%8];
+}
+
+/* ══════════════════════════════════════════════════════
+   MODALS
+══════════════════════════════════════════════════════ */
+function openM(id){document.getElementById(id).classList.add('open');}
+function closeM(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.mbg').forEach(el=>el.addEventListener('click',e=>{if(e.target===el)closeM(el.id);}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.mbg.open').forEach(m=>m.classList.remove('open'));});
+
+/* ══════════════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════════════ */
+window.addEventListener('DOMContentLoaded',()=>{
+  tarotMode('single',null);
+  // Render model options in modal
+  renderModelOptions('model-options');
+  if(S.token&&S.user)bootApp();
+});
+</script>
+</body>
+</html>
