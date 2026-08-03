@@ -117,28 +117,28 @@ export class AIGatewayService {
 
   private getMockResponse(featureTag: string, prompt: string): string {
     if (featureTag === 'tarot') {
-      return JSON.stringify({
-        interpretation: {
-          summary: "Un camino de autodescubrimiento y superación / A path of self-discovery and resilience.",
-          cards: [
-            { id: 1, name: "The Magician", position: "past", meaning: "Manifestación y enfoque inicial / Initial focus and manifestation." },
-            { id: 22, name: "The Fool", position: "present", meaning: "Nuevos comienzos e inocencia / New beginnings and innocence." },
-            { id: 15, name: "The Devil", position: "future", meaning: "Superar apegos materiales y miedos / Overcoming material attachments and fears." }
-          ],
-          guidance: "Confía en tus habilidades y da el salto de fe con cautela. / Trust your abilities and take the leap of faith with caution."
-        }
-      });
+      return `### 🔮 Tu Lectura de Tarot Mística
+
+**Resumen del Cosmos:** Un camino de autodescubrimiento y superación espiritual.
+
+#### 💫 Cartas Extraídas:
+1. 🧙 **El Mago (Pasado):** Representa tu capacidad de manifestación y el enfoque que tuviste para iniciar este ciclo.
+2. 🌟 **El Loco (Presente):** Simboliza nuevos comienzos, inocencia y la libertad de dar un salto de fe en tu situación actual.
+3. 👹 **El Diablo (Futuro):** Te advierte sobre la necesidad de superar apegos materiales, miedos o dependencias que frenan tu evolución.
+
+**Consejo del Universo:** Confía plenamente en tus habilidades y da el salto de fe con cautela. Tienes las herramientas necesarias dentro de ti.`;
     }
 
     if (featureTag === 'journal_analysis') {
-      return JSON.stringify({
-        tags: ["reflexión", "crecimiento", "tiempo"],
-        "archetypes": ["El Explorador / The Explorer"],
-        sentiment: "positive",
-        emotional_summary: "El usuario muestra confianza y optimismo sobre el futuro. / The user shows confidence and optimism about the future."
-      });
+      return `### 📝 Análisis Místico de tu Diario
+
+**Resumen Emocional:** Muestras confianza, paz y optimismo sobre tu futuro cercano.
+
+* **Arquetipo Espiritual:** El Explorador Cósmico.
+* **Energías Activas:** Crecimiento, tiempo y reflexión.
+* **Tono de Vibración:** Positivo y de transmutación.`;
     }
 
-    return "Este es un mensaje de reflexión espiritual simulado. Recuerda que la sabiduría reside en tu interior. / This is a simulated spiritual reflection. Remember that wisdom lies within you.";
+    return "Este es un mensaje de reflexión espiritual simulado de Celesthyas. Recuerda que la sabiduría reside en tu interior.";
   }
 }
