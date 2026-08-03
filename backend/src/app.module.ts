@@ -41,9 +41,10 @@ import { GamificationState } from './gamification/entities/gamification-state.en
         const dbType = configService.get<string>('DB_TYPE') || 'postgres';
 
         if (dbType === 'sqlite') {
+          const dbPath = configService.get<string>('DB_PATH') || 'database.sqlite';
           return {
             type: 'better-sqlite3' as any,
-            database: 'database.sqlite',
+            database: dbPath,
             entities: [User, Subscription, AiGatewayLog, Journal, GamificationState],
             synchronize: true,
           };
