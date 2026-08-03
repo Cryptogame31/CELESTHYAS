@@ -50,6 +50,17 @@ import { GamificationState } from './gamification/entities/gamification-state.en
           };
         }
 
+        const dbUrl = configService.get<string>('DATABASE_URL');
+        if (dbUrl) {
+          return {
+            type: 'postgres' as any,
+            url: dbUrl,
+            entities: [User, Subscription, AiGatewayLog, Journal, GamificationState],
+            synchronize: true,
+            ssl: { rejectUnauthorized: false },
+          };
+        }
+
         return {
           type: 'postgres' as any,
           host: configService.get<string>('DB_HOST') || 'localhost',
