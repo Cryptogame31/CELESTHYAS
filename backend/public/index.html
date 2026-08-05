@@ -1183,7 +1183,9 @@ const NOTIF_CFG = [
 /* ══════════════════════════════════════════════════════
    STATE
 ══════════════════════════════════════════════════════ */
-const API_BASE = 'http://localhost:3001/api/v1';
+const API_BASE = window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1')
+  ? 'http://localhost:3001/api/v1'
+  : `${window.location.origin}/api/v1`;
 let S = {
   token: localStorage.getItem('v_token')||null,
   user:  JSON.parse(localStorage.getItem('v_user')||'null'),
