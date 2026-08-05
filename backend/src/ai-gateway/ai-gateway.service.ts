@@ -116,13 +116,13 @@ export class AIGatewayService implements OnModuleInit {
     }
 
     // 2. OpenAI Models
-    if (activeModel.startsWith('openai')) {
+    if (activeModel.startsWith('openai') || activeModel.startsWith('gpt-')) {
       const openaiKey = settings.openai_api_key || this.configService.get<string>('OPENAI_API_KEY');
       if (openaiKey) {
         try {
           this.logger.log(`Routing prompt to OpenAI (${activeModel}) for feature: ${featureTag}`);
           const client = new OpenAI({ apiKey: openaiKey });
-          const modelName = activeModel.replace('openai/', '');
+          const modelName = activeModel.startsWith('openai/') ? activeModel.replace('openai/', '') : activeModel;
           const response = await client.chat.completions.create({
             model: modelName || 'gpt-4o-mini',
             messages: [{ role: 'user', content: prompt }],
@@ -141,14 +141,14 @@ export class AIGatewayService implements OnModuleInit {
     }
 
     // 3. Groq Models
-    if (activeModel.startsWith('groq')) {
+    if (activeModel.startsWith('groq') || activeModel.startsWith('llama-') || activeModel.startsWith('gemma')) {
       const groqKey = settings.groq_api_key || this.configService.get<string>('GROQ_API_KEY');
       if (groqKey) {
         try {
           this.logger.log(`Routing prompt to Groq (${activeModel}) for feature: ${featureTag}`);
-          const modelName = activeModel.replace('groq/', '');
+          const modelName = activeModel.startsWith('groq/') ? activeModel.replace('groq/', '') : activeModel;
           const result = await this.callHttpsProxy('api.groq.com', '/openai/v1/chat/completions', groqKey, {
-            model: modelName || 'llama-3.1-70b-versatile',
+            model: modelName || 'llama-3.3-70b-versatile',
             messages: [{ role: 'user', content: prompt }]
           });
           if (result && result.content) {
