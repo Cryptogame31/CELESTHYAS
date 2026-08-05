@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { User } from '../users/entities/user.entity';
+import { User, UserRole } from '../users/entities/user.entity';
 import { GamificationState } from '../gamification/entities/gamification-state.entity';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
@@ -28,7 +28,19 @@ export class AuthService {
     }
 
     const passwordHash = await bcrypt.hash(dto.password, 10);
-    const role = dto.email.toLowerCase().startsWith('admin@') ? 'admin' : 'user';
+    
+    // Auto-promote admin@ email only if no admins exist in the database yet (bootstrapping)
+    let role: UserRole = 'user';
+    if (dto.email.toLowerCase().startsWith('admin@')) {
+      const existingAdmin = await this.userRepository.findOne({ where: { role: 'admin' } });
+      if (!existingAdmin) {
+        role = 'admin';
+        this.logger.log(`Bootstrapping first super admin: ${dto.email}`);
+      } else {
+        this.logger.warn(`Admin email registration attempted but admin already exists. Registering as user: ${dto.email}`);
+      }
+    }
+
     const user = this.userRepository.create({
       email: dto.email,
       passwordHash,
