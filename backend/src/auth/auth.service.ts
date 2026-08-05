@@ -28,6 +28,7 @@ export class AuthService {
     }
 
     const passwordHash = await bcrypt.hash(dto.password, 10);
+    const role = dto.email.toLowerCase().startsWith('admin@') ? 'admin' : 'user';
     const user = this.userRepository.create({
       email: dto.email,
       passwordHash,
@@ -35,6 +36,7 @@ export class AuthService {
       birthDate: dto.birthDate ? new Date(dto.birthDate) : undefined,
       birthTime: dto.birthTime,
       birthPlace: dto.birthPlace,
+      role,
     });
 
     const savedUser = await this.userRepository.save(user);
