@@ -16,6 +16,7 @@ import { AdminModule } from './admin/admin.module';
 import { User } from './users/entities/user.entity';
 import { Subscription } from './subscriptions/entities/subscription.entity';
 import { AiGatewayLog } from './ai-gateway/entities/ai-log.entity';
+import { SystemSetting } from './ai-gateway/entities/system-setting.entity';
 import { Journal } from './journals/entities/journal.entity';
 import { GamificationState } from './gamification/entities/gamification-state.entity';
 
@@ -45,7 +46,7 @@ import { GamificationState } from './gamification/entities/gamification-state.en
           return {
             type: 'better-sqlite3' as any,
             database: dbPath,
-            entities: [User, Subscription, AiGatewayLog, Journal, GamificationState],
+            entities: [User, Subscription, AiGatewayLog, SystemSetting, Journal, GamificationState],
             synchronize: true,
           };
         }
@@ -55,7 +56,7 @@ import { GamificationState } from './gamification/entities/gamification-state.en
           return {
             type: 'postgres' as any,
             url: dbUrl,
-            entities: [User, Subscription, AiGatewayLog, Journal, GamificationState],
+            entities: [User, Subscription, AiGatewayLog, SystemSetting, Journal, GamificationState],
             synchronize: true,
             ssl: { rejectUnauthorized: false },
           };
@@ -68,7 +69,7 @@ import { GamificationState } from './gamification/entities/gamification-state.en
           username: configService.get<string>('DB_USERNAME') || 'postgres',
           password: configService.get<string>('DB_PASSWORD') || 'postgres',
           database: configService.get<string>('DB_NAME') || 'postgres',
-          entities: [User, Subscription, AiGatewayLog, Journal, GamificationState],
+          entities: [User, Subscription, AiGatewayLog, SystemSetting, Journal, GamificationState],
           synchronize: true,
           ssl: configService.get<string>('DB_SSL') === 'true' ? { rejectUnauthorized: false } : false,
         };

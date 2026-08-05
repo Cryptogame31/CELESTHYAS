@@ -1127,11 +1127,11 @@ tr:hover td{background:rgba(255,255,255,.015)}
 
   <!-- ═══ SETTINGS ═══ -->
   <div class="page" id="page-settings">
-    <div class="card">
+    <div class="card" style="display:none">
       <div class="ctitle" style="display:flex;align-items:center;gap:.4rem"><i class="ph-duotone ph-robot" style="color:var(--vl)"></i> Modelo de IA activo</div>
       <div id="settings-model-options" style="display:flex;flex-direction:column;gap:.6rem"></div>
     </div>
-    <div class="card">
+    <div class="card" style="display:none">
       <div class="ctitle" style="display:flex;align-items:center;gap:.4rem"><i class="ph-duotone ph-key" style="color:var(--gold)"></i> Claves de API</div>
       <div class="aform">
         <div class="fg"><label class="fl">Google Gemini API Key <span class="tag-free model-tag">GRATIS en aistudio.google.com</span></label><input id="s-gemini" type="password" placeholder="AIza..."/></div>
@@ -1228,22 +1228,57 @@ tr:hover td{background:rgba(255,255,255,.015)}
           </div>
           <button class="btn btn-g btn-sm" onclick="go('settings')"><i class="ph-duotone ph-film-strip"></i> Administrar Videos</button>
         </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:.7rem 1rem;background:var(--bg3);border-radius:8px;border:1px solid var(--brd2)">
-          <div>
-            <div style="font-weight:600;font-size:.85rem">Modelo IA activo</div>
-            <div style="font-size:.78rem;color:var(--t2);display:flex;align-items:center;gap:.35rem">
-              Proveedor: <span id="sys-model" class="pill pg">Mock</span>
+        <div style="display:flex;flex-direction:column;gap:.75rem;padding:1.25rem;background:var(--bg3);border-radius:10px;border:1px solid var(--brd2);margin-top:.75rem">
+          <div class="ctitle" style="margin:0;display:flex;align-items:center;gap:.4rem"><i class="ph-duotone ph-sparkle" style="color:var(--gold)"></i> Configuración Centralizada de IA</div>
+          <div style="font-size:.72rem;color:var(--t2);margin-bottom:.5rem">Configura aquí el proveedor de IA y las claves de API globales que serán utilizadas por todos los usuarios del sistema.</div>
+          
+          <div class="fg">
+            <label class="fl">🤖 Proveedor de IA Activo</label>
+            <select id="sys-active-model" onchange="toggleAdminOpenRouterGroup(this.value)">
+              <option value="mock">Offline / Simulado (Sin Costo)</option>
+              <option value="gemini-2.0-flash">Google Gemini 2.0 Flash</option>
+              <option value="gemini-3.5-flash">Google Gemini 3.5 Flash</option>
+              <option value="openai/gpt-4o-mini">OpenAI GPT-4o-mini</option>
+              <option value="groq/llama-3.1-70b-versatile">Groq Llama 3.1 70B</option>
+              <option value="openrouter">OpenRouter (Multi-modelo)</option>
+            </select>
+          </div>
+
+          <div class="fg">
+            <label class="fl">🔑 Google Gemini API Key</label>
+            <input id="sys-gemini-key" type="password" placeholder="AIzaSy..."/>
+          </div>
+
+          <div class="fg">
+            <label class="fl">🔑 OpenAI API Key</label>
+            <input id="sys-openai-key" type="password" placeholder="sk-..."/>
+          </div>
+
+          <div class="fg">
+            <label class="fl">🔑 Groq API Key</label>
+            <input id="sys-groq-key" type="password" placeholder="gsk-..."/>
+          </div>
+
+          <div class="fg" id="sys-openrouter-group" style="display:none;background:var(--bg2);border:1px solid var(--brd2);border-radius:8px;padding:.75rem;gap:.5rem;flex-direction:column">
+            <div class="fg">
+              <label class="fl">🔑 OpenRouter API Key</label>
+              <input id="sys-openrouter-key" type="password" placeholder="sk-or-..."/>
+            </div>
+            <div class="fg">
+              <label class="fl">🤖 Modelo de OpenRouter</label>
+              <input id="sys-openrouter-model" type="text" placeholder="google/gemini-2.0-flash-exp:free"/>
             </div>
           </div>
-          <button class="btn btn-gold btn-sm" onclick="testAIModel()"><i class="ph-duotone ph-sparkle"></i> Probar IA Activa</button>
+
+          <button class="btn btn-v btn-sm" style="margin-top:.5rem" onclick="saveAdminAISettings()"><i class="ph-bold ph-floppy-disk"></i> Guardar Configuración de IA</button>
         </div>
-      </div>
-      <div style="margin-top:1.5rem">
-        <div class="ctitle">Para activar IA real en el servidor — edita backend/.env:</div>
-        <pre style="background:var(--bg);border:1px solid var(--brd2);border-radius:8px;padding:1rem;font-size:.8rem;color:var(--teal);overflow-x:auto">GEMINI_API_KEY=tu_clave_aqui
-OPENAI_API_KEY=tu_clave_aqui
-GROQ_API_KEY=tu_clave_aqui</pre>
-      </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:.7rem 1rem;background:var(--bg3);border-radius:8px;border:1px solid var(--brd2);margin-top:.75rem">
+          <div>
+            <div style="font-weight:600;font-size:.85rem">Probar IA Activa</div>
+            <div style="font-size:.78rem;color:var(--t2)" id="sys-model-status">Prueba la conexión del modelo seleccionado actualmente en el servidor.</div>
+          </div>
+          <button class="btn btn-gold btn-sm" onclick="testAIModel()"><i class="ph-duotone ph-sparkle"></i> Probar IA</button>
+        </div>
     </div>
   </div>
 
@@ -1524,27 +1559,7 @@ function persistRituals(){ localStorage.setItem('v_rituals',JSON.stringify(S.rit
 ══════════════════════════════════════════════════════ */
 async function callAI(prompt, agentKey) {
   const ctx = S.agentContexts[agentKey] || '';
-  const model = S.settings.model || 'mock';
-  const provider = AI_MODELS.find(m=>m.id===model)?.provider || 'mock';
-
-  if (provider === 'gemini' && S.settings.geminiKey) {
-    return await callGemini(prompt, ctx, model, S.settings.geminiKey);
-  } else if (provider === 'openai' && S.settings.openaiKey) {
-    return await callOpenAIProxy(prompt, ctx, model, S.settings.openaiKey);
-  } else if (provider === 'groq' && S.settings.groqKey) {
-    return await callGroqProxy(prompt, ctx, model, S.settings.groqKey);
-  } else if (provider === 'openrouter' && S.settings.openrouterKey) {
-    const orModel = S.settings.openrouterModel || 'google/gemini-2.0-flash-exp:free';
-    return await callOpenRouterProxy(prompt, ctx, orModel, S.settings.openrouterKey);
-  }
-
-  // Fallback: If they selected a real AI model but DO NOT have a key,
-  // we call the backend global generator which uses the Admin's free Gemini key!
-  if (provider !== 'mock') {
-    return await callGlobalAI(prompt + "\n\nContexto: " + ctx, agentKey);
-  }
-
-  return null; // fallback to mock
+  return await callGlobalAI(prompt + "\n\nContexto: " + ctx, agentKey);
 }
 
 async function callGlobalAI(prompt, agentKey) {
@@ -1635,13 +1650,13 @@ async function callOpenAIProxy(prompt, system, model, key) {
 }
 
 function getAIPillClass() {
-  const model = S.settings.model || 'mock';
+  const model = S.activeModel || 'mock';
   const m = AI_MODELS.find(x=>x.id===model);
   if (!m || m.id==='mock') return 'ai-mock';
   return m.tag==='free' ? 'ai-free' : 'ai-paid';
 }
 function getAIPillLabel() {
-  const m = AI_MODELS.find(x=>x.id===S.settings.model);
+  const m = AI_MODELS.find(x=>x.id===(S.activeModel || 'mock'));
   if (!m || m.id==='mock') return '🤖 Offline';
   return (m.tag==='free'?'🟢 ':' 💎 ') + m.name;
 }
@@ -1654,7 +1669,19 @@ function updateAIPill() {
   const p = document.getElementById('tarot-model-pill');
   if(p){ p.className='ai-model-pill '+cls+' '; p.style.fontSize='.68rem'; p.textContent=lbl; }
   const sys = document.getElementById('sys-model');
-  if(sys) { sys.textContent = AI_MODELS.find(m=>m.id===S.settings.model)?.name||'Mock'; }
+  if(sys) { sys.textContent = AI_MODELS.find(m=>m.id===(S.activeModel || 'mock'))?.name||'Mock'; }
+}
+async function fetchAISettings() {
+  const r = await api('GET', '/ai/proxy/settings');
+  if (r.ok && r.data) {
+    S.activeModel = r.data.ai_active_model || 'mock';
+    if (S.isAdmin) {
+      S.adminAISettings = r.data;
+    }
+  } else {
+    S.activeModel = 'mock';
+  }
+  updateAIPill();
 }
 
 /* ══════════════════════════════════════════════════════
@@ -1767,7 +1794,7 @@ async function bootApp(){
 
   // Set video
   setBgVideo(S.currentVideo);
-  updateAIPill();
+  await fetchAISettings();
   loadJournals();
   renderHome();
   renderSettings();
@@ -2818,13 +2845,13 @@ async function verifyDatabase() {
 }
 
 async function testAIModel() {
-  const model = S.settings.model || 'mock';
+  const model = S.activeModel || 'mock';
   if (model === 'mock') {
     toast('El modelo seleccionado es "Offline (Mock)". Configura Gemini, OpenAI o Groq para probar.', 'info');
     return;
   }
   
-  toast(`Probando modelo ${model}... por favor espera`, 'info');
+  toast(`Probando modelo ${model} en el servidor... por favor espera`, 'info');
   const testPrompt = "Responde con una sola palabra: 'Conectado'.";
   
   const start = Date.now();
@@ -2850,6 +2877,7 @@ function adminTab(id,el){
   if(id==='users')renderAdminUsers();
   if(id==='rituals')renderAdminRituals();
   if(id==='agents')renderAgentCards();
+  if(id==='system')renderAdminSystem();
 }
 
 async function renderAdmin(){
@@ -2857,6 +2885,52 @@ async function renderAdmin(){
   document.getElementById('a-journals').textContent=S.journals.length;
   document.getElementById('a-ai').textContent=(S.gam.journalCount||0)+(S.gam.dreamCount||0)+(S.gam.tarotCount||0)+(S.gam.mentorCount||0);
   adminTab('users',document.querySelector('#admin-tabs .tab'));
+}
+
+async function renderAdminSystem() {
+  const r = await api('GET', '/ai/proxy/settings');
+  if (r.ok && r.data) {
+    S.adminAISettings = r.data;
+    document.getElementById('sys-active-model').value = r.data.ai_active_model || 'mock';
+    document.getElementById('sys-gemini-key').value = r.data.gemini_api_key || '';
+    document.getElementById('sys-openai-key').value = r.data.openai_api_key || '';
+    document.getElementById('sys-groq-key').value = r.data.groq_api_key || '';
+    document.getElementById('sys-openrouter-key').value = r.data.openrouter_api_key || '';
+    document.getElementById('sys-openrouter-model').value = r.data.openrouter_model || 'google/gemini-2.0-flash-exp:free';
+    
+    toggleAdminOpenRouterGroup(r.data.ai_active_model || 'mock');
+  }
+}
+
+function toggleAdminOpenRouterGroup(val) {
+  const el = document.getElementById('sys-openrouter-group');
+  if (el) el.style.display = val === 'openrouter' ? 'flex' : 'none';
+}
+
+async function saveAdminAISettings() {
+  const activeModel = document.getElementById('sys-active-model').value;
+  const geminiKey = document.getElementById('sys-gemini-key').value.trim();
+  const openaiKey = document.getElementById('sys-openai-key').value.trim();
+  const groqKey = document.getElementById('sys-groq-key').value.trim();
+  const openrouterKey = document.getElementById('sys-openrouter-key').value.trim();
+  const openrouterModel = document.getElementById('sys-openrouter-model').value.trim();
+
+  const payload = {
+    ai_active_model: activeModel,
+    gemini_api_key: geminiKey,
+    openai_api_key: openaiKey,
+    groq_api_key: groqKey,
+    openrouter_api_key: openrouterKey,
+    openrouter_model: openrouterModel
+  };
+
+  const r = await api('POST', '/ai/proxy/settings', payload);
+  if (r.ok) {
+    toast('Configuración de IA Centralizada guardada con éxito', 'ok');
+    await fetchAISettings();
+  } else {
+    toast('Error guardando configuración de IA: ' + (r.data?.message || 'Error del servidor'), 'err');
+  }
 }
 
 // ── ADMIN USERS ──

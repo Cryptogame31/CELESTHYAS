@@ -1,6 +1,7 @@
 import {
   Controller,
   Post,
+  Get,
   Body,
   UseGuards,
   HttpCode,
@@ -8,9 +9,11 @@ import {
   BadRequestException,
   InternalServerErrorException,
   Logger,
+  Req,
 } from '@nestjs/common';
 import * as https from 'https';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { AdminGuard } from '../admin/admin.guard';
 import { AIGatewayService } from './ai-gateway.service';
 
 interface OpenAiProxyBody {
@@ -37,17 +40,41 @@ export class AiProxyController {
     private readonly aiGatewayService: AIGatewayService,
   ) {}
 
+  /** GET /api/v1/ai/proxy/settings */
+  @Get('settings')
+  async getSettings(@Req() req: any): Promise<any> {
+    const settings = await this.aiGatewayService.getSettings();
+    if (req.user && req.user.role === 'admin') {
+      return settings;
+    }
+    // For regular users, mask API keys
+    return {
+      ai_active_model: settings.ai_active_model || 'mock',
+      openrouter_model: settings.openrouter_model,
+    };
+  }
+
+  /** POST /api/v1/ai/proxy/settings */
+  @Post('settings')
+  @UseGuards(AdminGuard)
+  async saveSettings(@Body() body: Record<string, string>): Promise<any> {
+    await this.aiGatewayService.saveSettings(body);
+    return { message: 'Settings saved successfully' };
+  }
+
   /** POST /api/v1/ai/proxy/generate */
   @Post('generate')
   @HttpCode(HttpStatus.OK)
   async generateText(
     @Body() body: { prompt: string; agentKey: string },
+    @Req() req: any
   ): Promise<any> {
     const { prompt, agentKey } = body;
     if (!prompt || !agentKey) {
       throw new BadRequestException('Fields "prompt" and "agentKey" are required.');
     }
-    const content = await this.aiGatewayService.generateText(prompt, agentKey);
+    const userId = req.user?.id;
+    const content = await this.aiGatewayService.generateText(prompt, agentKey, userId);
     return { content };
   }
 
@@ -55,6 +82,13 @@ export class AiProxyController {
   @Post('openai')
   @HttpCode(HttpStatus.OK)
   async proxyOpenAi(@Body() body: OpenAiProxyBody): Promise<any> {
+    if (!body.apiKey) {
+      const settings = await this.aiGatewayService.getSettings();
+      body.apiKey = settings.openai_api_key;
+    }
+    if (!body.apiKey) {
+      throw new BadRequestException('OpenAI API key is missing on the server settings.');
+    }
     return this.executeRequest(body, 'api.openai.com', '/v1/chat/completions');
   }
 
@@ -62,6 +96,13 @@ export class AiProxyController {
   @Post('groq')
   @HttpCode(HttpStatus.OK)
   async proxyGroq(@Body() body: OpenAiProxyBody): Promise<any> {
+    if (!body.apiKey) {
+      const settings = await this.aiGatewayService.getSettings();
+      body.apiKey = settings.groq_api_key;
+    }
+    if (!body.apiKey) {
+      throw new BadRequestException('Groq API key is missing on the server settings.');
+    }
     return this.executeRequest(body, 'api.groq.com', '/openai/v1/chat/completions');
   }
 
@@ -69,6 +110,13 @@ export class AiProxyController {
   @Post('openrouter')
   @HttpCode(HttpStatus.OK)
   async proxyOpenRouter(@Body() body: OpenAiProxyBody): Promise<any> {
+    if (!body.apiKey) {
+      const settings = await this.aiGatewayService.getSettings();
+      body.apiKey = settings.openrouter_api_key;
+    }
+    if (!body.apiKey) {
+      throw new BadRequestException('OpenRouter API key is missing on the server settings.');
+    }
     return this.executeRequest(body, 'openrouter.ai', '/api/v1/chat/completions', {
       'HTTP-Referer': 'http://localhost:3001',
       'X-Title': 'Celesthyas App',
