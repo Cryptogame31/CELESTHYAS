@@ -457,6 +457,215 @@ tr:hover td{background:rgba(255,255,255,.015)}
 .model-tag{font-size:.65rem;font-weight:700;padding:.1rem .45rem;border-radius:99px;margin-left:.4rem}
 .tag-free{background:rgba(34,197,94,.2);color:var(--green)}
 .tag-paid{background:var(--gdim);color:var(--gold)}
+
+/* ASTRAL CHART PANEL */
+.astral-chart-container {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+.astral-wheel-wrapper {
+  flex: 1.2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(15, 18, 34, 0.4);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: var(--r);
+  padding: 1.5rem;
+  min-height: 350px;
+}
+.astral-placements-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.astral-wheel-svg {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+  filter: drop-shadow(0 0 16px rgba(139, 92, 246, 0.15));
+}
+.placement-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.85rem;
+  background: rgba(20, 25, 45, 0.5);
+  border: 1px solid var(--brd2);
+  border-radius: 8px;
+}
+.placement-planet {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+.placement-sign {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+.astral-elements-card {
+  background: rgba(15, 18, 34, 0.4);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: var(--r);
+  padding: 1.25rem;
+}
+.element-bar-wrapper {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.element-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.82rem;
+}
+.element-label {
+  width: 60px;
+  font-weight: 600;
+}
+.element-bar-bg {
+  flex: 1;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.element-bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 1s ease-out;
+}
+.el-fire { background: linear-gradient(90deg, #ef4444, #f97316); }
+.el-earth { background: linear-gradient(90deg, #22c55e, #10b981); }
+.el-air { background: linear-gradient(90deg, #06b6d4, #3b82f6); }
+.el-water { background: linear-gradient(90deg, #a855f7, #6366f1); }
+
+/* MOBILE RESPONSIVE STYLES */
+.mobile-only {
+  display: none !important;
+}
+
+@media (max-width: 900px) {
+  .astral-chart-container {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-only {
+    display: flex !important;
+  }
+  .desktop-only {
+    display: none !important;
+  }
+  #sidebar {
+    display: none !important;
+  }
+  #topbar {
+    padding: 0.75rem 1rem;
+  }
+  .page {
+    padding: 1rem 1rem 80px !important;
+    gap: 1.25rem !important;
+  }
+  #mobile-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: rgba(10, 12, 22, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(139, 92, 246, 0.2);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 999;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .mni {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--t3);
+    font-size: 0.65rem;
+    gap: 0.25rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex: 1;
+  }
+  .mni i {
+    font-size: 1.45rem;
+    transition: transform 0.2s;
+  }
+  .mni.active {
+    color: var(--gold);
+  }
+  .mni.active i {
+    color: var(--gold);
+    transform: scale(1.1);
+  }
+  
+  /* Bottom sheet modal styling */
+  .bottom-sheet {
+    align-self: flex-end;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    border-radius: 24px 24px 0 0 !important;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.1, 0.8, 0.3, 1) !important;
+    background: rgba(13, 15, 26, 0.98) !important;
+    border: 1px solid rgba(139, 92, 246, 0.25) !important;
+    border-bottom: none !important;
+  }
+  
+  .modal.active .bottom-sheet {
+    transform: translateY(0) !important;
+  }
+  
+  .mobile-more-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    padding: 1.25rem 0.5rem;
+  }
+  
+  .mm-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem;
+    background: rgba(15, 18, 34, 0.6);
+    border: 1px solid rgba(139, 92, 246, 0.1);
+    border-radius: 12px;
+    gap: 0.4rem;
+    cursor: pointer;
+  }
+  .mm-item i {
+    font-size: 1.6rem;
+  }
+  .mm-item span {
+    font-size: 0.72rem;
+    color: var(--t2);
+    text-align: center;
+    font-weight: 500;
+  }
+  .mm-item:active {
+    background: rgba(139, 92, 246, 0.15);
+  }
+}
 </style>
 </head>
 <body>
@@ -780,13 +989,34 @@ tr:hover td{background:rgba(255,255,255,.015)}
       <div class="tab" onclick="astroMode('monthly',this)">Mensual</div>
       <div class="tab" onclick="astroMode('compat',this)">Compatibilidad</div>
       <div class="tab" onclick="astroMode('transits',this)">Tránsitos</div>
+      <div class="tab" onclick="astroMode('chart',this)">Carta Astral 🪐</div>
     </div>
-    <div class="card card-glow">
+    <div id="astro-horoscope-panel" class="card card-glow">
       <div class="shd" style="margin-bottom:.75rem">
         <div class="ctitle" style="margin:0" id="astro-ct-title">Horóscopo diario</div>
         <button class="btn btn-g btn-sm" onclick="loadAstroAI()"><i class="ph-duotone ph-sparkle"></i> Generar con IA</button>
       </div>
       <div id="astro-ct-body" style="font-size:.92rem;line-height:1.75;color:var(--t2)"></div>
+    </div>
+    <div id="astro-chart-panel" style="display:none" class="card card-glow">
+      <div class="shd" style="margin-bottom:.75rem">
+        <div class="ctitle" style="margin:0"><i class="ph-duotone ph-planet"></i> Tu Carta Astral Personal</div>
+        <button class="btn btn-v btn-sm" onclick="analyzeNatalChartAI()"><i class="ph-duotone ph-sparkle"></i> Analizar con IA</button>
+      </div>
+      <div class="astral-chart-container">
+        <div class="astral-wheel-wrapper">
+          <div id="natal-chart-wheel-container" style="width:100%;max-width:380px;display:flex;justify-content:center"></div>
+        </div>
+        <div class="astral-placements-wrapper">
+          <div class="ctitle" style="margin-bottom:0.75rem">Tus Coordenadas Celestiales</div>
+          <div style="display:flex;flex-direction:column;gap:0.5rem" id="natal-placements-list"></div>
+          <div class="astral-elements-card" style="margin-top:0.5rem">
+            <div class="ctitle" style="margin-bottom:0.5rem">Distribución de Elementos</div>
+            <div class="element-bar-wrapper" id="natal-elements-list"></div>
+          </div>
+        </div>
+      </div>
+      <div id="natal-chart-ai-reading" class="ai-reading-box" style="display:none;margin-top:1.5rem;padding:1rem;background:rgba(18,21,38,0.5);border-radius:12px;border:1px solid rgba(139,92,246,0.15)"></div>
     </div>
     <div><div class="shd"><div><div class="stitle" style="display:flex;align-items:center;gap:.5rem"><i class="ph-duotone ph-flame" style="color:var(--gold)"></i> Rituales</div></div></div><div class="zg" id="zodiac-compat"></div></div>
     <div class="disc">La astrología es una tradición cultural y simbólica. Las lecturas son orientativas.</div>
@@ -1015,6 +1245,79 @@ GROQ_API_KEY=tu_clave_aqui</pre>
   </div>
 
 </div><!-- /main -->
+
+<!-- Mobile Bottom Navigation Bar -->
+<nav id="mobile-nav" class="mobile-only">
+  <div class="mni active" onclick="go('home')">
+    <i class="ph-duotone ph-sun-horizon"></i>
+    <span>Inicio</span>
+  </div>
+  <div class="mni" onclick="go('tarot')">
+    <i class="ph-duotone ph-stack"></i>
+    <span>Tarot</span>
+  </div>
+  <div class="mni" onclick="go('astro')">
+    <i class="ph-duotone ph-planet"></i>
+    <span>Astro</span>
+  </div>
+  <div class="mni" onclick="go('journal')">
+    <i class="ph-duotone ph-notebook"></i>
+    <span>Diario</span>
+  </div>
+  <div class="mni" onclick="openMobileMoreMenu()">
+    <i class="ph-duotone ph-list"></i>
+    <span>Más</span>
+  </div>
+</nav>
+
+<!-- Mobile More Sheet Modal -->
+<div id="m-mobile-more" class="modal" onclick="closeM('m-mobile-more')">
+  <div class="modal-content bottom-sheet" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div style="font-family:'Outfit',sans-serif;font-weight:900;font-size:1.1rem;color:var(--gold)">Celesthyas Menú</div>
+      <button class="modal-close" onclick="closeM('m-mobile-more')">✕</button>
+    </div>
+    <div class="mobile-more-grid">
+      <div class="mm-item" onclick="go('num');closeM('m-mobile-more')">
+        <i class="ph-duotone ph-hash-straight" style="color:var(--vl)"></i>
+        <span>Numerología</span>
+      </div>
+      <div class="mm-item" onclick="go('dreams');closeM('m-mobile-more')">
+        <i class="ph-duotone ph-moon-stars" style="color:var(--pink)"></i>
+        <span>Sueños</span>
+      </div>
+      <div class="mm-item" onclick="go('mentor');closeM('m-mobile-more')">
+        <i class="ph-duotone ph-sparkle" style="color:var(--gold)"></i>
+        <span>Mentor IA</span>
+      </div>
+      <div class="mm-item" onclick="go('rituals');closeM('m-mobile-more')">
+        <i class="ph-duotone ph-flame" style="color:var(--orange)"></i>
+        <span>Rituales</span>
+      </div>
+      <div class="mm-item" onclick="go('gamif');closeM('m-mobile-more')">
+        <i class="ph-duotone ph-trophy" style="color:var(--yellow)"></i>
+        <span>Logros</span>
+      </div>
+      <div class="mm-item" onclick="go('settings');closeM('m-mobile-more')">
+        <i class="ph-duotone ph-gear" style="color:var(--teal)"></i>
+        <span>Ajustes</span>
+      </div>
+      <div class="mm-item" id="mobile-more-admin" onclick="go('admin');closeM('m-mobile-more')" style="display:none">
+        <i class="ph-duotone ph-shield-star" style="color:var(--purple)"></i>
+        <span>Admin</span>
+      </div>
+      <div class="mm-item" onclick="openEditProfile();closeM('m-mobile-more')">
+        <i class="ph-duotone ph-user" style="color:var(--vl)"></i>
+        <span>Mi Perfil</span>
+      </div>
+      <div class="mm-item" onclick="doLogout();closeM('m-mobile-more')" style="grid-column: span 2; border-color: rgba(239, 68, 68, 0.2);">
+        <i class="ph-duotone ph-sign-out" style="color:#ef4444"></i>
+        <span style="color:#ef4444">Cerrar sesión</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div><!-- /app -->
 
 <script>
@@ -1489,10 +1792,20 @@ const PAGE_TITLES={home:'Mi día',tarot:'Tarot',astro:'Astrología',num:'Numerol
 function go(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
+  document.querySelectorAll('#mobile-nav .mni').forEach(m=>m.classList.remove('active'));
   const pg=document.getElementById('page-'+id);
   if(pg)pg.classList.add('active');
   const ni=document.querySelector(`[data-page="${id}"]`);
   if(ni)ni.classList.add('active');
+
+  const mni = document.querySelector(`#mobile-nav .mni[onclick="go('${id}')"]`);
+  if (mni) {
+    mni.classList.add('active');
+  } else if (['num','dreams','mentor','rituals','gamif','settings','admin'].includes(id)) {
+    const mMore = document.querySelector(`#mobile-nav .mni[onclick*="openMobileMoreMenu"]`);
+    if(mMore) mMore.classList.add('active');
+  }
+
   document.getElementById('page-title').textContent=PAGE_TITLES[id]||id;
   if(id==='astro')renderAstro();
   if(id==='num')renderNumerology();
@@ -1503,6 +1816,12 @@ function go(id){
   if(id==='settings')renderSettings();
   if(id==='admin')renderAdmin();
   if(id==='dreams')renderDreamSymbols();
+}
+
+function openMobileMoreMenu() {
+  openM('m-mobile-more');
+  const el = document.getElementById('mobile-more-admin');
+  if (el) el.style.display = S.user && S.user.role === 'admin' ? 'flex' : 'none';
 }
 
 /* ══════════════════════════════════════════════════════
@@ -1748,11 +2067,23 @@ function astroMode(mode,el){
   loadAstroContent();
 }
 async function loadAstroContent(){
-  const titles={daily:'Horóscopo diario',weekly:'Semanal',monthly:'Mensual',compat:'Compatibilidad',transits:'Tránsitos'};
   const mode=S.astroMode||'daily';
-  document.getElementById('astro-ct-title').textContent=titles[mode];
-  document.getElementById('astro-ct-body').innerHTML='<div class="ai-loading"><div class="dot-pulse"><span></span><span></span><span></span></div> Cargando lectura...</div>';
-  await loadAstroAI();
+  const horoscopePanel = document.getElementById('astro-horoscope-panel');
+  const chartPanel = document.getElementById('astro-chart-panel');
+  
+  if (mode === 'chart') {
+    if (horoscopePanel) horoscopePanel.style.display = 'none';
+    if (chartPanel) chartPanel.style.display = 'block';
+    renderNatalChart();
+  } else {
+    if (chartPanel) chartPanel.style.display = 'none';
+    if (horoscopePanel) horoscopePanel.style.display = 'block';
+    
+    const titles={daily:'Horóscopo diario',weekly:'Semanal',monthly:'Mensual',compat:'Compatibilidad',transits:'Tránsitos'};
+    document.getElementById('astro-ct-title').textContent=titles[mode];
+    document.getElementById('astro-ct-body').innerHTML='<div class="ai-loading"><div class="dot-pulse"><span></span><span></span><span></span></div> Cargando lectura...</div>';
+    await loadAstroAI();
+  }
 }
 async function loadAstroAI(){
   const sign=S.sign?.sign||'Aries';const name=S.user?.fullName?.split(' ')[0]||'Viajero';
@@ -1773,6 +2104,272 @@ function getFallbackAstro(sign,mode,name,moon){
     transits:`<p><strong>☉ Sol:</strong> Ilumina tu sector de identidad. <strong>☽ Luna ${moon.name}:</strong> ${moon.desc}.<br/><strong>♀ Venus:</strong> Favorece el amor y la abundancia. <strong>♂ Marte:</strong> Energía disponible para proyectos que te apasionen.</p>`,
   };
   return texts[mode]||texts.daily;
+}
+
+/* NATAL CHART CALCULATIONS & WHEEL DRAWING */
+function calculateNatalPlacements() {
+  const bdStr = S.user?.birthDate || '1995-03-21';
+  const btStr = S.user?.birthTime || '12:00';
+  const bpStr = S.user?.birthPlace || 'Bogotá';
+
+  const date = new Date(bdStr + 'T' + (btStr.substring(0,5) || '12:00'));
+  const month = date.getMonth(); 
+  const day = date.getDate();
+  const year = date.getFullYear();
+  const hour = date.getHours() + date.getMinutes() / 60;
+
+  const signDates = [
+    { name: 'Capricornio', sym: '♑', el: 'Tierra', month: 0, day: 20 },
+    { name: 'Acuario', sym: '♒', el: 'Aire', month: 1, day: 19 },
+    { name: 'Piscis', sym: '♓', el: 'Agua', month: 2, day: 20 },
+    { name: 'Aries', sym: '♈', el: 'Fuego', month: 3, day: 20 },
+    { name: 'Tauro', sym: '♉', el: 'Tierra', month: 4, day: 20 },
+    { name: 'Géminis', sym: '♊', el: 'Aire', month: 5, day: 21 },
+    { name: 'Cáncer', sym: '♋', el: 'Agua', month: 6, day: 22 },
+    { name: 'Leo', sym: '♌', el: 'Fuego', month: 7, day: 22 },
+    { name: 'Virgo', sym: '♍', el: 'Tierra', month: 8, day: 22 },
+    { name: 'Libra', sym: '♎', el: 'Aire', month: 9, day: 22 },
+    { name: 'Escorpio', sym: '♏', el: 'Agua', month: 10, day: 21 },
+    { name: 'Sagitario', sym: '♐', el: 'Fuego', month: 11, day: 21 }
+  ];
+
+  let sunIndex = month;
+  if (day < signDates[month].day) {
+    sunIndex = (month - 1 + 12) % 12;
+  }
+  const sunInfo = signDates[sunIndex];
+
+  const epoch = new Date('1980-01-10T18:00:00Z');
+  const msDiff = date.getTime() - epoch.getTime();
+  const daysDiff = msDiff / (1000 * 60 * 60 * 24);
+  const lunarCycle = 29.53059;
+  const daysIntoCycle = (daysDiff % lunarCycle + lunarCycle) % lunarCycle;
+  
+  const moonLong = (daysIntoCycle / lunarCycle) * 360;
+  
+  const zodiacSigns = [
+    { name: 'Aries', sym: '♈', el: 'Fuego' },
+    { name: 'Tauro', sym: '♉', el: 'Tierra' },
+    { name: 'Géminis', sym: '♊', el: 'Aire' },
+    { name: 'Cáncer', sym: '♋', el: 'Agua' },
+    { name: 'Leo', sym: '♌', el: 'Fuego' },
+    { name: 'Virgo', sym: '♍', el: 'Tierra' },
+    { name: 'Libra', sym: '♎', el: 'Aire' },
+    { name: 'Escorpio', sym: '♏', el: 'Agua' },
+    { name: 'Sagitario', sym: '♐', el: 'Fuego' },
+    { name: 'Capricornio', sym: '♑', el: 'Tierra' },
+    { name: 'Acuario', sym: '♒', el: 'Aire' },
+    { name: 'Piscis', sym: '♓', el: 'Agua' }
+  ];
+  const moonSignIndex = Math.floor(((moonLong + 90) % 360) / 30);
+  const moonInfo = zodiacSigns[moonSignIndex];
+
+  const hoursSinceSunrise = (hour - 6 + 24) % 24;
+  const ascendantIndex = (sunIndex + Math.floor(hoursSinceSunrise / 2)) % 12;
+  const ascendantInfo = signDates[ascendantIndex];
+
+  const planets = [
+    { name: 'Mercurio', planet: '☿', id: 'mercury' },
+    { name: 'Venus', planet: '♀', id: 'venus' },
+    { name: 'Marte', planet: '♂', id: 'mars' },
+    { name: 'Júpiter', planet: '♃', id: 'jupiter' },
+    { name: 'Saturno', planet: '♄', id: 'saturn' }
+  ];
+
+  const calculatedPlanets = planets.map((p, idx) => {
+    const seed = p.name.charCodeAt(0) + year + month + day;
+    const signIdx = (seed + idx) % 12;
+    return {
+      name: p.name,
+      symbol: p.planet,
+      signName: zodiacSigns[signIdx].name,
+      signSymbol: zodiacSigns[signIdx].sym,
+      element: zodiacSigns[signIdx].el
+    };
+  });
+
+  const elementWeights = { Fuego: 0, Tierra: 0, Aire: 0, Agua: 0 };
+  elementWeights[sunInfo.el] += 3;
+  elementWeights[moonInfo.el] += 3;
+  elementWeights[ascendantInfo.el] += 3;
+  calculatedPlanets.forEach(p => {
+    elementWeights[p.element] += 1;
+  });
+
+  const totalWeights = 14;
+  const elementsPct = {
+    Fuego: Math.round((elementWeights.Fuego / totalWeights) * 100),
+    Tierra: Math.round((elementWeights.Tierra / totalWeights) * 100),
+    Aire: Math.round((elementWeights.Aire / totalWeights) * 100),
+    Agua: Math.round((elementWeights.Agua / totalWeights) * 100)
+  };
+
+  return {
+    sun: { name: sunInfo.name, symbol: sunInfo.sym, element: sunInfo.el, angle: sunIndex * 30 + 15 },
+    moon: { name: moonInfo.name, symbol: moonInfo.sym, element: moonInfo.el, angle: moonSignIndex * 30 + 15 },
+    ascendant: { name: ascendantInfo.name, symbol: ascendantInfo.sym, element: ascendantInfo.el, angle: ascendantIndex * 30 },
+    planets: calculatedPlanets,
+    elements: elementsPct,
+    rawDate: bdStr,
+    rawTime: btStr,
+    rawPlace: bpStr
+  };
+}
+
+function drawAstralWheel(placements) {
+  const container = document.getElementById('natal-chart-wheel-container');
+  if (!container) return;
+
+  const size = 320;
+  const center = size / 2;
+  const radius = center - 25;
+  const innerRadius = radius - 30;
+
+  const zodiacSymbols = ['♈', '♉', '♊', '♋', '♌', '♍', '♎', '♏', '♐', '♑', '♒', '♓'];
+
+  let svg = `<svg viewBox="0 0 ${size} ${size}" class="astral-wheel-svg" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="${center}" cy="${center}" r="${radius}" fill="rgba(10, 12, 22, 0.6)" stroke="rgba(139, 92, 246, 0.25)" stroke-width="2" />
+    <circle cx="${center}" cy="${center}" r="${innerRadius}" fill="none" stroke="rgba(139, 92, 246, 0.15)" stroke-width="1.5" />
+    <circle cx="${center}" cy="${center}" r="15" fill="rgba(15, 18, 34, 0.9)" stroke="rgba(139, 92, 246, 0.4)" stroke-width="1" />
+  `;
+
+  for (let i = 0; i < 12; i++) {
+    const angle = i * 30;
+    const rad = (angle * Math.PI) / 180;
+    
+    const x1 = center + innerRadius * Math.cos(rad);
+    const y1 = center + innerRadius * Math.sin(rad);
+    const x2 = center + radius * Math.cos(rad);
+    const y2 = center + radius * Math.sin(rad);
+    svg += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="rgba(139, 92, 246, 0.2)" stroke-width="1" />`;
+
+    const houseRad = ((angle + 15) * Math.PI) / 180;
+    const hX = center + innerRadius * Math.cos(houseRad);
+    const hY = center + innerRadius * Math.sin(houseRad);
+    svg += `<line x1="${center}" y1="${center}" x2="${hX}" y2="${hY}" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="2,4" />`;
+
+    const midAngle = angle + 15;
+    const midRad = (midAngle * Math.PI) / 180;
+    const textR = radius - 15;
+    const tx = center + textR * Math.cos(midRad);
+    const ty = center + textR * Math.sin(midRad) + 5;
+    svg += `<text x="${tx}" y="${ty}" fill="rgba(255,255,255,0.7)" font-size="12" text-anchor="middle" font-family="Arial">${zodiacSymbols[i]}</text>`;
+  }
+
+  const sunRad = ((placements.sun.angle - 90) * Math.PI) / 180;
+  const sunX = center + (innerRadius - 10) * Math.cos(sunRad);
+  const sunY = center + (innerRadius - 10) * Math.sin(sunRad);
+  svg += `
+    <line x1="${center}" y1="${center}" x2="${sunX}" y2="${sunY}" stroke="var(--gold)" stroke-width="2.5" />
+    <circle cx="${sunX}" cy="${sunY}" r="12" fill="rgba(15, 18, 34, 0.9)" stroke="var(--gold)" stroke-width="1.5" />
+    <text x="${sunX}" y="${sunY + 4}" fill="var(--gold)" font-size="11" text-anchor="middle">☀️</text>
+  `;
+
+  const moonRad = ((placements.moon.angle - 90) * Math.PI) / 180;
+  const moonX = center + (innerRadius - 10) * Math.cos(moonRad);
+  const moonY = center + (innerRadius - 10) * Math.sin(moonRad);
+  svg += `
+    <line x1="${center}" y1="${center}" x2="${moonX}" y2="${moonY}" stroke="#e2e8f0" stroke-width="2" />
+    <circle cx="${moonX}" cy="${moonY}" r="12" fill="rgba(15, 18, 34, 0.9)" stroke="#cbd5e1" stroke-width="1.5" />
+    <text x="${moonX}" y="${moonY + 3}" fill="#e2e8f0" font-size="10" text-anchor="middle">🌙</text>
+  `;
+
+  const ascRad = ((placements.ascendant.angle - 90) * Math.PI) / 180;
+  const ascX1 = center + (innerRadius - 15) * Math.cos(ascRad);
+  const ascY1 = center + (innerRadius - 15) * Math.sin(ascRad);
+  const ascX2 = center + (radius + 10) * Math.cos(ascRad);
+  const ascY2 = center + (radius + 10) * Math.sin(ascRad);
+  svg += `
+    <line x1="${ascX1}" y1="${ascY1}" x2="${ascX2}" y2="${ascY2}" stroke="var(--pink)" stroke-width="3" stroke-linecap="round" filter="drop-shadow(0 0 4px var(--pink))" />
+    <text x="${ascX2 + 8 * Math.cos(ascRad)}" y="${ascY2 + 4 + 8 * Math.sin(ascRad)}" fill="var(--pink)" font-size="10" font-weight="900" text-anchor="middle">ASC</text>
+  `;
+
+  svg += `</svg>`;
+  container.innerHTML = svg;
+}
+
+function renderNatalChart() {
+  const placements = calculateNatalPlacements();
+  
+  const listEl = document.getElementById('natal-placements-list');
+  if (listEl) {
+    listEl.innerHTML = `
+      <div class="placement-row">
+        <span class="placement-planet">☀️ Sol</span>
+        <span class="placement-sign">${placements.sun.symbol} ${placements.sun.name}</span>
+      </div>
+      <div class="placement-row">
+        <span class="placement-planet">🌙 Luna</span>
+        <span class="placement-sign">${placements.moon.symbol} ${placements.moon.name}</span>
+      </div>
+      <div class="placement-row">
+        <span class="placement-planet">✨ Ascendente</span>
+        <span class="placement-sign">${placements.ascendant.symbol} ${placements.ascendant.name}</span>
+      </div>
+    ` + placements.planets.map(p => `
+      <div class="placement-row" style="opacity: 0.85">
+        <span class="placement-planet">${p.symbol} ${p.name}</span>
+        <span class="placement-sign">${p.signSymbol} ${p.signName}</span>
+      </div>
+    `).join('');
+  }
+
+  const elementsList = document.getElementById('natal-elements-list');
+  if (elementsList) {
+    elementsList.innerHTML = `
+      <div class="element-bar-row">
+        <span class="element-label">🔥 Fuego</span>
+        <div class="element-bar-bg"><div class="element-bar-fill el-fire" style="width: ${placements.elements.Fuego}%"></div></div>
+        <span>${placements.elements.Fuego}%</span>
+      </div>
+      <div class="element-bar-row">
+        <span class="element-label">🌱 Tierra</span>
+        <div class="element-bar-bg"><div class="element-bar-fill el-earth" style="width: ${placements.elements.Tierra}%"></div></div>
+        <span>${placements.elements.Tierra}%</span>
+      </div>
+      <div class="element-bar-row">
+        <span class="element-label">💨 Aire</span>
+        <div class="element-bar-bg"><div class="element-bar-fill el-air" style="width: ${placements.elements.Aire}%"></div></div>
+        <span>${placements.elements.Aire}%</span>
+      </div>
+      <div class="element-bar-row">
+        <span class="element-label">💧 Agua</span>
+        <div class="element-bar-bg"><div class="element-bar-fill el-water" style="width: ${placements.elements.Agua}%"></div></div>
+        <span>${placements.elements.Agua}%</span>
+      </div>
+    `;
+  }
+
+  drawAstralWheel(placements);
+}
+
+async function analyzeNatalChartAI() {
+  const placements = calculateNatalPlacements();
+  const readingEl = document.getElementById('natal-chart-ai-reading');
+  if (!readingEl) return;
+  
+  readingEl.style.display = 'block';
+  readingEl.innerHTML = '<div class="ai-loading"><div class="dot-pulse"><span></span><span></span><span></span></div> Interpretando tu mapa estelar...</div>';
+
+  const name = S.user?.fullName?.split(' ')[0] || 'Viajero';
+  const prompt = `Interpreta la Carta Astral de ${name}. Sus posiciones natales calculadas son:
+- Sol en ${placements.sun.name}
+- Luna en ${placements.moon.name}
+- Ascendente en ${placements.ascendant.name}
+Y planetas secundarios:
+${placements.planets.map(p => `- ${p.name} en ${p.signName}`).join('\n')}
+Distribución de elementos: Fuego ${placements.elements.Fuego}%, Tierra ${placements.elements.Tierra}%, Aire ${placements.elements.Aire}%, Agua ${placements.elements.Agua}%.
+
+Realiza una lectura holística y profunda en español. Explica el significado del Sol (su esencia), de la Luna (su mundo emocional) y del Ascendente (su camino de vida y máscara social). Tono sabio y poético. Máximo 300 palabras.`;
+
+  const aiText = await callAI(prompt, 'astro');
+  if (aiText) {
+    readingEl.innerHTML = aiText.replace(/\n/g, '<br/>');
+  } else {
+    readingEl.innerHTML = `<p><strong>Lectura simulada de tu Carta Astral:</strong></p><br/>
+    <p>${name}, tu Sol en <strong>${placements.sun.name}</strong> te brinda una esencia vital orientada a brillar y manifestar tus metas. Tu Luna en <strong>${placements.moon.name}</strong> representa un mundo interior emocional profundamente ligado a este arquetipo, indicando cómo procesas tus sentimientos.</p><br/>
+    <p>Con el Ascendente en <strong>${placements.ascendant.name}</strong>, el cosmos te desafía a integrar este aprendizaje en tu camino de evolución. Tu energía principal de elementos está influenciada por tu elemento dominante, invitándote a equilibrar tus pasiones y tu estabilidad.</p>`;
+  }
 }
 
 /* ══════════════════════════════════════════════════════
