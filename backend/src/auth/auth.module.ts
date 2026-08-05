@@ -19,7 +19,7 @@ import { JwtStrategy } from './jwt.strategy';
       useFactory: (configService: ConfigService) => ({
         secret: configService.get<string>('JWT_SECRET') || 'super_secret_astrology_key_2026',
         signOptions: {
-          expiresIn: '15m',
+          expiresIn: '24h',
         },
       }),
     }),
