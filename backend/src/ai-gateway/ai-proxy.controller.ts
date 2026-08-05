@@ -51,6 +51,7 @@ export class AiProxyController {
     return {
       ai_active_model: settings.ai_active_model || 'mock',
       openrouter_model: settings.openrouter_model,
+      active_video_bg: settings.active_video_bg || 'https://vicflix.expandete.cloud/videoscelesthya/hero1.mp4',
     };
   }
 

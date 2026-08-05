@@ -1153,7 +1153,7 @@ tr:hover td{background:rgba(255,255,255,.015)}
         <button class="btn btn-v btn-sm" onclick="saveAISettings()">Guardar claves</button>
       </div>
     </div>
-    <div class="card">
+    <div class="card" style="display:none">
       <div class="ctitle" style="display:flex;align-items:center;gap:.4rem"><i class="ph-duotone ph-film-strip" style="color:var(--pink)"></i> Video de fondo</div>
       <div style="display:flex;flex-direction:column;gap:.6rem">
         <div id="video-options" style="display:flex;gap:.6rem;flex-wrap:wrap"></div>
@@ -1221,12 +1221,19 @@ tr:hover td{background:rgba(255,255,255,.015)}
           </div>
           <button class="btn btn-g btn-sm" onclick="verifyDatabase()"><i class="ph-duotone ph-database"></i> Diagnóstico DB</button>
         </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:.7rem 1rem;background:var(--bg3);border-radius:8px;border:1px solid var(--brd2)">
-          <div>
-            <div style="font-weight:600;font-size:.85rem">Videos de fondo detectados</div>
-            <div style="font-size:.78rem;color:var(--t2)" id="sys-videos-info">2 MP4 en public/videos/</div>
+        <div style="display:flex;flex-direction:column;gap:.75rem;padding:1.25rem;background:var(--bg3);border-radius:10px;border:1px solid var(--brd2)">
+          <div class="ctitle" style="margin:0;display:flex;align-items:center;gap:.4rem"><i class="ph-duotone ph-film-strip" style="color:var(--pink)"></i> Video de Fondo Centralizado</div>
+          <div style="font-size:.72rem;color:var(--t2);margin-bottom:.5rem">Selecciona el video de fondo que se mostrará globalmente para todos los usuarios de la plataforma.</div>
+          
+          <div class="fg">
+            <label class="fl">🌌 Video de Fondo Activo</label>
+            <select id="sys-active-video">
+              <option value="https://vicflix.expandete.cloud/videoscelesthya/hero1.mp4">🌌 Cosmos Astral (Remoto)</option>
+              <option value="multimedia/logo_video.mp4">🔮 Logo Mystical (Local)</option>
+            </select>
           </div>
-          <button class="btn btn-g btn-sm" onclick="go('settings')"><i class="ph-duotone ph-film-strip"></i> Administrar Videos</button>
+          
+          <button class="btn btn-v btn-sm" style="margin-top:.5rem" onclick="saveAdminVideoSettings()"><i class="ph-bold ph-floppy-disk"></i> Guardar Video de Fondo</button>
         </div>
         <div style="display:flex;flex-direction:column;gap:.75rem;padding:1.25rem;background:var(--bg3);border-radius:10px;border:1px solid var(--brd2);margin-top:.75rem">
           <div class="ctitle" style="margin:0;display:flex;align-items:center;gap:.4rem"><i class="ph-duotone ph-sparkle" style="color:var(--gold)"></i> Configuración Centralizada de IA</div>
@@ -1675,6 +1682,9 @@ async function fetchAISettings() {
   const r = await api('GET', '/ai/proxy/settings');
   if (r.ok && r.data) {
     S.activeModel = r.data.ai_active_model || 'mock';
+    if (r.data.active_video_bg) {
+      setBgVideo(r.data.active_video_bg);
+    }
     if (S.isAdmin) {
       S.adminAISettings = r.data;
     }
@@ -2897,6 +2907,7 @@ async function renderAdminSystem() {
     document.getElementById('sys-groq-key').value = r.data.groq_api_key || '';
     document.getElementById('sys-openrouter-key').value = r.data.openrouter_api_key || '';
     document.getElementById('sys-openrouter-model').value = r.data.openrouter_model || 'google/gemini-2.0-flash-exp:free';
+    document.getElementById('sys-active-video').value = r.data.active_video_bg || 'https://vicflix.expandete.cloud/videoscelesthya/hero1.mp4';
     
     toggleAdminOpenRouterGroup(r.data.ai_active_model || 'mock');
   }
@@ -2930,6 +2941,20 @@ async function saveAdminAISettings() {
     await fetchAISettings();
   } else {
     toast('Error guardando configuración de IA: ' + (r.data?.message || 'Error del servidor'), 'err');
+  }
+}
+
+async function saveAdminVideoSettings() {
+  const videoBg = document.getElementById('sys-active-video').value;
+  const payload = {
+    active_video_bg: videoBg
+  };
+  const r = await api('POST', '/ai/proxy/settings', payload);
+  if (r.ok) {
+    toast('Video de fondo centralizado guardado con éxito', 'ok');
+    await fetchAISettings();
+  } else {
+    toast('Error al actualizar video: ' + (r.data?.message || 'Error del servidor'), 'err');
   }
 }
 

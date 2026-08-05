@@ -57,6 +57,7 @@ export class AIGatewayService implements OnModuleInit {
       groq_api_key: '',
       openrouter_api_key: '',
       openrouter_model: 'google/gemini-2.0-flash-exp:free',
+      active_video_bg: 'https://vicflix.expandete.cloud/videoscelesthya/hero1.mp4',
     };
     dbSettings.forEach((s) => {
       settings[s.key] = s.value || '';
